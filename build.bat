@@ -1,0 +1,1 @@
+sass "./frontend/css/style.scss" "./frontend/css/style.css"

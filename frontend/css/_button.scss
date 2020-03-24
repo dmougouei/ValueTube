@@ -1,0 +1,46 @@
+.btn {
+	display:			inline-block;
+	text-align:			center;
+	vertical-align:		middle;
+	cursor:				pointer;
+	user-select:		none;
+	background-color:	map-get($button-default, "background-color");
+	font-size:			map-get($button-default, "font-size");
+	font-weight:		map-get($button-default, "font-weight");
+	color:				map-get($button-default, "color");
+	text-transform:		map-get($button-default, "text-transform");
+	letter-spacing:		map-get($button-default, "letter-spacing");
+	padding:			map-get($button-default, "padding");
+	border-radius:		map-get($button-default, "border-radius");
+	border:				map-get($button-default, "border");
+}
+
+.btn.outline {
+	background-color: 	map-get($button-outline, "background-color");
+    color:            	map-get($button-outline, "color");
+}
+
+.btn.round {
+	padding:			map-get($button-round, "padding");
+	border-radius:		map-get($button-round, "border-radius");
+}
+
+.btn.caps {
+	font-size:			map-get($button-caps, "font-size");
+	font-weight:		map-get($button-caps, "font-weight");
+	text-transform:		map-get($button-caps, "text-transform");
+	letter-spacing:		map-get($button-caps, "letter-spacing");
+}
+
+@each $color, $value in $theme-colors {
+	.btn.#{$color} {
+		background-color:	$value;
+		border-color:		$value;
+	}
+
+	.btn.outline.#{$color} {
+		background-color: 	map-get($button-outline, "background-color");
+		color:				$value;
+		border-color:		$value;
+	}
+}

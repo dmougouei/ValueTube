@@ -1,0 +1,7 @@
+body {
+    font-family: $default-text;
+    font-weight: map-get($font-weights, "regular");
+    line-height: $text-line-height;
+    color: $text-color;
+}
+

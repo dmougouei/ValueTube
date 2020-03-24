@@ -1,0 +1,15 @@
+Naming Conventions
+    CSS:
+        Variables should follow the `$component-state-property-size` formula for
+        consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+        Tabs should be 4 spaces wide for easy reading and distinguishing between tab groups.
+    
+    JS:
+        Class names should use pascal case with the ` ` formula for consistent naming.
+        Ex. StyleGuide and SearchBar and MediaVideoEncoder.
+
+        Variable names should use camel case with the ` ` formula for consistent naming.
+        Ex. styleGuide and commentHistory.
+
+        Tabs should be 4 spaces wide for easy reading and distinguishing between tab groups.

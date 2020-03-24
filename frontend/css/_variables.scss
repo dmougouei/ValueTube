@@ -1,0 +1,383 @@
+//  Variables
+//
+//  Variables should follow the `$component-state-property-size` formula for
+//  consistent naming. Ex: $nav-link-disabled-color and $modal-content-box-shadow-xs.
+
+//  Color System
+    //  Neutrals
+        $white:     #ffffff !default;
+        $gray-50:   #fafafa !default;
+        $gray-100:  #f5f5f5 !default;
+        $gray-200:  #eeeeee !default;
+        $gray-300:  #e0e0e0 !default;
+        $gray-400:  #bdbdbd !default;
+        $gray-500:  #9e9e9e !default;
+        $gray-600:  #757575 !default;
+        $gray-700:  #616161 !default;
+        $gray-800:  #424242 !default;
+        $gray-900:  #212121 !default;
+        $black:     #000000 !default;
+
+        $grays: () !default;
+        $grays: map-merge(
+            (
+                "white":    $white,
+                "50":       $gray-50,
+                "100":      $gray-100,
+                "200":      $gray-200,
+                "300":      $gray-300,
+                "400":      $gray-400,
+                "500":      $gray-500,
+                "600":      $gray-600,
+                "700":      $gray-700,
+                "800":      $gray-800,
+                "900":      $gray-900,
+                "black":    $black
+            ),
+            $grays
+        );
+
+        //  Cool Neutrals
+            $cool-gray-50:  #eceff1 !default;
+            $cool-gray-100: #cfd8dc !default;
+            $cool-gray-200: #b0bec5 !default;
+            $cool-gray-300: #90a4ae !default;
+            $cool-gray-400: #78909c !default;
+            $cool-gray-500: #607d8b !default;
+            $cool-gray-600: #546e7a !default;
+            $cool-gray-700: #455a64 !default;
+            $cool-gray-800: #37474f !default;
+            $cool-gray-900: #263238 !default;
+
+            $cool-grays: () !default;
+            $cool-grays: map-merge(
+                (
+                    "white":    $white,
+                    "50":       $cool-gray-50,
+                    "100":      $cool-gray-100,
+                    "200":      $cool-gray-200,
+                    "300":      $cool-gray-300,
+                    "400":      $cool-gray-400,
+                    "500":      $cool-gray-500,
+                    "600":      $cool-gray-600,
+                    "700":      $cool-gray-700,
+                    "800":      $cool-gray-800,
+                    "900":      $cool-gray-900,
+                    "black":    $black
+                ),
+                $cool-grays
+            );
+
+        //  Warm Neutrals   --- NOTE: Check these values ---
+            $warm-gray-50:  #f1efec !default;
+            $warm-gray-100: #dcd8cf !default;
+            $warm-gray-200: #c5beb0 !default;
+            $warm-gray-300: #aea490 !default;
+            $warm-gray-400: #9c9078 !default;
+            $warm-gray-500: #8b7d60 !default;
+            $warm-gray-600: #7a6e54 !default;
+            $warm-gray-700: #645a45 !default;
+            $warm-gray-800: #4f4737 !default;
+            $warm-gray-900: #383226 !default;
+
+            $warm-grays: () !default;
+            $warm-grays: map-merge(
+                (
+                    "white":    $white,
+                    "50":       $warm-gray-50,
+                    "100":      $warm-gray-100,
+                    "200":      $warm-gray-200,
+                    "300":      $warm-gray-300,
+                    "400":      $warm-gray-400,
+                    "500":      $warm-gray-500,
+                    "600":      $warm-gray-600,
+                    "700":      $warm-gray-700,
+                    "800":      $warm-gray-800,
+                    "900":      $warm-gray-900,
+                    "black":    $black
+                ),
+                $warm-grays
+            );
+
+        $neutrals: $grays;
+
+    //  Colors  --- NOTE: Check these values ---
+        $red:           #f00000 !default;
+        $crimson:       #f85032 !default;
+        $orange:        #fd7e14 !default;
+        $amber:         #ffbf00 !default;
+        $yellow:        #f9d423 !default;
+        $lime:          #d4e157 !default;
+        $light-green:   #9ccc65 !default; 
+        $green:         #28a745 !default;
+        $teal:          #20c997 !default;
+        $cyan:          #17a2b8 !default;
+        $light-blue:    #4fc3f7 !default;
+        $blue:          #007bff !default;
+        $indigo:        #6610f2 !default;
+        $purple:        #6f42c1 !default;
+        $pink:          #e83e8c !default;
+
+        $colors: () !default;
+        $colors: map-merge(
+            (
+                "white":        $white,
+                "black":        $black,
+                "brown":        $warm-gray-700,
+                "red":          $red,
+                "crimson":      $crimson,
+                "orange":       $orange,
+                "amber":        $amber,
+                "yellow":       $yellow,
+                "lime":         $lime,
+                "light-green":  $light-green,
+                "green":        $green,
+                "teal":         $teal,
+                "cyan":         $cyan,
+                "light-blue":   $light-blue,
+                "blue":         $blue,
+                "indigo":       $indigo,
+                "purple":       $purple,
+                "pink":         $pink
+            ),
+            $colors
+        );
+
+    //  Theme Colors
+        $primary:       $blue !default;
+        $secondary:     $light-blue !default;
+        $success:       $green !default;
+        $info:          $cyan !default;
+        $warning:       $yellow !default;
+        $danger:        $red !default;
+        $light:         map-get($neutrals, "100") !default;
+        $dark:          map-get($neutrals, "800") !default;
+        
+        $theme-colors: () !default;
+        $theme-colors: map-merge(
+            (
+                "primary":      $primary,
+                "secondary":    $secondary,
+                "success":      $success,
+                "info":         $info,
+                "warning":      $warning,
+                "danger":       $danger,
+                "light":        $light,
+                "dark":         $dark,
+            ),
+            $theme-colors
+        );
+
+//  Type
+    // Comment out any unused fonts to reduce load times/download size.
+    @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Literata&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+
+    $text-sans-serif: 'Work Sans', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    $heading-sans-serif: 'Comfortaa', 'Work Sans', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
+    $text-serif: 'Literata', Georgia, 'Times New Roman', Times, serif;
+    $heading-serif: 'Roboto Slab', 'Literata', Georgia, 'Times New Roman', Times, serif;
+    $code-mono: 'Cascadia Code', 'Consolas', 'Courier New', Courier, monospace;
+
+    $default-text: $text-sans-serif;
+    $default-heading: $heading-sans-serif;
+
+    //  Color
+        $text-color: map-get($theme-colors, "dark");
+
+    //  Font Weight
+        $thin:          100 !default;
+        $extra-light:   200 !default;
+        $light:         300 !default;
+        $regular:       400 !default;
+        $medium:        500 !default;
+        $semi-bold:     600 !default;
+        $bold:          700 !default;
+        $extra-bold:    800 !default;
+        $black:         900 !default;
+
+        $font-weights: () !default;
+        $font-weights: map-merge(
+            (
+                "thin":         $thin,
+                "extra-light":  $extra-light,
+                "light":        $light,
+                "regular":      $regular,
+                "medium":       $medium,
+                "semi-bold":    $semi-bold,
+                "bold":         $bold,
+                "extra-bold":   $extra-bold,
+                "black":        $black
+            ),
+            $font-weights
+        );
+
+        $default-font-weight: map-get($font-weights, "regular");
+
+    //  Line Height
+        $text-line-height: 1.5 !default;
+
+//  Layout
+    //  Padding
+        $padding-0:     0px;
+        $padding-1:     2px;
+        $padding-2:     4px;
+        $padding-3:     8px;
+        $padding-3-5:   12px;
+        $padding-4:     16px;
+        $padding-5:     32px;
+        $padding-6:     64px;
+        $padding-7:     128px;
+        $padding-8:     256px;
+        $padding-9:     512px;
+
+        $padding: () !default;
+        $padding: map-merge(
+            (
+                "0":    $padding-0,
+                "1":    $padding-1,
+                "2":    $padding-2,
+                "3":    $padding-3,
+                "3.5":  $padding-3-5,
+                "4":    $padding-4,
+                "5":    $padding-5,
+                "6":    $padding-6,
+                "7":    $padding-7,
+                "8":    $padding-8,
+                "9":    $padding-9
+            ),
+            $padding
+        );
+    
+    //  Margin
+        $margin-0: 0px;
+        $margin-1: 2px;
+        $margin-2: 4px;
+        $margin-3: 8px;
+        $margin-4: 16px;
+        $margin-5: 32px;
+        $margin-6: 64px;
+        $margin-7: 128px;
+        $margin-8: 256px;
+        $margin-9: 512px;
+
+        $margin: () !default;
+        $margin: map-merge(
+            (
+                "0": $margin-0,
+                "1": $margin-1,
+                "2": $margin-2,
+                "3": $margin-3,
+                "4": $margin-4,
+                "5": $margin-5,
+                "6": $margin-6,
+                "7": $margin-7,
+                "8": $margin-8,
+                "9": $margin-9
+            ),
+            $margin
+        );
+
+//  Z-Index Master List
+
+//  Breakpoints
+
+//  Box Shadows
+    $shadow-0: 0 1px 2px rgba(0, 0, 0, 0.04);
+    $shadow-1: 0 2px 4px rgba(0, 0, 0, 0.08);
+    $shadow-2: 0 4px 8px rgba(0, 0, 0, 0.08);
+    $shadow-3: 0 8px 16px rgba(0, 0, 0, 0.10);
+    $shadow-4: 0 16px 32px rgba(0, 0, 0, 0.12);
+    $shadow-5: 0 32px 64px rgba(0, 0, 0, 0.16);
+    $shadow-6: 0 64px 128px rgba(0, 0, 0, 0.20);
+
+    $shadows: () !default;
+    $shadows: map-merge(
+        (
+            "0": $shadow-0,
+            "1": $shadow-1,
+            "2": $shadow-2,
+            "3": $shadow-3,
+            "4": $shadow-4,
+            "5": $shadow-5,
+            "6": $shadow-6,
+        ),
+        $shadows
+    );
+
+//  Button
+    $btn-background-color:  $primary;
+    $btn-font-size:         12pt;
+    $btn-font-weight:       $regular;
+    $btn-color:             $white;
+    $btn-text-transform:    none;
+    $btn-letter-spacing:    normal;
+    $btn-padding-x:         map-get($padding, "3");
+    $btn-padding-y:         map-get($padding, "2");
+    $btn-border-radius:     4px;
+    $btn-border:            solid 1.5px $primary;
+
+    //  Caps
+        $btn-font-size-caps:        10pt;
+        $btn-font-weight-caps:      $medium;
+        $btn-text-transform-caps:   uppercase;
+        $btn-letter-spacing-caps:   1px;
+
+    //  Round
+        $btn-padding-x-round:     map-get($padding, "3.5");
+        $btn-border-radius-round: 512px;
+
+    //  Outline
+        $btn-background-color-outline:  unset;
+        $btn-color-outline:             map-get($theme-colors, "primary");
+
+    //  Varients
+        $button-default: () !default;
+        $button-default: map-merge(
+            (
+                "background-color": $btn-background-color,
+                "font-size":        $btn-font-size,
+                "font-weight":      $btn-font-weight,
+                "color":            $btn-color,
+                "text-transform":   $btn-text-transform,
+                "letter-spacing":   $btn-letter-spacing,
+                "padding":          $btn-padding-y $btn-padding-x,
+                "border-radius":    $btn-border-radius,
+                "border":           $btn-border
+            ),
+            $button-default
+        );
+
+        $button-outline: () !default;
+        $button-outline: map-merge(
+            (
+                "background-color": $btn-background-color-outline,
+                "color":            $btn-color-outline,
+            ),
+            $button-outline
+        );
+
+        $button-round: () !default;
+        $button-round: map-merge(
+            (
+                "padding":          $btn-padding-y $btn-padding-x-round,
+                "border-radius":    $btn-border-radius-round,
+            ),
+            $button-round
+        );
+
+        $button-caps: () !default;
+        $button-caps: map-merge(
+            (
+                "font-size":        $btn-font-size-caps,
+                "font-weight":      $btn-font-weight-caps,
+                "text-transform":   $btn-text-transform-caps,
+                "letter-spacing":   $btn-letter-spacing-caps,
+            ),
+            $button-caps
+        );
+
+//  Card
+    
