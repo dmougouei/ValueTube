@@ -7,12 +7,12 @@ class Card {
     render() {
         this.parent.innerHTML += `
             <div class="card">
-                <div class="card-preview">
+                <div class="preview">
                     <img src="` + this.metadata.thumbnail + `"/>
                     <div class="duration">` + this.metadata.duration + `</div>
                 </div>
-                <div class="card-details">
-                    <div class="video-title">` + this.metadata.title + `</div>
+                <div class="details">
+                    <div class="title">` + this.metadata.title + `</div>
                     <div class="content-creator">` + this.metadata.contentCreator + `</div>
                     <div class="views">` + this.metadata.views + ' views' + `</div>
                     <div class="published">` + this.metadata.published + `</div>

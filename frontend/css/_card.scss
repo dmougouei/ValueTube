@@ -1,60 +1,71 @@
+//  Card Elements   --- NOTE: May consider adding functionality for more box-shadow variations. ---
 .card {
     display:        inline-block;
-    max-width:      296px;
-    box-shadow:     map-get($shadows, "2");
+    width:          $crd-width;
+    box-shadow:     $crd-shadow-default;
     border-radius:  4px;
-    border:         solid .5px map-get($neutrals, "200");
-    margin:         map-get($margin, "4") map-get($margin, "3");
+    border:         $crd-border-default;
+    margin:         $crd-margin;
     overflow:       hidden;
 }
 
-.card-preview {
+.card.flat {
+    box-shadow:     $crd-shadow-flat;
+    border:         $crd-border-flat;
+}
+
+.card .preview {
     display:        block;
     position:       relative;
     text-align:     right;
     cursor:         pointer;
+    overflow:       hidden;
 }
 
-.card-preview img {
+.card.flat .preview {
+    border-radius: $crd-preview-border-radius-flat;
+}
+
+.card .preview img {
     display:    block;
     width:      100%;
     height:     auto;
 }
 
-.duration {
+.card .duration {
     display:            inline-block;
     position:           absolute;
-    background-color:   map-get($neutrals, "900");
-    font-size:          10pt;
-    color:              map-get($theme-colors, "light");
-    bottom:             0;
-    right:              0;
-    margin:             0 map-get($margin, "2") map-get($margin, "2") 0;
-    padding:            map-get($padding, "0") map-get($padding, "2");
+    background-color:   $crd-duration-background-color;
+    font-size:          $crd-duration-font-size;
+    color:              $crd-duration-color;
+    bottom:             $crd-duration-bottom;
+    right:              $crd-duration-right;
+    margin:             $crd-duration-margin;
+    padding:            $crd-duration-padding;
     border-radius:      2px;
 }
 
-.card-details {
+.card .details {
     padding:    map-get($padding, "2") map-get($padding, "3");
 }
 
-.video-title {
-    font-size:      13pt;
-    font-weight:    map-get($font-weights, "medium");
-    line-height:    1em;
-    margin-bottom:  map-get($margin, "2");
+.card .title {
+    font-size:      $crd-title-font-size;
+    font-weight:    $crd-title-font-weight;
+    line-height:    $crd-title-line-height;
+    margin-bottom:  $crd-title-margin-bottom;
 }
 
-.content-creator, .views, .published {
-    font-size:      11pt;
-    line-height:    1em;
-    color:          map-get($neutrals, "500");
+.card .content-creator, .card .views, .card .published {
+    font-size:      $crd-details-sub-font-size;
+    line-height:    $crd-details-sub-line-height;
+    color:          $crd-details-sub-color;
 }
 
-.views, .published {
+.card .views, .published {
     display:    inline-block;
 }
 
-.views::after {
-    content:    ' - ';
+.card .views::after {
+    content:    $crd-views-after-content;
 }
