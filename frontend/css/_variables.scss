@@ -112,8 +112,8 @@
         $green:         #28a745 !default;
         $teal:          #20c997 !default;
         $cyan:          #17a2b8 !default;
-        $light-blue:    #4fc3f7 !default;
-        $blue:          #007bff !default;
+        $light-blue:    #56CCF2 !default;
+        $blue:          #2F80ED !default;
         $indigo:        #6610f2 !default;
         $purple:        #6f42c1 !default;
         $pink:          #e83e8c !default;
@@ -379,5 +379,114 @@
             $button-caps
         );
 
+//  Button Group
+    $btn-grp-background-color:  $primary;
+    $btn-grp-font-size:         12pt;
+    $btn-grp-font-weight:       $regular;
+    $btn-grp-color:             $white;
+    $btn-grp-text-transform:    none;
+    $btn-grp-letter-spacing:    normal;
+    $btn-grp-padding-x:         map-get($padding, "3");
+    $btn-grp-padding-y:         map-get($padding, "2");
+    $btn-grp-border-radius:     4px;
+    $btn-grp-border:            solid 1.5px $primary;
+
+    $btn-grp-btn-border:        solid 0 $primary;
+    $btn-grp-btn-border-width:  1.5px;
+
+//  Caps
+    $btn-grp-font-size-caps:        10pt;
+    $btn-grp-font-weight-caps:      $medium;
+    $btn-grp-text-transform-caps:   uppercase;
+    $btn-grp-letter-spacing-caps:   1px;
+
+//  Round
+    $btn-grp-padding-x-round:     map-get($padding, "3.5");
+    $btn-grp-border-radius-round: 512px;
+
+//  Outline
+    $btn-grp-background-color-outline:  unset;
+    $btn-grp-color-outline:             map-get($theme-colors, "primary");
+
+//  Varients
+    $button-group-default: () !default;
+    $button-group-default: map-merge(
+        (
+            "background-color": $btn-grp-background-color,
+            "font-size":        $btn-grp-font-size,
+            "font-weight":      $btn-grp-font-weight,
+            "color":            $btn-grp-color,
+            "text-transform":   $btn-grp-text-transform,
+            "letter-spacing":   $btn-grp-letter-spacing,
+            "padding":          $btn-grp-padding-y $btn-grp-padding-x,
+            "border-radius":    $btn-grp-border-radius,
+            "border":           $btn-grp-border,
+            "btn-border":       $btn-grp-btn-border,
+            "btn-border-width": $btn-grp-btn-border-width
+        ),
+        $button-group-default
+    );
+
+    $button-group-outline: () !default;
+    $button-group-outline: map-merge(
+        (
+            "background-color": $btn-grp-background-color-outline,
+            "color":            $btn-grp-color-outline,
+        ),
+        $button-group-outline
+    );
+
+    $button-group-round: () !default;
+    $button-group-round: map-merge(
+        (
+            "padding":          $btn-grp-padding-y $btn-grp-padding-x-round,
+            "border-radius":    $btn-grp-border-radius-round,
+        ),
+        $button-group-round
+    );
+
+    $button-group-caps: () !default;
+    $button-group-caps: map-merge(
+        (
+            "font-size":        $btn-grp-font-size-caps,
+            "font-weight":      $btn-grp-font-weight-caps,
+            "text-transform":   $btn-grp-text-transform-caps,
+            "letter-spacing":   $btn-grp-letter-spacing-caps,
+        ),
+        $button-group-caps
+    );
+
 //  Card
-    
+    $crd-width:     296px;
+    $crd-margin:    map-get($margin, "4") map-get($margin, "3");
+
+    $crd-border-default:    solid .5px map-get($neutrals, "200");
+    $crd-shadow-default:    map-get($shadows, "2");
+
+    //  Flat
+    $crd-border-flat:    none;
+    $crd-shadow-flat:    none;
+
+    $crd-preview-border-radius-flat: 4px;
+
+    // Sub-Classes
+        $crd-duration-background-color: map-get($neutrals, "900");
+        $crd-duration-font-size:        10pt;
+        $crd-duration-color:            map-get($theme-colors, "light");
+        $crd-duration-bottom:           0;
+        $crd-duration-right:            0;
+        $crd-duration-margin:           0 map-get($margin, "2") map-get($margin, "2") 0;
+        $crd-duration-padding:          map-get($padding, "0") map-get($padding, "2");
+
+        $crd-details-padding:   map-get($padding, "2") map-get($padding, "3");
+
+        $crd-title-font-size:       13pt;
+        $crd-title-font-weight:     map-get($font-weights, "medium");
+        $crd-title-line-height:     1em;
+        $crd-title-margin-bottom:   map-get($margin, "2");
+
+        $crd-details-sub-font-size:     11pt;
+        $crd-details-sub-line-height:   1em;
+        $crd-details-sub-color:         map-get($neutrals, "500");
+
+        $crd-views-after-content:   ' - ';
