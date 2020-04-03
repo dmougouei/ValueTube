@@ -13,6 +13,7 @@
 	padding:			map-get($button-default, "padding");
 	border-radius:		map-get($button-default, "border-radius");
 	border:				map-get($button-default, "border");
+	margin:				map-get($button-default, "margin");
 }
 
 .btn.outline {

@@ -318,6 +318,7 @@
     $btn-padding-y:         map-get($padding, "2");
     $btn-border-radius:     4px;
     $btn-border:            solid 1.5px $primary;
+    $btn-margin:            map-get($margin, "0") map-get($margin, "2");
 
     //  Caps
         $btn-font-size-caps:        10pt;
@@ -345,7 +346,8 @@
                 "letter-spacing":   $btn-letter-spacing,
                 "padding":          $btn-padding-y $btn-padding-x,
                 "border-radius":    $btn-border-radius,
-                "border":           $btn-border
+                "border":           $btn-border,
+                "margin":           $btn-margin
             ),
             $button-default
         );

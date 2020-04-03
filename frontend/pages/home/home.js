@@ -1,4 +1,4 @@
-import ButtonGroup from "../../components/button-group/button-group.js";
+import ButtonGroup from "../../components/media/media.js";
 
-let buttonGroup = new ButtonGroup(document.body);
+let media = new ButtonGroup(document.body);
 buttonGroup.render();

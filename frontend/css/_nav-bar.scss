@@ -1,0 +1,52 @@
+.nav-bar {
+    display:        block;
+    position:       absolute;
+    top:            0;
+    left:           0;
+    right:          0;
+    height: 20px;
+    padding:        40px 24px;
+    line-height:    20px;
+}
+
+.nav-bar.small {
+    padding:        15px 24px;
+    border-bottom:  solid .5px map-get($neutrals, "200");
+    background:     $white;
+    box-shadow:     map-get($shadows, "3");
+}
+
+.nav-bar .logo-container {
+    display: inline-block;
+    height: 100%;
+    margin: 0 16px;
+}
+
+.nav-bar .logo-container img {
+    height: 100%;
+    cursor: pointer;
+}
+
+.nav-bar .nav-link {
+    display: inline-block;
+    vertical-align: top;
+    margin: 0 16px;
+    font-weight: map-get($font-weights, "medium");
+    cursor: pointer;
+
+    &:hover {
+        color: $black;
+    }
+}
+
+.nav-bar .search {
+    display: inline-block;
+}
+
+.nav-bar .login-container {
+    display: block;
+    position: relative;
+    top: -.25em;
+    float: right;
+    line-height: 1.5;
+}

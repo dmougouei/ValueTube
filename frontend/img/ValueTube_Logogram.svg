@@ -8,9 +8,9 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.1"
-   width="81.420898cm"
-   height="91.522728cm"
-   viewBox="0 0 1040.3803 1169.1214"
+   width="111cm"
+   height="111cm"
+   viewBox="0 0 1418.3362 1417.9262"
    id="svg255"
    sodipodi:docname="ValueTube_Logogram.svg"
    inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
@@ -25,7 +25,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -174,22 +174,28 @@
      guidetolerance="10"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:window-width="2256"
-     inkscape:window-height="1410"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
      id="namedview257"
      showgrid="false"
      inkscape:zoom="0.091486507"
-     inkscape:cx="-4495.3018"
-     inkscape:cy="-960.76658"
-     inkscape:window-x="-11"
-     inkscape:window-y="-11"
+     inkscape:cx="1250.2575"
+     inkscape:cy="2023.9556"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer5" />
+     inkscape:current-layer="layer5"
+     units="cm"
+     fit-margin-top="10"
+     fit-margin-bottom="10"
+     fit-margin-left="15"
+     fit-margin-right="15" />
   <g
      inkscape:groupmode="layer"
      id="layer5"
      inkscape:label="Layer 5"
-     style="display:inline">
+     style="display:inline"
+     transform="translate(190.32709,122.0334)">
     <path
        style="fill:#2f80ed;fill-opacity:1;stroke:none;stroke-width:0.33807942px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
        d="M 139.42911,44.310166 C 131.68519,27.439234 112.0679,1.9970155 73.359107,1.073165 18.87698,1.7660529 -12.455754,56.766984 7.27911,102.04116 L 454.11912,1124.8311 c 25.8285,57.1977 105.14258,58.765 132.16998,0 l 446.8,-1022.78994 c 19.9387,-42.475021 -10.5139,-101.0040634 -66.1,-100.967995 -33.26847,-0.00203 -56.84945,22.021048 -66,43.237001 L 577.88911,783.68116 c -24.13969,52.74051 -94.56904,47.85889 -115.43001,0 z"

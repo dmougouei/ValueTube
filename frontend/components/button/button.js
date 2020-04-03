@@ -1,14 +1,14 @@
-class Button {
-    constructor(parent) {
-        this.parent = parent;
-        this.text = "Button"
+module.exports = class Button {
+    constructor(text, style, color, link) {
+        this.text = text;
+        this.style = style;
+        this.color = color;
+        this.link = link;
     }
     
     render() {
-        this.parent.innerHTML += `
-            <div class="btn caps">` + this.text + `</div>
+        return `
+            <div class="btn ` + this.style + ` ` + this.color + `" onclick="window.location.href='` + this.link + `'">` + this.text + `</div>
         `;
     }
 }
-
-export default Button;
