@@ -12,11 +12,13 @@ module.exports = class HomePage {
                 <head>
                     <meta charset="UTF-8">
                     <title>ValueTube</title>
-                    <link rel="icon" href="./frontend/img/ValueTube_Logogram.svg">
+                    <link rel="icon" href="./frontend/img/ValueTube_Logogram.svg" />
+                    <link rel="stylesheet" type="text/css" href="./frontend/fonts/font-awesome/css/all.min.css" />
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
                     ` + navBar.render() + `
+                    <script type="module" src="./frontend/utilities/common.js"></script>
                     <script type="module" src="./frontend/pages/home/home.js"></script>
                 </body>
             </html>

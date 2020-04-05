@@ -1,69 +1,75 @@
-.btn-grp {
-	display:			inline-block;
-	border-radius:		map-get($button-group-default, "border-radius");
-	border:				map-get($button-group-default, "border");
-	overflow: 			hidden;
-}
-
-.btn-grp .btn {
-	display:			inline-block;
-	text-align:			center;
-	vertical-align:		middle;
-	cursor:				pointer;
-	user-select:		none;
-	background-color:	map-get($button-group-default, "background-color");
-	font-size:			map-get($button-group-default, "font-size");
-	font-weight:		map-get($button-group-default, "font-weight");
-	color:				map-get($button-group-default, "color");
-	text-transform:		map-get($button-group-default, "text-transform");
-	letter-spacing:		map-get($button-group-default, "letter-spacing");
-	padding:			map-get($button-group-default, "padding");
-	border-radius:		unset;
-	border:				unset;
-	border:				map-get($button-group-default, "btn-border");
-	border-left-width:	map-get($button-group-default, "btn-border-width");
-	border-right-width:	map-get($button-group-default, "btn-border-width");
-}
-.btn-grp .btn.end {
-	border:				unset;
-}
-
-.btn-grp.outline .btn {
-	background-color: 	map-get($button-group-outline, "background-color");
-    color:            	map-get($button-group-outline, "color");
-}
-
-.btn-grp.round {
-	border-radius:		map-get($button-group-round, "border-radius");
-}
-
-.btn-grp.round .btn {
-	padding:			map-get($button-group-round, "padding");
-}
-
-.btn-grp.caps .btn {
-	font-size:			map-get($button-group-caps, "font-size");
-	font-weight:		map-get($button-group-caps, "font-weight");
-	text-transform:		map-get($button-group-caps, "text-transform");
-	letter-spacing:		map-get($button-group-caps, "letter-spacing");
-}
-
-@each $color, $value in $theme-colors {
-	.btn-grp.#{$color} {
-		border-color:		$value;
+//	Button Group Element Styling
+	.btn-grp {
+		display:			inline-block;
+		border-radius:		map-get($button-group-default, "border-radius");
+		border:				map-get($button-group-default, "border");
+		overflow: 			hidden;
 	}
 
-	.btn-grp.#{$color} .btn {
-		background-color:	$value;
+	.btn-grp .btn {
+		display:			inline-block;
+		text-align:			center;
+		vertical-align:		middle;
+		cursor:				pointer;
+		user-select:		none;
+		background-color:	map-get($button-group-default, "background-color");
+		font-size:			map-get($button-group-default, "font-size");
+		font-weight:		map-get($button-group-default, "font-weight");
+		color:				map-get($button-group-default, "color");
+		text-transform:		map-get($button-group-default, "text-transform");
+		letter-spacing:		map-get($button-group-default, "letter-spacing");
+		padding:			map-get($button-group-default, "padding");
+		border-radius:		unset;
+		border:				unset;
+		border:				map-get($button-group-default, "btn-border");
+		border-left-width:	map-get($button-group-default, "btn-border-width");
+		border-right-width:	map-get($button-group-default, "btn-border-width");
 	}
 
-	.btn-grp.outline.#{$color} {
-		border-color:		$value;
+	.btn-grp .btn.end {
+		border:				unset;
 	}
 
-	.btn-grp.outline.#{$color} .btn {
-		background-color: 	map-get($button-outline, "background-color");
-		color:				$value;
-		border-color:		$value;
+	.btn-grp.outline .btn {
+		background-color: 	map-get($button-group-outline, "background-color");
+		color:            	map-get($button-group-outline, "color");
 	}
-}
+
+	.btn-grp.round {
+		border-radius:		map-get($button-group-round, "border-radius");
+	}
+
+	.btn-grp.round .btn {
+		padding:			map-get($button-group-round, "padding");
+	}
+
+	.btn-grp.caps .btn {
+		font-size:			map-get($button-group-caps, "font-size");
+		font-weight:		map-get($button-group-caps, "font-weight");
+		text-transform:		map-get($button-group-caps, "text-transform");
+		letter-spacing:		map-get($button-group-caps, "letter-spacing");
+	}
+
+	@each $color, $value in $theme-colors {
+		.btn-grp.#{$color} {
+			border-color:		$value;
+		}
+
+		.btn-grp.#{$color} .btn {
+			background-color:	$value;
+
+			&:hover {
+				background-color:	adjust-hue($value, $btn-grp-hover-hue);
+			}
+		}
+
+		.btn-grp.outline.#{$color} {
+			border-color:		$value;
+		}
+
+		.btn-grp.outline.#{$color} .btn {
+			background-color: 	map-get($button-outline, "background-color");
+			color:				$value;
+			border-color:		$value;
+		}
+	}

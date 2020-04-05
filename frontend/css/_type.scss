@@ -1,7 +1,75 @@
+//  Type Element Styling
 body {
-    font-family: $default-text;
-    font-weight: map-get($font-weights, "regular");
-    line-height: $text-line-height;
-    color: $text-color;
+    font-family:    $default-text;
+    font-size:      $default-font-size;
+    font-weight:    map-get($font-weights, "regular");
+    line-height:    $text-line-height;
+    color:          $text-color;
 }
 
+//  Headings
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        display: block;
+        font-family: $default-heading;
+        font-weight: $heading-weight;
+        letter-spacing: $heading-letter-spacing;
+        line-height: 1.5;
+        color: $heading-color;
+        margin: $heading-margin;
+    }
+
+    h1, .h1 {
+        font-size:  map-get($heading-font-size, "h1");
+    }
+
+    h2, .h2 {
+        font-size:  map-get($heading-font-size, "h2");
+    }
+
+    h3, .h3 {
+        font-size:  map-get($heading-font-size, "h3");
+    }
+
+    h4, .h4 {
+        font-size:  map-get($heading-font-size, "h4");
+    }
+
+    h5, .h5 {
+        font-size:  map-get($heading-font-size, "h5");
+    }
+
+    h6, .h6 {
+        font-size:  map-get($heading-font-size, "h6");
+    }
+
+// Specific Type Stying
+    //  Full Width Container
+    .full-width-container p {
+        max-width: $full-width-type-max-width;
+        padding: $full-width-type-padding;
+        margin: $full-width-type-margin;
+    }
+
+    .full-width-container h1, .full-width-container .h1,
+    .full-width-container h2, .full-width-container .h2,
+    .full-width-container h3, .full-width-container .h3,
+    .full-width-container h4, .full-width-container .h4,
+    .full-width-container h5, .full-width-container .h5,
+    .full-width-container h6, .full-width-container .h6 {
+        max-width: $full-width-type-max-width;
+        padding: $full-width-type-padding;
+        margin: $full-width-type-heading-margin;
+
+        &::after {
+            content: '';
+            display: block;
+            background: $heading-color;
+            background-clip: content-box;
+            opacity: .25;
+            max-width: 600px;
+            height: 1px;
+            padding: $full-width-type-padding;
+            margin: $full-width-type-margin;
+        }
+    }

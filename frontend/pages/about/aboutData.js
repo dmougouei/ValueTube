@@ -1,0 +1,3 @@
+const mission = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est. Curabitur ornare odio sit amet nibh lacinia, et semper neque cursus. Fusce nibh quam, porttitor sit amet ex vel, laoreet volutpat enim. In interdum, lorem ac finibus cursus, enim mi accumsan est, ut scelerisque tortor orci eu ligula. Sed eget magna aliquet, tincidunt ante non, tempus arcu. Nam purus libero, efficitur ut nisl quis, tincidunt maximus sem. Morbi vitae libero id metus elementum malesuada.";
+
+module.exports = {mission};

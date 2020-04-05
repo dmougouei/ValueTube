@@ -1,52 +1,69 @@
-.nav-bar {
-    display:        block;
-    position:       absolute;
-    top:            0;
-    left:           0;
-    right:          0;
-    height: 20px;
-    padding:        40px 24px;
-    line-height:    20px;
-}
-
-.nav-bar.small {
-    padding:        15px 24px;
-    border-bottom:  solid .5px map-get($neutrals, "200");
-    background:     $white;
-    box-shadow:     map-get($shadows, "3");
-}
-
-.nav-bar .logo-container {
-    display: inline-block;
-    height: 100%;
-    margin: 0 16px;
-}
-
-.nav-bar .logo-container img {
-    height: 100%;
-    cursor: pointer;
-}
-
-.nav-bar .nav-link {
-    display: inline-block;
-    vertical-align: top;
-    margin: 0 16px;
-    font-weight: map-get($font-weights, "medium");
-    cursor: pointer;
-
-    &:hover {
-        color: $black;
+//  Nav Bar Element Styling
+    .nav-bar {
+        display:        flex;
+        position:       sticky;
+        top:            0;
+        left:           0;
+        right:          0;
+        height:         $nav-height;
+        max-width:      100%;
+        line-height:    $nav-line-height;
+        flex-direction: row;
+        z-index:        $nav-z-index;
+        padding:        $nav-padding-y $nav-padding-x;
+        background:     $nav-background;
+        box-shadow:     $nav-box-shadow;
     }
-}
 
-.nav-bar .search {
-    display: inline-block;
-}
+    @each $position, $value in $scroll-positions {
+        html[data-scroll="#{$position}"] .nav-bar {
+            padding:        calc(#{$nav-scroll-padding-top} - #{$value}) $nav-padding-y calc(#{$nav-scroll-padding-bottom} - 0.4*#{$value});
+            background:     $nav-scroll-background;
+            box-shadow:     $nav-scroll-box-shadow;
+        }
+    }
 
-.nav-bar .login-container {
-    display: block;
-    position: relative;
-    top: -.25em;
-    float: right;
-    line-height: 1.5;
-}
+    .nav-bar .logo-container {
+        display:        flex;
+        height:         100%;
+        width:          $nav-logo-width;
+        margin:         $nav-logo-margin;
+    }
+
+    .nav-bar .logo-container img {
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-link {
+        display:        flex;
+        width:          $nav-link-width;
+        vertical-align: top;
+        margin:         $nav-link-margin;
+        font-weight:    $nav-link-font-weight;
+        cursor:         pointer;
+
+        &:hover {
+            color:      $nav-link-hover-color;
+        }
+    }
+
+    .nav-bar .search {
+        display:        flex;
+        position:       relative;
+        top:            $nav-search-top;
+        height:         $nav-search-height;
+        margin:         $nav-search-margin;
+    }
+
+    .nav-bar .login-container {
+        display:        flex;
+        position:       relative;
+        top:            $nav-login-top;
+        height:         $nav-login-height;
+        width:          $nav-login-width;
+    }
+
+    .nav-bar .login-container .btn{
+        margin: $nav-login-button-margin;
+    }

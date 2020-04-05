@@ -1,4 +1,25 @@
-html, body {
-    margin: 0;
-    padding: 0;
-}
+//  Layout Styling
+    html, body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .full-width-container {
+        display: block;
+        padding: $full-width-padding;
+    }
+
+    .color-section-container {
+        display: block;
+        margin: $color-section-margin;
+        padding: $color-section-padding;
+    }
+
+    @each $color1, $value1 in $theme-colors {
+        @each $color2, $value2 in $theme-colors {
+            .color-section-container.#{$color1}-#{$color2} {
+                background: $value1;                                                //  fallback for old browsers
+                background: linear-gradient(to bottom right, $value2, $value1);
+            }
+        }
+    }
