@@ -45,31 +45,21 @@ body {
 
 // Specific Type Stying
     //  Full Width Container
-    .full-width-container p {
-        max-width: $full-width-type-max-width;
-        padding: $full-width-type-padding;
-        margin: $full-width-type-margin;
-    }
-
-    .full-width-container h1, .full-width-container .h1,
-    .full-width-container h2, .full-width-container .h2,
-    .full-width-container h3, .full-width-container .h3,
-    .full-width-container h4, .full-width-container .h4,
-    .full-width-container h5, .full-width-container .h5,
-    .full-width-container h6, .full-width-container .h6 {
-        max-width: $full-width-type-max-width;
-        padding: $full-width-type-padding;
-        margin: $full-width-type-heading-margin;
-
-        &::after {
-            content: '';
-            display: block;
-            background: $heading-color;
-            background-clip: content-box;
-            opacity: .25;
-            max-width: 600px;
-            height: 1px;
-            padding: $full-width-type-padding;
-            margin: $full-width-type-margin;
+        .full-width-container h1, .full-width-container .h1,
+        .full-width-container h2, .full-width-container .h2,
+        .full-width-container h3, .full-width-container .h3,
+        .full-width-container h4, .full-width-container .h4,
+        .full-width-container h5, .full-width-container .h5,
+        .full-width-container h6, .full-width-container .h6 {
+            &::after {
+                content: '';
+                display: block;
+                background: $heading-color;
+                background-clip: content-box;
+                opacity: .25;
+                max-width: 600px;
+                height: 1px;
+                padding: 0 map-get($padding, "4.5");
+                margin: 0 auto;
+            }
         }
-    }

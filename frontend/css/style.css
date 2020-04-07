@@ -19,8 +19,6 @@
     --------------------------------------------------  */
 @import url("https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Literata&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap");
 html, body {
   margin: 0;
   padding: 0;
@@ -28,333 +26,351 @@ html, body {
 
 .full-width-container {
   display: block;
-  padding: 0 0 5em 0;
+  padding: 0 24px;
 }
 
-.color-section-container {
+.color-section {
   display: block;
-  margin: 64px 0;
-  padding: 32px 0;
+  position: absolute;
+  top: 500px;
+  left: 0;
+  right: 0;
+  height: 540px;
+  z-index: 100;
 }
 
-.color-section-container.primary-primary {
+.color-section.primary-primary {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #2F80ED, #2F80ED);
 }
 
-.color-section-container.primary-secondary {
+.color-section.primary-secondary {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #56CCF2, #2F80ED);
 }
 
-.color-section-container.primary-success {
+.color-section.primary-success {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #28a745, #2F80ED);
 }
 
-.color-section-container.primary-info {
+.color-section.primary-info {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #17a2b8, #2F80ED);
 }
 
-.color-section-container.primary-warning {
+.color-section.primary-warning {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #f9d423, #2F80ED);
 }
 
-.color-section-container.primary-danger {
+.color-section.primary-danger {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #f00000, #2F80ED);
 }
 
-.color-section-container.primary-light {
+.color-section.primary-light {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #f5f5f5, #2F80ED);
 }
 
-.color-section-container.primary-dark {
+.color-section.primary-dark {
   background: #2F80ED;
   background: linear-gradient(to bottom right, #424242, #2F80ED);
 }
 
-.color-section-container.secondary-primary {
+.color-section.secondary-primary {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #2F80ED, #56CCF2);
 }
 
-.color-section-container.secondary-secondary {
+.color-section.secondary-secondary {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #56CCF2, #56CCF2);
 }
 
-.color-section-container.secondary-success {
+.color-section.secondary-success {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #28a745, #56CCF2);
 }
 
-.color-section-container.secondary-info {
+.color-section.secondary-info {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #17a2b8, #56CCF2);
 }
 
-.color-section-container.secondary-warning {
+.color-section.secondary-warning {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #f9d423, #56CCF2);
 }
 
-.color-section-container.secondary-danger {
+.color-section.secondary-danger {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #f00000, #56CCF2);
 }
 
-.color-section-container.secondary-light {
+.color-section.secondary-light {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #f5f5f5, #56CCF2);
 }
 
-.color-section-container.secondary-dark {
+.color-section.secondary-dark {
   background: #56CCF2;
   background: linear-gradient(to bottom right, #424242, #56CCF2);
 }
 
-.color-section-container.success-primary {
+.color-section.success-primary {
   background: #28a745;
   background: linear-gradient(to bottom right, #2F80ED, #28a745);
 }
 
-.color-section-container.success-secondary {
+.color-section.success-secondary {
   background: #28a745;
   background: linear-gradient(to bottom right, #56CCF2, #28a745);
 }
 
-.color-section-container.success-success {
+.color-section.success-success {
   background: #28a745;
   background: linear-gradient(to bottom right, #28a745, #28a745);
 }
 
-.color-section-container.success-info {
+.color-section.success-info {
   background: #28a745;
   background: linear-gradient(to bottom right, #17a2b8, #28a745);
 }
 
-.color-section-container.success-warning {
+.color-section.success-warning {
   background: #28a745;
   background: linear-gradient(to bottom right, #f9d423, #28a745);
 }
 
-.color-section-container.success-danger {
+.color-section.success-danger {
   background: #28a745;
   background: linear-gradient(to bottom right, #f00000, #28a745);
 }
 
-.color-section-container.success-light {
+.color-section.success-light {
   background: #28a745;
   background: linear-gradient(to bottom right, #f5f5f5, #28a745);
 }
 
-.color-section-container.success-dark {
+.color-section.success-dark {
   background: #28a745;
   background: linear-gradient(to bottom right, #424242, #28a745);
 }
 
-.color-section-container.info-primary {
+.color-section.info-primary {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #2F80ED, #17a2b8);
 }
 
-.color-section-container.info-secondary {
+.color-section.info-secondary {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #56CCF2, #17a2b8);
 }
 
-.color-section-container.info-success {
+.color-section.info-success {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #28a745, #17a2b8);
 }
 
-.color-section-container.info-info {
+.color-section.info-info {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #17a2b8, #17a2b8);
 }
 
-.color-section-container.info-warning {
+.color-section.info-warning {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #f9d423, #17a2b8);
 }
 
-.color-section-container.info-danger {
+.color-section.info-danger {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #f00000, #17a2b8);
 }
 
-.color-section-container.info-light {
+.color-section.info-light {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #f5f5f5, #17a2b8);
 }
 
-.color-section-container.info-dark {
+.color-section.info-dark {
   background: #17a2b8;
   background: linear-gradient(to bottom right, #424242, #17a2b8);
 }
 
-.color-section-container.warning-primary {
+.color-section.warning-primary {
   background: #f9d423;
   background: linear-gradient(to bottom right, #2F80ED, #f9d423);
 }
 
-.color-section-container.warning-secondary {
+.color-section.warning-secondary {
   background: #f9d423;
   background: linear-gradient(to bottom right, #56CCF2, #f9d423);
 }
 
-.color-section-container.warning-success {
+.color-section.warning-success {
   background: #f9d423;
   background: linear-gradient(to bottom right, #28a745, #f9d423);
 }
 
-.color-section-container.warning-info {
+.color-section.warning-info {
   background: #f9d423;
   background: linear-gradient(to bottom right, #17a2b8, #f9d423);
 }
 
-.color-section-container.warning-warning {
+.color-section.warning-warning {
   background: #f9d423;
   background: linear-gradient(to bottom right, #f9d423, #f9d423);
 }
 
-.color-section-container.warning-danger {
+.color-section.warning-danger {
   background: #f9d423;
   background: linear-gradient(to bottom right, #f00000, #f9d423);
 }
 
-.color-section-container.warning-light {
+.color-section.warning-light {
   background: #f9d423;
   background: linear-gradient(to bottom right, #f5f5f5, #f9d423);
 }
 
-.color-section-container.warning-dark {
+.color-section.warning-dark {
   background: #f9d423;
   background: linear-gradient(to bottom right, #424242, #f9d423);
 }
 
-.color-section-container.danger-primary {
+.color-section.danger-primary {
   background: #f00000;
   background: linear-gradient(to bottom right, #2F80ED, #f00000);
 }
 
-.color-section-container.danger-secondary {
+.color-section.danger-secondary {
   background: #f00000;
   background: linear-gradient(to bottom right, #56CCF2, #f00000);
 }
 
-.color-section-container.danger-success {
+.color-section.danger-success {
   background: #f00000;
   background: linear-gradient(to bottom right, #28a745, #f00000);
 }
 
-.color-section-container.danger-info {
+.color-section.danger-info {
   background: #f00000;
   background: linear-gradient(to bottom right, #17a2b8, #f00000);
 }
 
-.color-section-container.danger-warning {
+.color-section.danger-warning {
   background: #f00000;
   background: linear-gradient(to bottom right, #f9d423, #f00000);
 }
 
-.color-section-container.danger-danger {
+.color-section.danger-danger {
   background: #f00000;
   background: linear-gradient(to bottom right, #f00000, #f00000);
 }
 
-.color-section-container.danger-light {
+.color-section.danger-light {
   background: #f00000;
   background: linear-gradient(to bottom right, #f5f5f5, #f00000);
 }
 
-.color-section-container.danger-dark {
+.color-section.danger-dark {
   background: #f00000;
   background: linear-gradient(to bottom right, #424242, #f00000);
 }
 
-.color-section-container.light-primary {
+.color-section.light-primary {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #2F80ED, #f5f5f5);
 }
 
-.color-section-container.light-secondary {
+.color-section.light-secondary {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #56CCF2, #f5f5f5);
 }
 
-.color-section-container.light-success {
+.color-section.light-success {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #28a745, #f5f5f5);
 }
 
-.color-section-container.light-info {
+.color-section.light-info {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #17a2b8, #f5f5f5);
 }
 
-.color-section-container.light-warning {
+.color-section.light-warning {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #f9d423, #f5f5f5);
 }
 
-.color-section-container.light-danger {
+.color-section.light-danger {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #f00000, #f5f5f5);
 }
 
-.color-section-container.light-light {
+.color-section.light-light {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #f5f5f5, #f5f5f5);
 }
 
-.color-section-container.light-dark {
+.color-section.light-dark {
   background: #f5f5f5;
   background: linear-gradient(to bottom right, #424242, #f5f5f5);
 }
 
-.color-section-container.dark-primary {
+.color-section.dark-primary {
   background: #424242;
   background: linear-gradient(to bottom right, #2F80ED, #424242);
 }
 
-.color-section-container.dark-secondary {
+.color-section.dark-secondary {
   background: #424242;
   background: linear-gradient(to bottom right, #56CCF2, #424242);
 }
 
-.color-section-container.dark-success {
+.color-section.dark-success {
   background: #424242;
   background: linear-gradient(to bottom right, #28a745, #424242);
 }
 
-.color-section-container.dark-info {
+.color-section.dark-info {
   background: #424242;
   background: linear-gradient(to bottom right, #17a2b8, #424242);
 }
 
-.color-section-container.dark-warning {
+.color-section.dark-warning {
   background: #424242;
   background: linear-gradient(to bottom right, #f9d423, #424242);
 }
 
-.color-section-container.dark-danger {
+.color-section.dark-danger {
   background: #424242;
   background: linear-gradient(to bottom right, #f00000, #424242);
 }
 
-.color-section-container.dark-light {
+.color-section.dark-light {
   background: #424242;
   background: linear-gradient(to bottom right, #f5f5f5, #424242);
 }
 
-.color-section-container.dark-dark {
+.color-section.dark-dark {
   background: #424242;
   background: linear-gradient(to bottom right, #424242, #424242);
+}
+
+.content-container {
+  display: block;
+  position: relative;
+  background: #ffffff;
+  max-width: 720px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  border: solid 0.5px #eeeeee;
+  padding: 0.5em 24px;
+  margin: 2.5em auto 5em;
+  overflow: hidden;
+  z-index: 300;
 }
 
 body {
@@ -372,7 +388,7 @@ h1, h2, h3, h4, h5, h6,
   letter-spacing: 0.067em;
   line-height: 1.5;
   color: #424242;
-  margin: 1em 0 8px 0;
+  margin: 16px 0;
 }
 
 h1, .h1 {
@@ -399,22 +415,6 @@ h6, .h6 {
   font-size: 0.5em;
 }
 
-.full-width-container p {
-  max-width: 720px;
-  padding: 0 24px;
-  margin: 0 auto;
-}
-
-.full-width-container h1, .full-width-container .h1,
-.full-width-container h2, .full-width-container .h2,
-.full-width-container h3, .full-width-container .h3,
-.full-width-container h4, .full-width-container .h4,
-.full-width-container h5, .full-width-container .h5,
-.full-width-container h6, .full-width-container .h6 {
-  max-width: 720px;
-  padding: 0 24px;
-  margin: 1em auto calc(8px + .1em);
-}
 .full-width-container h1::after, .full-width-container .h1::after,
 .full-width-container h2::after, .full-width-container .h2::after,
 .full-width-container h3::after, .full-width-container .h3::after,
