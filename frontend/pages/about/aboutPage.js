@@ -6,7 +6,18 @@ module.exports = class AboutPage {
     
     render() {
         const navBar = new NavBar();
-        let teamMembersHTML = "<div style='height: 540px;'></div>";
+        let teamMembersHTML = "";
+        
+        aboutData.teamMembers.forEach((teamMember) => {
+            teamMembersHTML +=
+                `<div class="team-member">
+                    <img src="./frontend/img/team/` + teamMember.img + `" />
+                    <h4>` + teamMember.name + `</h4>
+                    <h6 class="sub">` + teamMember.role + `</h6>
+                    <p>` + teamMember.description + `</p>
+                    <p><a href="mailto://` + teamMember.link + `" />Email</a></p>
+                </div>`;
+        });
     
         return `
             <!DOCTYPE html>

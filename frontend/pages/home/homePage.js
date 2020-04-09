@@ -1,10 +1,28 @@
 const NavBar = require("../../components/navBar/navBar.js");
+const Card = require("../../components/card/card.js");
 
 module.exports = class HomePage {
-    constructor() {}
+    constructor() {
+        this.videos = false;
+    }
     
-    render() {
+    render(videos) {
+        this.videos = videos;
         const navBar = new NavBar();
+        let cardsHTML_1 = "";
+        if (this.videos) {
+            for (let i = 0; i < 8; i++) {
+                const card = new Card(this.videos[i].metadata);
+                cardsHTML_1 += card.render();
+            }
+        }
+        let cardsHTML_2 = "";
+        if (this.videos) {
+            for (let i = 8; i < 30; i++) {
+                const card = new Card(this.videos[i].metadata);
+                cardsHTML_2 += card.render();
+            }
+        }
     
         return `
             <!DOCTYPE html>
@@ -18,6 +36,17 @@ module.exports = class HomePage {
                 </head>
                 <body>
                     ` + navBar.render() + `
+                    <div class="full-width-container">
+                        <div class="grid-container">
+                            <h2>Recommended</h2>
+                            <div class="grid-4">` +
+                                cardsHTML_1
+                            + `</div>
+                            <h6>&nbsp;</h6>
+                            <div class="grid-4">` +
+                                cardsHTML_2
+                            + `</div>
+                        </div>
                     <script type="module" src="./frontend/utilities/common.js"></script>
                     <script type="module" src="./frontend/pages/home/home.js"></script>
                 </body>

@@ -8,4 +8,49 @@ const mission = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec 
     Pellentesque tempus finibus ex, quis vulputate justo rutrum vel. In vitae sapien ipsum. Nunc at porttitor odio. Aenean aliquet, ex eget condimentum viverra, mi lectus blandit erat, 
     eu imperdiet purus quam ut sapien. Donec pulvinar, libero sit amet sagittis efficitur, urna ante aliquet nibh, eget ultrices massa augue vitae quam.`;
 
-module.exports = {mission};
+const teamMembers = [
+    {
+        name:           "Davoud Mougouei",
+        role:           "Project Supervisor",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "davoud@uow.edu.au",
+        img:            "default_profile.jpg"
+    },
+    {
+        name:           "Bethany Cooper",
+        role:           "Team Manager/Backend Developer",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "bwc928@uowmail.edu.au ",
+        img:            "default_profile.jpg"
+    },
+    {
+        name:           "Bugsy Borromeo",
+        role:           "Team Manager/Documentation",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "gb995@uowmail.edu.au ",
+        img:            "default_profile.jpg"
+    },
+    {
+        name:           "Jingxu Meng",
+        role:           "Documentation",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "jm877@uowmail.edu.au",
+        img:            "default_profile.jpg"
+    },
+    {
+        name:           "Liam Watts",
+        role:           "Backend Developer",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "lfw342@uowmail.edu.au",
+        img:            "default_profile.jpg"
+    },
+    {
+        name:           "Tim Martin",
+        role:           "Full Stack Developer",
+        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        link:           "tm894@uowmail.edu.au",
+        img:            "TimMartin_profile.jpg"
+    }
+];
+
+module.exports = {mission, teamMembers};

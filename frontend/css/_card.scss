@@ -6,7 +6,14 @@
     border-radius:  4px;
     border:         $crd-border-default;
     margin:         $crd-margin;
+    cursor:         pointer;
     overflow:       hidden;
+    // transition: all 0.2s ease-in-out;
+
+    // &:hover {
+    //     transform: scale(1.01);
+    //     box-shadow: $crd-shadow-hover-default;
+    // }
 }
 
 .card.flat {
@@ -18,7 +25,8 @@
     display:        block;
     position:       relative;
     text-align:     right;
-    cursor:         pointer;
+    height:         166.5px;
+    background:     map-get($neutrals, "black");
     overflow:       hidden;
 }
 
@@ -29,7 +37,8 @@
 .card .preview img {
     display:    block;
     width:      100%;
-    height:     auto;
+    height:     166.5px;
+    object-fit: cover;
 }
 
 .card .duration {
@@ -46,7 +55,7 @@
 }
 
 .card .details {
-    padding:    map-get($padding, "2") map-get($padding, "3");
+    padding:        $crd-details-padding;
 }
 
 .card .title {
@@ -62,7 +71,15 @@
     color:          $crd-details-sub-color;
 }
 
-.card .views, .published {
+.card .content-creator {
+    cursor: pointer;
+
+    &:hover {
+        color:  $crd-details-sub-hover-color;
+    }
+}
+
+.card .views, .card .published {
     display:    inline-block;
 }
 

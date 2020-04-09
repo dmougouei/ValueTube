@@ -35,7 +35,7 @@ html, body {
   top: 500px;
   left: 0;
   right: 0;
-  height: 540px;
+  height: 620px;
   z-index: 100;
 }
 
@@ -373,12 +373,64 @@ html, body {
   z-index: 300;
 }
 
+.grid-container {
+  display: block;
+  margin: 2.5em auto 5em;
+  max-width: 1300px;
+}
+
+.grid-3 {
+  display: grid;
+  grid-gap: 32px 32px;
+  grid-template-columns: repeat(auto-fit, minmax(218px, 1fr));
+  justify-content: center;
+  align-content: center;
+  grid-auto-rows: auto;
+  margin: 0 0 24px 0;
+}
+
+.grid-4 {
+  display: grid;
+  grid-gap: 32px 32px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  align-content: center;
+  grid-auto-rows: auto;
+}
+
+.team-member {
+  display: block;
+  max-width: 220px;
+  padding: 12px 16px;
+  margin: 0 auto;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  border: solid 0.5px #eeeeee;
+}
+
+.team-member img {
+  width: calc(100% - 32px);
+  margin: 16px;
+  border-radius: 50%;
+}
+
 body {
   font-family: "Work Sans", "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.5;
   color: #424242;
+}
+
+a {
+  color: #2F80ED;
+}
+a:link {
+  color: #2F80ED;
+}
+a:visited {
+  color: #3d2fed;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -426,10 +478,53 @@ h6, .h6 {
   background: #424242;
   background-clip: content-box;
   opacity: 0.25;
-  max-width: 600px;
   height: 1px;
   padding: 0 24px;
   margin: 0 auto;
+}
+
+.team-member h1, .team-member .h1,
+.team-member h2, .team-member .h2,
+.team-member h3, .team-member .h3,
+.team-member h4, .team-member .h4,
+.team-member h5, .team-member .h5,
+.team-member h6, .team-member .h6 {
+  margin: 0 0 4px 0;
+}
+.team-member h1::after, .team-member .h1::after,
+.team-member h2::after, .team-member .h2::after,
+.team-member h3::after, .team-member .h3::after,
+.team-member h4::after, .team-member .h4::after,
+.team-member h5::after, .team-member .h5::after,
+.team-member h6::after, .team-member .h6::after {
+  content: none;
+  display: none;
+}
+
+.team-member .sub {
+  color: #9e9e9e;
+}
+
+.team-member p {
+  margin: 4px 0;
+  font-size: 12px;
+}
+
+.grid-container h1, .grid-container .h1,
+.grid-container h2, .grid-container .h2,
+.grid-container h3, .grid-container .h3,
+.grid-container h4, .grid-container .h4,
+.grid-container h5, .grid-container .h5,
+.grid-container h6, .grid-container .h6 {
+  margin: 32px 0;
+}
+.grid-container h1::after, .grid-container .h1::after,
+.grid-container h2::after, .grid-container .h2::after,
+.grid-container h3::after, .grid-container .h3::after,
+.grid-container h4::after, .grid-container .h4::after,
+.grid-container h5::after, .grid-container .h5::after,
+.grid-container h6::after, .grid-container .h6::after {
+  max-width: 1200px;
 }
 
 .btn {
@@ -898,7 +993,8 @@ h6, .h6 {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
   border-radius: 4px;
   border: solid 0.5px #eeeeee;
-  margin: 16px 8px;
+  margin: 0 auto;
+  cursor: pointer;
   overflow: hidden;
 }
 
@@ -911,7 +1007,8 @@ h6, .h6 {
   display: block;
   position: relative;
   text-align: right;
-  cursor: pointer;
+  height: 166.5px;
+  background: #000000;
   overflow: hidden;
 }
 
@@ -922,7 +1019,8 @@ h6, .h6 {
 .card .preview img {
   display: block;
   width: 100%;
-  height: auto;
+  height: 166.5px;
+  object-fit: cover;
 }
 
 .card .duration {
@@ -939,7 +1037,7 @@ h6, .h6 {
 }
 
 .card .details {
-  padding: 4px 8px;
+  padding: 8px 12px;
 }
 
 .card .title {
@@ -955,7 +1053,14 @@ h6, .h6 {
   color: #9e9e9e;
 }
 
-.card .views, .published {
+.card .content-creator {
+  cursor: pointer;
+}
+.card .content-creator:hover {
+  color: #424242;
+}
+
+.card .views, .card .published {
   display: inline-block;
 }
 

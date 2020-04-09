@@ -7,6 +7,19 @@ body {
     color:          $text-color;
 }
 
+//  Links
+    a {
+        color: $link-color;
+
+        &:link {
+            color: $link-color; 
+        }
+        
+        &:visited {
+            color: adjust-hue($link-color, $link-visited-hue);
+        }
+    }
+
 //  Headings
     h1, h2, h3, h4, h5, h6,
     .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -57,9 +70,46 @@ body {
                 background: $heading-color;
                 background-clip: content-box;
                 opacity: .25;
-                max-width: 600px;
+                //max-width: 600px;
                 height: 1px;
                 padding: 0 map-get($padding, "4.5");
                 margin: 0 auto;
+            }
+        }
+    //  Team Member
+        .team-member h1, .team-member .h1,
+        .team-member h2, .team-member .h2,
+        .team-member h3, .team-member .h3,
+        .team-member h4, .team-member .h4,
+        .team-member h5, .team-member .h5,
+        .team-member h6, .team-member .h6 {
+            margin: 0 0 4px 0;
+
+            &::after {
+                content: none;
+                display: none;
+            }
+        }
+
+        .team-member .sub {
+            color: map-get($neutrals, "500");
+        }
+        
+        .team-member p {
+            margin: 4px 0;
+            font-size: 12px;
+        }
+
+    //  Team Member
+        .grid-container h1, .grid-container .h1,
+        .grid-container h2, .grid-container .h2,
+        .grid-container h3, .grid-container .h3,
+        .grid-container h4, .grid-container .h4,
+        .grid-container h5, .grid-container .h5,
+        .grid-container h6, .grid-container .h6 {
+            margin: 32px 0;
+
+            &::after {
+                max-width: 1200px;
             }
         }

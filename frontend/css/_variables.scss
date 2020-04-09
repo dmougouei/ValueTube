@@ -203,30 +203,32 @@
         );
     
     //  Margin
-        $margin-0: 0px;
-        $margin-1: 2px;
-        $margin-2: 4px;
-        $margin-3: 8px;
-        $margin-4: 16px;
-        $margin-5: 32px;
-        $margin-6: 64px;
-        $margin-7: 128px;
-        $margin-8: 256px;
-        $margin-9: 512px;
+        $margin-0:      0px;
+        $margin-1:      2px;
+        $margin-2:      4px;
+        $margin-3:      8px;
+        $margin-4:      16px;
+        $margin-4-5:    24px;
+        $margin-5:      32px;
+        $margin-6:      64px;
+        $margin-7:      128px;
+        $margin-8:      256px;
+        $margin-9:      512px;
 
         $margin: () !default;
         $margin: map-merge(
             (
-                "0": $margin-0,
-                "1": $margin-1,
-                "2": $margin-2,
-                "3": $margin-3,
-                "4": $margin-4,
-                "5": $margin-5,
-                "6": $margin-6,
-                "7": $margin-7,
-                "8": $margin-8,
-                "9": $margin-9
+                "0":    $margin-0,
+                "1":    $margin-1,
+                "2":    $margin-2,
+                "3":    $margin-3,
+                "4":    $margin-4,
+                "4.5":  $margin-4-5,
+                "5":    $margin-5,
+                "6":    $margin-6,
+                "7":    $margin-7,
+                "8":    $margin-8,
+                "9":    $margin-9
             ),
             $margin
         );
@@ -326,6 +328,9 @@
 
     //  Color
         $text-color:    map-get($theme-colors, "dark");
+        $link-color:    map-get($theme-colors, "primary");
+
+        $link-visited-hue:  30deg;
 
     //  Font Weight
         $thin:          100 !default;
@@ -550,10 +555,12 @@
 
 //  Card
     $crd-width:     296px;
-    $crd-margin:    map-get($margin, "4") map-get($margin, "3");
+    $crd-margin:    0 auto;
 
     $crd-border-default:    solid .5px map-get($neutrals, "200");
     $crd-shadow-default:    map-get($shadows, "2");
+
+    // $crd-shadow-hover-default: map-get($shadows, "3");
 
     //  Flat
     $crd-border-flat:    none;
@@ -570,7 +577,7 @@
         $crd-duration-margin:           0 map-get($margin, "2") map-get($margin, "2") 0;
         $crd-duration-padding:          map-get($padding, "0") map-get($padding, "2");
 
-        $crd-details-padding:   map-get($padding, "2") map-get($padding, "3");
+        $crd-details-padding:   map-get($padding, "3") map-get($padding, "3.5");
 
         $crd-title-font-size:       13pt;
         $crd-title-font-weight:     map-get($font-weights, "medium");
@@ -580,6 +587,8 @@
         $crd-details-sub-font-size:     11pt;
         $crd-details-sub-line-height:   1em;
         $crd-details-sub-color:         map-get($neutrals, "500");
+
+        $crd-details-sub-hover-color:   map-get($theme-colors, "dark");
 
         $crd-views-after-content:   ' - ';
 
