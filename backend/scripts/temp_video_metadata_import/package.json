@@ -7,5 +7,9 @@
     "start": "node index.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "youtube-captions-scraper": "^1.0.3",
+    "youtube-comment-scraper": "^0.2.2"
+  }
 }

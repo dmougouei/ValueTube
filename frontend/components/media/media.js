@@ -34,6 +34,8 @@ module.exports = class Media {
     render() {
         return `
             <div class="media">
+                <div class="media_controls"></div>
+                </div>
                 ` + this.video.render()
                   + this.audio.render() + `
             </div>
