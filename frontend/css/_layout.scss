@@ -2,6 +2,7 @@
     html, body {
         margin: 0;
         padding: 0;
+        background: map-get($neutrals, "50");
     }
 
     .full-width-container {

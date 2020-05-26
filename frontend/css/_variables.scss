@@ -96,10 +96,10 @@
                     "900":      $warm-gray-900,
                     "black":    $black
                 ),
-                $warm-grays
+                $grays
             );
 
-        $neutrals: $grays;
+        $neutrals: $warm-grays;
 
     //  Colors  --- NOTE: Check these values ---
         $red:           #f00000 !default;
