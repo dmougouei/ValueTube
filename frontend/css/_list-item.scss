@@ -1,0 +1,143 @@
+//  List Item Element Styling   --- NOTE: May consider adding functionality for more box-shadow variations. ---
+.list-item {
+    display:        block;
+    box-shadow:     $crd-shadow-default;
+    border-radius:  4px;
+    height:         125px;
+    border:         $crd-border-default;
+    margin:         $margin-4-5 $margin-5;
+    cursor:         pointer;
+    overflow:       hidden;
+    transition: all 0.2s ease-in-out;
+
+    &:hover {
+        border-color: $primary
+    }
+}
+
+.list-item.sm {
+    height:         90px;
+    margin:         $margin-4 $margin-3;
+}
+
+.list-item.flat {
+    box-shadow:     $crd-shadow-flat;
+    border:         $crd-border-flat;
+}
+
+.list-item .preview {
+    display:        inline-block;
+    position:       relative;
+    text-align:     right;
+    width:          222px;
+    background:     map-get($neutrals, "black");
+    overflow:       hidden;
+}
+
+.list-item.sm .preview {
+    width: 160px;
+}
+
+.list-item.flat .preview {
+    border-radius: $crd-preview-border-radius-flat;
+}
+
+.list-item .preview img {
+    display:    block;
+    width:      222px;
+    object-fit: cover;
+}
+
+.list-item.sm .preview img {
+    width:      160px;
+}
+
+.list-item .duration {
+    display:            inline-block;
+    position:           absolute;
+    background-color:   $crd-duration-background-color;
+    font-size:          $crd-duration-font-size;
+    color:              $crd-duration-color;
+    bottom:             $crd-duration-bottom;
+    right:              $crd-duration-right;
+    margin:             $crd-duration-margin;
+    padding:            $crd-duration-padding;
+    border-radius:      2px;
+}
+
+.list-item.sm .duration {
+    font-size:          8pt;
+}
+
+.list-item .details {
+    position:       relative;
+    height:         101px;
+    width:          calc(100% - 272px);
+    margin:         12px 36px 12px 12px;
+    float:          right;
+    overflow:       hidden;
+}
+
+.list-item.sm .details {
+    height:         74px;
+    width:          calc(100% - 184px);
+    margin:         8px 12px 8px 8px;
+}
+
+
+.list-item .title {
+    font-size:      $crd-title-font-size;
+    font-weight:    $crd-title-font-weight;
+    line-height:    $crd-title-line-height;
+    margin-bottom:  $crd-title-margin-bottom;
+}
+
+.list-item.sm .title {
+    font-size:      11pt;
+}
+
+.list-item .content-creator, .list-item .views, .list-item .published {
+    font-size:      $crd-details-sub-font-size;
+    line-height:    $crd-details-sub-line-height;
+    color:          $crd-details-sub-color;
+}
+
+.list-item.sm .content-creator, .list-item.sm .views, .list-item.sm .published {
+    font-size:      10pt;
+    line-height:    10pt;
+}
+
+.list-item .content-creator {
+    cursor: pointer;
+
+    &:hover {
+        color:  $crd-details-sub-hover-color;
+    }
+
+    &::after {
+        content: '\f167';
+        font-family: "Font Awesome 5 Brands";
+        margin-left: 8px;
+    }
+
+    &:hover::after {
+        color:  $red;
+    }
+}
+
+.list-item .views, .list-item .published {
+    display:    inline-block;
+}
+
+.list-item .views::after {
+    content:    $crd-views-after-content;
+}
+
+.list-item .description {
+    font-size:      10pt;
+    line-height:    $crd-details-sub-line-height;
+    color:          map-get($neutrals, "700");
+    height:         2em;
+    padding-top:    8px;
+    overflow:       hidden;
+}

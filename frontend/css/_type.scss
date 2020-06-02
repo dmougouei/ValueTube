@@ -57,25 +57,6 @@ body {
     }
 
 // Specific Type Stying
-    //  Full Width Container
-        .full-width-container h1, .full-width-container .h1,
-        .full-width-container h2, .full-width-container .h2,
-        .full-width-container h3, .full-width-container .h3,
-        .full-width-container h4, .full-width-container .h4,
-        .full-width-container h5, .full-width-container .h5,
-        .full-width-container h6, .full-width-container .h6 {
-            &::after {
-                content: '';
-                display: block;
-                background: $heading-color;
-                background-clip: content-box;
-                opacity: .25;
-                //max-width: 600px;
-                height: 1px;
-                padding: 0 map-get($padding, "4.5");
-                margin: 0 auto;
-            }
-        }
     //  Team Member
         .team-member h1, .team-member .h1,
         .team-member h2, .team-member .h2,
@@ -98,18 +79,4 @@ body {
         .team-member p {
             margin: 4px 0;
             font-size: 12px;
-        }
-
-    //  Team Member
-        .grid-container h1, .grid-container .h1,
-        .grid-container h2, .grid-container .h2,
-        .grid-container h3, .grid-container .h3,
-        .grid-container h4, .grid-container .h4,
-        .grid-container h5, .grid-container .h5,
-        .grid-container h6, .grid-container .h6 {
-            margin: 32px 0;
-
-            &::after {
-                max-width: 1200px;
-            }
         }

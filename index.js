@@ -19,46 +19,37 @@ const HomePage = require('./frontend/pages/home/homePage.js');
 const WatchPage = require("./frontend/pages/watch/watchPage.js");
 const AboutPage = require('./frontend/pages/about/aboutPage.js');
 const ErrorPage = require('./frontend/pages/error/errorPage.js');
+const ResultsPage = require('./frontend/pages/results/resultsPage.js');
+const LogInPage = require('./frontend/pages/login/loginPage.js');
+
+let videoList = false;
+fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
+    if (err) {
+        throw err;
+    }
+
+    videoList = JSON.parse(data);
+});
 
 app.use('/', express.static('./'));
 
 app.get('/', (req, res) => {
     const home = new HomePage();
-
-    fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
-        if (err) {
-            throw err;
-        }
-
-        res.send(home.render(JSON.parse(data)));
-    });
-
+    if (videoList) {
+        res.send(home.render(videoList));
+    }
     return;
 });
 
 app.get('/watch', (req, res) => {
     if (req.query.v) {
-        // --- NOTE: Make sure you do sanatise this input and error check it.
-        fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
-            if (err) {
-                throw err;
-            }
+        const metadata = videoList.find((video) => {
+            return (video.id == req.query.v);
+        }).metadata;
 
-            const videos = JSON.parse(data);
-            const metadata = videos.find((video) => {
-                return (video.id == req.query.v);
-            }).metadata;
-
-            const watch = new WatchPage(metadata);
-            res.send(watch.render());
-            return;
-        });
-
-        /*execute(`"./backend/scripts/youtube-dl.exe" -j https://www.youtube.com/watch?v=` + req.query.v, function(videoMetadata){
-            const watch = new WatchPage(JSON.parse(videoMetadata));
-            res.send(watch.render());
-            return;
-        });*/
+        const watch = new WatchPage(metadata);
+        res.send(watch.render(videoList));
+        return;
     } else {
         res.sendStatus(404);
         return;
@@ -68,6 +59,20 @@ app.get('/watch', (req, res) => {
 app.get('/about', (req, res) => {
     const about = new AboutPage();
     res.send(about.render());
+    return;
+});
+
+app.get('/results', (req, res) => {
+    const results = new ResultsPage(req.query.search_query);
+    if (videoList) {
+        res.send(results.render(videoList));
+    }
+    return;
+});
+
+app.get('/login', (req, res) => {
+    const login = new LogInPage();
+    res.send(login.render());
     return;
 });
 

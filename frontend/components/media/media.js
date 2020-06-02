@@ -6,7 +6,7 @@ class Video {
     
     render() {
         return `
-            <video id="video" src="` + this.v_url + `" poster="` + this.thumbnail + `" width="1280px" height="720px"></video>
+            <video id="video" src="` + this.v_url + `" poster="` + this.thumbnail + `" width="100%"></video>
         `;
     }
 }
@@ -35,7 +35,6 @@ module.exports = class Media {
         return `
             <div class="media">
                 <div class="media_controls"></div>
-                </div>
                 ` + this.video.render()
                   + this.audio.render() + `
             </div>

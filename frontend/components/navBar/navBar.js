@@ -2,7 +2,7 @@ const Search = require("../search/search.js");
 const Button = require("../button/button.js");
 
 module.exports = class NavBar {
-    constructor() { }
+    constructor(searchQuery) { }
     
     render() {
         const search = new Search();

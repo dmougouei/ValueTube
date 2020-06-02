@@ -34,17 +34,20 @@ module.exports = class AboutPage {
                     <div class="full-width-container">
                         <div class="content-container">
                             <h2>About Us</h2>
+                            <div class="seperator"></div>
                             <p>` + aboutData.mission + `</p>
                         </div>
                         <div class="color-section primary-secondary parallax" data-speed="-32"></div>
                         <div class="content-container">
                             <h2>Meet the Team</h2>
+                            <div class="seperator"></div>
                             <div class="grid-3">` +
                                 teamMembersHTML
                             + `</div>
                         </div>
                         <div class="content-container">
                             <h2>Find out more</h2>
+                            <div class="seperator"></div>
                             <p>For more information about this project. Please checkout our GitLab repository at:</p>
                             <p><a href="https://gitlab.com/ValueTube/ValueTube">https://gitlab.com/ValueTube/ValueTube</a></p>
                         </div>

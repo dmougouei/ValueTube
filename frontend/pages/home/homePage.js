@@ -37,12 +37,13 @@ module.exports = class HomePage {
                 <body>
                     ` + navBar.render() + `
                     <div class="full-width-container">
-                        <div class="grid-container">
+                        <div class="grid-container mw-1300">
                             <h2>Recommended</h2>
+                            <div class="seperator"></div>
                             <div class="grid-4">` +
                                 cardsHTML_1
                             + `</div>
-                            <h6>&nbsp;</h6>
+                            <div class="seperator"></div>
                             <div class="grid-4">` +
                                 cardsHTML_2
                             + `</div>

@@ -77,6 +77,13 @@
     &:hover {
         color:  $crd-details-sub-hover-color;
     }
+
+    &::after {
+        content: '\f167';
+        font-family: "Font Awesome 5 Brands";
+        color:  $red;
+        margin-left: 8px;
+    }
 }
 
 .card .views, .card .published {

@@ -79,8 +79,7 @@ let values = [
 ];
 
 module.exports = class Search {
-    constructor() {
-    }
+    constructor() { }
  
     render() {
         let filterDropdownHTML = ``;
@@ -96,7 +95,7 @@ module.exports = class Search {
             <div class="search">
                 <div class="search-container">
                     <form class="search-form" action="./results">
-                        <input class="search-input" type="text" placeholder="Search" name="search" required/>` +
+                        <input id="search-input" class="search-input" type="text" placeholder="Search" name="search_query" required/>` +
                         `<button class="search-button"><i class="fas fa-search"></i></button></form>` +
                     `<button id="filter-button" class="filter-button" onclick="toggleFilter();"><i class="fas fa-chevron-down"></i></button>
                 </div>

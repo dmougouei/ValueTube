@@ -360,6 +360,21 @@ html, body {
   background: linear-gradient(to bottom right, #424242, #424242);
 }
 
+.seperator {
+  margin: 16px 0;
+}
+.seperator::after {
+  content: "";
+  display: block;
+  background: #424242;
+  background-clip: content-box;
+  opacity: 0.25;
+  max-width: 1200px;
+  height: 1px;
+  padding: 0 24px;
+  margin: 0 auto;
+}
+
 .content-container {
   display: block;
   position: relative;
@@ -374,9 +389,12 @@ html, body {
   z-index: 300;
 }
 
-.grid-container {
+.grid-container, .list-container, .media-container {
   display: block;
   margin: 2.5em auto 5em;
+}
+
+.mw-1300 {
   max-width: 1300px;
 }
 
@@ -394,6 +412,15 @@ html, body {
   display: grid;
   grid-gap: 32px 32px;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  justify-content: center;
+  align-content: center;
+  grid-auto-rows: auto;
+}
+
+.grid-3-1 {
+  display: grid;
+  grid-gap: 16px 16px;
+  grid-template-columns: minmax(900px, 3fr) minmax(300px, 1fr);
   justify-content: center;
   align-content: center;
   grid-auto-rows: auto;
@@ -468,22 +495,6 @@ h6, .h6 {
   font-size: 0.5em;
 }
 
-.full-width-container h1::after, .full-width-container .h1::after,
-.full-width-container h2::after, .full-width-container .h2::after,
-.full-width-container h3::after, .full-width-container .h3::after,
-.full-width-container h4::after, .full-width-container .h4::after,
-.full-width-container h5::after, .full-width-container .h5::after,
-.full-width-container h6::after, .full-width-container .h6::after {
-  content: "";
-  display: block;
-  background: #424242;
-  background-clip: content-box;
-  opacity: 0.25;
-  height: 1px;
-  padding: 0 24px;
-  margin: 0 auto;
-}
-
 .team-member h1, .team-member .h1,
 .team-member h2, .team-member .h2,
 .team-member h3, .team-member .h3,
@@ -509,23 +520,6 @@ h6, .h6 {
 .team-member p {
   margin: 4px 0;
   font-size: 12px;
-}
-
-.grid-container h1, .grid-container .h1,
-.grid-container h2, .grid-container .h2,
-.grid-container h3, .grid-container .h3,
-.grid-container h4, .grid-container .h4,
-.grid-container h5, .grid-container .h5,
-.grid-container h6, .grid-container .h6 {
-  margin: 32px 0;
-}
-.grid-container h1::after, .grid-container .h1::after,
-.grid-container h2::after, .grid-container .h2::after,
-.grid-container h3::after, .grid-container .h3::after,
-.grid-container h4::after, .grid-container .h4::after,
-.grid-container h5::after, .grid-container .h5::after,
-.grid-container h6::after, .grid-container .h6::after {
-  max-width: 1200px;
 }
 
 .btn {
@@ -1060,6 +1054,12 @@ h6, .h6 {
 .card .content-creator:hover {
   color: #424242;
 }
+.card .content-creator::after {
+  content: "";
+  font-family: "Font Awesome 5 Brands";
+  color: #f00000;
+  margin-left: 8px;
+}
 
 .card .views, .card .published {
   display: inline-block;
@@ -1067,6 +1067,226 @@ h6, .h6 {
 
 .card .views::after {
   content: " - ";
+}
+
+.comment {
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  border: solid 0.5px #eeeeee;
+  margin: 24px 32px;
+  padding: 16px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+.comment:hover {
+  border-color: #2F80ED;
+}
+
+.comment .user {
+  display: block;
+  font-family: "Comfortaa", "Work Sans", "Gill Sans", "Gill Sans MT", "Calibri", "Trebuchet MS", sans-serif;
+  font-weight: bold;
+  font-size: 12pt;
+  letter-spacing: 0.067em;
+  line-height: 1.5;
+  color: #424242;
+}
+
+.comment .comment-body {
+  font-size: 11pt;
+  line-height: 1.15em;
+  color: #616161;
+  padding-top: 8px;
+}
+
+.list-item {
+  display: block;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  border-radius: 4px;
+  height: 125px;
+  border: solid 0.5px #eeeeee;
+  margin: 24px 32px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+}
+.list-item:hover {
+  border-color: #2F80ED;
+}
+
+.list-item.sm {
+  height: 90px;
+  margin: 16px 8px;
+}
+
+.list-item.flat {
+  box-shadow: none;
+  border: none;
+}
+
+.list-item .preview {
+  display: inline-block;
+  position: relative;
+  text-align: right;
+  width: 222px;
+  background: #000000;
+  overflow: hidden;
+}
+
+.list-item.sm .preview {
+  width: 160px;
+}
+
+.list-item.flat .preview {
+  border-radius: 4px;
+}
+
+.list-item .preview img {
+  display: block;
+  width: 222px;
+  object-fit: cover;
+}
+
+.list-item.sm .preview img {
+  width: 160px;
+}
+
+.list-item .duration {
+  display: inline-block;
+  position: absolute;
+  background-color: #212121;
+  font-size: 10pt;
+  color: #f5f5f5;
+  bottom: 0;
+  right: 0;
+  margin: 0 4px 4px 0;
+  padding: 0px 4px;
+  border-radius: 2px;
+}
+
+.list-item.sm .duration {
+  font-size: 8pt;
+}
+
+.list-item .details {
+  position: relative;
+  height: 101px;
+  width: calc(100% - 272px);
+  margin: 12px 36px 12px 12px;
+  float: right;
+  overflow: hidden;
+}
+
+.list-item.sm .details {
+  height: 74px;
+  width: calc(100% - 184px);
+  margin: 8px 12px 8px 8px;
+}
+
+.list-item .title {
+  font-size: 13pt;
+  font-weight: 500;
+  line-height: 1em;
+  margin-bottom: 4px;
+}
+
+.list-item.sm .title {
+  font-size: 11pt;
+}
+
+.list-item .content-creator, .list-item .views, .list-item .published {
+  font-size: 11pt;
+  line-height: 1em;
+  color: #9e9e9e;
+}
+
+.list-item.sm .content-creator, .list-item.sm .views, .list-item.sm .published {
+  font-size: 10pt;
+  line-height: 10pt;
+}
+
+.list-item .content-creator {
+  cursor: pointer;
+}
+.list-item .content-creator:hover {
+  color: #424242;
+}
+.list-item .content-creator::after {
+  content: "";
+  font-family: "Font Awesome 5 Brands";
+  margin-left: 8px;
+}
+.list-item .content-creator:hover::after {
+  color: #f00000;
+}
+
+.list-item .views, .list-item .published {
+  display: inline-block;
+}
+
+.list-item .views::after {
+  content: " - ";
+}
+
+.list-item .description {
+  font-size: 10pt;
+  line-height: 1em;
+  color: #616161;
+  height: 2em;
+  padding-top: 8px;
+  overflow: hidden;
+}
+
+.media-container .details {
+  position: relative;
+  margin: 12px;
+  float: right;
+}
+
+.media-container .title {
+  font-size: 16pt;
+  font-weight: 500;
+  line-height: 1.15em;
+  margin-bottom: 4px;
+}
+
+.media-container .content-creator, .media-container .views, .media-container .published {
+  font-size: 11pt;
+  line-height: 1.15em;
+  color: #9e9e9e;
+}
+
+.media-container .content-creator {
+  cursor: pointer;
+}
+.media-container .content-creator:hover {
+  color: #424242;
+}
+.media-container .content-creator::after {
+  content: "";
+  font-family: "Font Awesome 5 Brands";
+  margin-left: 8px;
+}
+.media-container .content-creator:hover::after {
+  color: #f00000;
+}
+
+.media-container .views, .media-container .published {
+  display: inline-block;
+}
+
+.media-container .views::after {
+  content: " - ";
+}
+
+.media-container .description {
+  font-size: 11pt;
+  line-height: 1.15em;
+  color: #616161;
+  padding-top: 8px;
+  text-align: justify;
 }
 
 .nav-bar {
