@@ -1636,4 +1636,61 @@ li.check-box.checked::marker {
   }
 }
 
+label {
+  margin: 15px;
+}
+
+label {
+  float: left;
+  clear: none;
+  display: block;
+  padding: 0px 1em 0px 8px;
+}
+
+.surveyqs {
+  float: left;
+  display: block;
+  margin: 15px;
+}
+
+.survey-full-width-container {
+  text-align: center;
+  }
+
+.survey.separator {
+  text-align: center;
+  }
+
+  .surveyform {
+    text-align: center;
+    }
+
+  .input {
+  background-color: transparent;
+  outline: none;
+  display: block;
+}
+
+.content-container {
+  text-align: center;
+  vertical-align:middle;
+  }
+
+  .form-separator {
+  text-align: center;
+  vertical-align:middle;
+  display:inline-block;
+  }
+
+  .seperator {
+    text-align: center;
+    vertical-align:middle;
+    }
+
+  .full-width-container {
+    vertical-align:middle;
+    }
+
+
+
 /*# sourceMappingURL=style.css.map */

@@ -27,9 +27,11 @@ module.exports = class LogInPage {
                             ` + googleSignIn.render() + `
                             <div class="seperator"></div>
                             <form>
+                            <div class="form-separator">
                                 <input id="username-signin-input" class="input" type="text" placeholder="Username" name="username_signin" required/>
-                                <input id="password-signin-input" class="input" type="text" placeholder="Password" name="password_signin" required/>
+                                <input id="password-signin-input" class="input" type="text" placeholder="Password" name="password_signin" required/><br>
                                 ` + signIn.render() + `
+                                </div>
                             </form>
                         </div>
                         <div class="color-section primary-secondary parallax" data-speed="-32"></div>
