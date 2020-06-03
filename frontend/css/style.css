@@ -1057,8 +1057,10 @@ h6, .h6 {
 .card .content-creator::after {
   content: "";
   font-family: "Font Awesome 5 Brands";
-  color: #f00000;
   margin-left: 8px;
+}
+.card .content-creator:hover::after {
+  color: #f00000;
 }
 
 .card .views, .card .published {

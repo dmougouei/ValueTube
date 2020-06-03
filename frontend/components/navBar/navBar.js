@@ -12,7 +12,7 @@ module.exports = class NavBar {
         return `
             <div class="nav-bar">
                 <div class="logo-container">
-                    <img class="logo" src="./frontend/img/ValueTube_Logo.svg" onclick="window.location.href = './'"></img>
+                    <img class="logo" src="./frontend/img/ValueTube_Logo.png" onclick="window.location.href = './'"></img>
                 </div>
                 <div id="about" class="nav-link" onclick="window.location.href = './about'">About</div>
                 ` + search.render() + `

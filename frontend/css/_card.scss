@@ -81,8 +81,11 @@
     &::after {
         content: '\f167';
         font-family: "Font Awesome 5 Brands";
-        color:  $red;
         margin-left: 8px;
+    }
+
+    &:hover::after {
+        color:  $red;
     }
 }
 
