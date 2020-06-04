@@ -35,7 +35,7 @@ module.exports = class ResultsPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render(this.searchQuery) + `
+                    ` + navBar.render() + `
                     <div class="full-width-container">
                         <div class="list-container mw-1300">
                             <h2>Results for "<span id="searchQuery">` + encodeURI(this.searchQuery) + `</span>"</h2>

@@ -40,6 +40,10 @@ module.exports = class SignUpPage {
                         <label for="password_signup">Password:</label>
                         <input type="text" placeholder="Password" name="password_signup" required/>
                     </div>
+                    <div class="confirm_password">
+                        <label for="confirm_password_signup">Confirm Password:</label>
+                        <input type="text" placeholder="Password" name="confirm_password_signup" required/>
+                    </div>
                     <div class="btn-container center">
                         ` + nextStep.render() + `
                     </div>
