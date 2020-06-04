@@ -75,12 +75,12 @@ module.exports = class SignUpPage {
                     <div class="full-width-container">
                         <div class="content-container signup">
                             ` + signUpPageHTML + `
-                            <div class="member-check">Already a member? <a href="./login">Sign In</a></div>
+                            <div class="member-check">Already a member? <a href="./signin">Sign In</a></div>
                         </div>
                         <div class="color-section primary-secondary half"></div>
                     </div>
                     <script type="module" src="./frontend/utilities/common.js"></script>
-                    <script type="module" src="./frontend/pages/login/login.js"></script>
+                    <script type="module" src="./frontend/pages/signUp/signUp.js"></script>
                 </body>
             </html>
         `;

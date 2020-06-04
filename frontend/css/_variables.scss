@@ -624,13 +624,13 @@
         $nav-search-height: 30px;
         $nav-search-margin: 0 auto;
 
-    //  Login
-        $nav-login-top:     -.25em;
-        $nav-login-height:  30px;
-        $nav-login-width:   185px;
+    //  Sign In
+        $nav-signin-top:     -.25em;
+        $nav-signin-height:  30px;
+        $nav-signin-width:   185px;
 
         //  Button
-            $nav-login-button-margin:   map-get($margin, "0") map-get($margin, "3");
+            $nav-signin-button-margin:   map-get($margin, "0") map-get($margin, "3");
 
     //  Scroll Reaction
         $scroll-positions: () !default;

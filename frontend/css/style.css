@@ -1516,7 +1516,7 @@ html[data-scroll="25"] .nav-bar {
   margin: 0 auto;
 }
 
-.nav-bar .login-container {
+.nav-bar .signin-container {
   display: flex;
   position: relative;
   top: -0.25em;
@@ -1524,7 +1524,7 @@ html[data-scroll="25"] .nav-bar {
   width: 185px;
 }
 
-.nav-bar .login-container .btn {
+.nav-bar .signin-container .btn {
   margin: 0px 8px;
 }
 

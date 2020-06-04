@@ -6,8 +6,8 @@ module.exports = class NavBar {
     
     render() {
         const search = new Search();
-        const loginButton = new Button("Log in", "outline caps", "primary", "./login");
-        const signupButton = new Button("Sign up", "caps", "primary", "./signup");
+        const signInButton = new Button("Sign in", "outline caps", "primary", "./signin");
+        const signUpButton = new Button("Sign up", "caps", "primary", "./signup");
 
         return `
             <div class="nav-bar">
@@ -16,9 +16,9 @@ module.exports = class NavBar {
                 </div>
                 <div id="about" class="nav-link" onclick="window.location.href = './about'">About</div>
                 ` + search.render() + `
-                <div class="login-container">
-                ` + loginButton.render() +
-                    signupButton.render() + `
+                <div class="signin-container">
+                ` + signInButton.render() +
+                    signUpButton.render() + `
                 </div>
             </div>
         `;

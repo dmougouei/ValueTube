@@ -20,8 +20,8 @@ const WatchPage = require("./frontend/pages/watch/watchPage.js");
 const AboutPage = require('./frontend/pages/about/aboutPage.js');
 const ErrorPage = require('./frontend/pages/error/errorPage.js');
 const ResultsPage = require('./frontend/pages/results/resultsPage.js');
-const LogInPage = require('./frontend/pages/login/loginPage.js');
-const SignUpPage = require('./frontend/pages/signup/signupPage.js');
+const SignInPage = require('./frontend/pages/signIn/signInPage.js');
+const SignUpPage = require('./frontend/pages/signUp/signUpPage.js');
 
 let videoList = false;
 fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
@@ -71,9 +71,9 @@ app.get('/results', (req, res) => {
     return;
 });
 
-app.get('/login', (req, res) => {
-    const login = new LogInPage();
-    res.send(login.render());
+app.get('/signin', (req, res) => {
+    const signin = new SignInPage();
+    res.send(signin.render());
     return;
 });
 

@@ -1,7 +1,7 @@
 const NavBar = require("../../components/navBar/navBar.js");
 const Button = require("../../components/button/button.js");
 
-module.exports = class LogInPage {
+module.exports = class SignInPage {
     constructor() { }
     
     render() {
@@ -42,7 +42,7 @@ module.exports = class LogInPage {
                         <div class="color-section primary-secondary half"></div>
                     </div>
                     <script type="module" src="./frontend/utilities/common.js"></script>
-                    <script type="module" src="./frontend/pages/login/login.js"></script>
+                    <script type="module" src="./frontend/pages/signin/signIn.js"></script>
                 </body>
             </html>
         `;

@@ -56,14 +56,14 @@
         margin:         $nav-search-margin;
     }
 
-    .nav-bar .login-container {
+    .nav-bar .signin-container {
         display:        flex;
         position:       relative;
-        top:            $nav-login-top;
-        height:         $nav-login-height;
-        width:          $nav-login-width;
+        top:            $nav-signin-top;
+        height:         $nav-signin-height;
+        width:          $nav-signin-width;
     }
 
-    .nav-bar .login-container .btn{
-        margin: $nav-login-button-margin;
+    .nav-bar .signin-container .btn{
+        margin: $nav-signin-button-margin;
     }
