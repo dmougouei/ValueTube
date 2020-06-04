@@ -360,6 +360,11 @@ html, body {
   background: linear-gradient(to bottom right, #424242, #424242);
 }
 
+.color-section.half {
+  top: 50vh;
+  height: 50vh;
+}
+
 .seperator {
   margin: 16px 0;
 }
@@ -553,6 +558,14 @@ h6, .h6 {
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+.btn.left {
+  float: left;
+}
+
+.btn.right {
+  float: right;
 }
 
 .btn.primary {
@@ -761,6 +774,14 @@ h6, .h6 {
   border-width: 2px;
   padding: calc(4px - 1px) calc(8px - 1px);
   border-color: #424242;
+}
+
+.btn-container {
+  display: block;
+}
+
+.btn-container.center {
+  text-align: center;
 }
 
 .btn-grp {
@@ -1636,6 +1657,71 @@ li.check-box.checked::marker {
   .search-button {
     border: none;
   }
+}
+.content-container.signin {
+  margin: calc(25vh - 85px) auto;
+}
+
+.content-container.signup {
+  margin: 5em auto 5em;
+}
+
+.survey-container, .sign-title {
+  text-align: center;
+}
+
+.signup-form {
+  padding: 16px 160px 0;
+}
+
+.signin-form {
+  padding: 16px 160px 0;
+}
+
+.signup-form input, .signin-form input {
+  all: unset;
+  display: inline-block;
+  width: calc(100% - 32px);
+  line-height: 20px;
+  user-select: none;
+  font-size: 12pt;
+  font-weight: 400;
+  color: #424242;
+  border: solid 1px #bdbdbd;
+  border-radius: 4px;
+  background-color: #ffffff;
+  padding: 4px 12px;
+  margin: 8px 0;
+}
+.signup-form input:focus, .signin-form input:focus {
+  border-color: #2F80ED;
+}
+
+.signin-form input {
+  width: calc(100% - 32px);
+}
+
+.signup-form label, .signin-form label {
+  display: block;
+}
+
+.signup-form .name, .signup-form .username {
+  display: inline-block;
+  width: calc(50% - 3px);
+}
+
+.signup-form .btn, .signin-form .btn, .survey-form .btn {
+  padding: 4px 16px;
+}
+
+.signup-form .btn, .signin-form .btn {
+  margin: 12px;
+}
+
+.member-check {
+  text-align: center;
+  margin: 8px 0;
+  padding: 4px 8px;
 }
 
 /*# sourceMappingURL=style.css.map */

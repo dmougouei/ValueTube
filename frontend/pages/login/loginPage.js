@@ -7,7 +7,7 @@ module.exports = class LogInPage {
     render() {
         const navBar = new NavBar();
         const googleSignIn = new Button(`<i class="fab fa-google"></i> Sign in with Google`, "", "primary", "");
-        const signIn = new Button("Sign In", "", "primary", "");
+        const signIn = new Button("Sign In", "", "primary", ".");
 
         return `
             <!DOCTYPE html>
@@ -22,17 +22,24 @@ module.exports = class LogInPage {
                 <body>
                     ` + navBar.render() + `
                     <div class="full-width-container">
-                        <div class="content-container">
-                            <h2>Sign in to ValueTube</h2>
-                            ` + googleSignIn.render() + `
+                        <div class="content-container signin">
+                            <div class="sign-title">
+                                <h2>Sign in to ValueTube</h2>
+                                ` + googleSignIn.render() + `
+                            </div>
                             <div class="seperator"></div>
-                            <form>
-                                <input id="username-signin-input" class="input" type="text" placeholder="Username" name="username_signin" required/>
-                                <input id="password-signin-input" class="input" type="text" placeholder="Password" name="password_signin" required/>
-                                ` + signIn.render() + `
+                            <form class="signin-form">
+                                <label for="username_signin">Username:</label>
+                                <input class="username" type="text" placeholder="Username" name="username_signin" required/>
+                                <label for="password_signin">Password:</label>
+                                <input class="password" type="text" placeholder="Password" name="password_signin" required/>
+                                <div class="btn-container center">
+                                    ` + signIn.render() + `
+                                </div>
                             </form>
+                            <div class="member-check">Not a member? <a href="./signup">Sign up now</a></div>
                         </div>
-                        <div class="color-section primary-secondary parallax" data-speed="-32"></div>
+                        <div class="color-section primary-secondary half"></div>
                     </div>
                     <script type="module" src="./frontend/utilities/common.js"></script>
                     <script type="module" src="./frontend/pages/login/login.js"></script>

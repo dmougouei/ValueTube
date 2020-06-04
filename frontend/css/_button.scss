@@ -37,6 +37,14 @@
 		letter-spacing:		map-get($button-caps, "letter-spacing");
 	}
 
+	.btn.left {
+		float: left;
+	}
+
+	.btn.right {
+		float: right;
+	}
+
 	@each $color, $value in $theme-colors {
 		.btn.#{$color} {
 			background-color:	$value;
@@ -68,3 +76,12 @@
 				}	*/
 		}
 	}
+
+	.btn-container {
+		display: block;
+	}
+
+	.btn-container.center {
+		text-align: center;
+	}
+	

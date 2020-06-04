@@ -79,7 +79,11 @@ app.get('/login', (req, res) => {
 
 app.get('/signup', (req, res) => {
     const signup = new SignUpPage();
-    res.send(signup.render());
+        if (req.query.survey != '') {
+            res.send(signup.render(false));
+        } else {
+            res.send(signup.render(true));
+        }
     return;
 });
 
