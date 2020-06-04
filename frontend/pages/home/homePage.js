@@ -2,8 +2,9 @@ const NavBar = require("../../components/navBar/navBar.js");
 const Card = require("../../components/card/card.js");
 
 module.exports = class HomePage {
-    constructor() {
+    constructor(loggedIn) {
         this.videos = false;
+        this.loggedIn = loggedIn
     }
     
     render(videos) {
@@ -35,7 +36,7 @@ module.exports = class HomePage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ` + navBar.render(this.loggedIn) + `
                     <div class="full-width-container">
                         <div class="grid-container mw-1300">
                             <h2>Recommended</h2>

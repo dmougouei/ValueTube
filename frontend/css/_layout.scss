@@ -3,6 +3,7 @@
         margin: 0;
         padding: 0;
         background: map-get($neutrals, "50");
+        overflow-anchor: none;
     }
 
     .full-width-container {

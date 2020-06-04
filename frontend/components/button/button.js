@@ -8,7 +8,7 @@ module.exports = class Button {
     
     render() {
         return `
-            <div class="btn ` + this.style + ` ` + this.color + `" onclick="window.location.href='` + this.link + `'">` + this.text + `</div>
+            <div class="btn ` + this.style + ` ` + this.color + `" onclick="window.localStorage.setItem('loggedIn', true); window.location.href='` + this.link + `'">` + this.text + `</div>
         `;
     }
 }

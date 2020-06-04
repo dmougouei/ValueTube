@@ -23,6 +23,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: #fafafa;
+  overflow-anchor: none;
 }
 
 .full-width-container {
@@ -1491,7 +1492,18 @@ html[data-scroll="25"] .nav-bar {
   margin: 0 16px;
 }
 
-.nav-bar .logo-container img {
+.nav-bar .profile_icon {
+  display: flex;
+  position: relative;
+  top: -10px;
+  height: 40px;
+  border-radius: 50%;
+  border: solid 0.5px #eeeeee;
+  overflow: hidden;
+  margin: 0 16px;
+}
+
+.nav-bar .logo-container img, .nav-bar .profile_icon img {
   height: 100%;
   cursor: pointer;
 }

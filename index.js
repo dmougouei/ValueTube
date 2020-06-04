@@ -22,6 +22,7 @@ const ErrorPage = require('./frontend/pages/error/errorPage.js');
 const ResultsPage = require('./frontend/pages/results/resultsPage.js');
 const SignInPage = require('./frontend/pages/signIn/signInPage.js');
 const SignUpPage = require('./frontend/pages/signUp/signUpPage.js');
+const SuccessPage = require('./frontend/pages/success/successPage.js');
 
 let videoList = false;
 fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
@@ -36,6 +37,14 @@ app.use('/', express.static('./'));
 
 app.get('/', (req, res) => {
     const home = new HomePage();
+    if (videoList) {
+        res.send(home.render(videoList));
+    }
+    return;
+});
+
+app.get('/-', (req, res) => {
+    const home = new HomePage(true);
     if (videoList) {
         res.send(home.render(videoList));
     }
@@ -84,6 +93,12 @@ app.get('/signup', (req, res) => {
         } else {
             res.send(signup.render(true));
         }
+    return;
+});
+
+app.get('/success', (req, res) => {
+    const success = new SuccessPage();
+    res.send(success.render());
     return;
 });
 

@@ -2,12 +2,28 @@ const Search = require("../search/search.js");
 const Button = require("../button/button.js");
 
 module.exports = class NavBar {
-    constructor(searchQuery) { }
+    constructor() { }
     
-    render() {
+    render(loggedIn) {
         const search = new Search();
         const signInButton = new Button("Sign in", "outline caps", "primary", "./signin");
         const signUpButton = new Button("Sign up", "caps", "primary", "./signup");
+
+        let profileHTML = ``;
+        if (loggedIn) {
+            profileHTML = `
+            <div class="profile_icon">
+                <img src="./frontend/img/team/default_profile.jpg" />
+            </div>
+        `;
+        } else {
+            profileHTML = `
+                <div class="signin-container">
+                ` + signInButton.render() +
+                    signUpButton.render() + `
+                </div>
+            `;
+        }
 
         return `
             <div class="nav-bar">
@@ -16,10 +32,7 @@ module.exports = class NavBar {
                 </div>
                 <div id="about" class="nav-link" onclick="window.location.href = './about'">About</div>
                 ` + search.render() + `
-                <div class="signin-container">
-                ` + signInButton.render() +
-                    signUpButton.render() + `
-                </div>
+                ` + profileHTML + `
             </div>
         `;
     }

@@ -30,7 +30,18 @@
         margin:         $nav-logo-margin;
     }
 
-    .nav-bar .logo-container img {
+    .nav-bar .profile_icon {
+        display:        flex;
+        position:       relative;
+        top:            -10px;
+        height:         40px;
+        border-radius:  50%;
+        border:         solid 0.5px #eeeeee;
+        overflow:       hidden;
+        margin:         $nav-logo-margin;    
+    }
+
+    .nav-bar .logo-container img, .nav-bar .profile_icon img {
         height: 100%;
         cursor: pointer;
     }

@@ -13,7 +13,7 @@ module.exports = class SignUpPage {
         const googleSignUp = new Button(`<i class="fab fa-google"></i> Sign in with Google`, "", "primary", "");
         const nextStep = new Button("Next", "", "primary", "./signup?survey");
         const previousStep = new Button("Back", "", "primary left", "./signup");
-        const createAccount = new Button("Create Account", "right", "primary", ".");
+        const createAccount = new Button("Create Account", "right", "primary", "./success");
 
         let signUpPageHTML = ``;
         if (!isSurvey) {

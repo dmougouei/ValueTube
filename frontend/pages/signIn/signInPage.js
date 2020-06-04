@@ -7,7 +7,7 @@ module.exports = class SignInPage {
     render() {
         const navBar = new NavBar();
         const googleSignIn = new Button(`<i class="fab fa-google"></i> Sign in with Google`, "", "primary", "");
-        const signIn = new Button("Sign In", "", "primary", ".");
+        const signIn = new Button("Sign In", "", "primary", "./-");
 
         return `
             <!DOCTYPE html>
