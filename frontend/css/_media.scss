@@ -1,0 +1,60 @@
+.media {
+
+}
+
+.media_controls {
+    
+}
+
+.media-container .details {
+    position:       relative;
+    margin:         12px;
+    float:          right;
+}
+
+.media-container .title {
+    font-size:      16pt;
+    font-weight:    $crd-title-font-weight;
+    line-height:    1.15em;
+    margin-bottom:  $crd-title-margin-bottom;
+}
+
+.media-container .content-creator, .media-container .views, .media-container .published {
+    font-size:      11pt;
+    line-height:    1.15em;
+    color:          $crd-details-sub-color;
+}
+
+.media-container .content-creator {
+    cursor: pointer;
+
+    &:hover {
+        color:  $crd-details-sub-hover-color;
+    }
+
+    &::after {
+        content: '\f167';
+        font-family: "Font Awesome 5 Brands";
+        margin-left: 8px;
+    }
+
+    &:hover::after {
+        color:  $red;
+    }
+}
+
+.media-container .views, .media-container .published {
+    display:    inline-block;
+}
+
+.media-container .views::after {
+    content:    $crd-views-after-content;
+}
+
+.media-container .description {
+    font-size:      11pt;
+    line-height:    1.15em;
+    color:          map-get($neutrals, "700");
+    padding-top:    8px;
+    text-align:     justify;
+}

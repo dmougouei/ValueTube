@@ -1,0 +1,66 @@
+.content-container.signin {
+    margin: calc(25vh - 85px) auto;
+}
+
+.content-container.signup {
+    margin: 5em auto 5em;
+}
+
+.survey-container, .sign-title {
+    text-align: center;
+}
+
+.signup-form {
+    padding: 16px 160px 0;
+}
+
+.signin-form {
+    padding: 16px 160px 0;
+}
+
+.signup-form input, .signin-form input {
+    all:                unset;
+    display:            inline-block;
+    width:              calc(100% - 32px);
+    line-height:        20px;
+    user-select:		none;
+	font-size:			12pt;
+    font-weight:		400;
+    color:				map-get($theme-colors, "dark");
+    border:             solid 1px map-get($neutrals, "400");
+    border-radius:		4px;
+    background-color:	$white;
+    padding:			map-get($padding, "2") map-get($padding, "3.5");
+    margin:             8px 0;
+
+    &:focus {
+        border-color: $primary;
+    }
+}
+
+.signin-form input {
+    width:  calc(100% - 32px);
+}
+
+.signup-form label, .signin-form label {
+    display: block;
+}
+
+.signup-form .name, .signup-form .username {
+    display:    inline-block;
+    width:      calc(50% - 3px);
+}
+
+.signup-form .btn, .signin-form .btn, .survey-form .btn {
+    padding:    4px 16px;
+}
+
+.signup-form .btn, .signin-form .btn {
+    margin: 12px;
+}
+
+.member-check {
+    text-align: center;
+    margin: 8px 0;
+    padding: 4px 8px;
+}

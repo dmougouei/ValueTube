@@ -1,0 +1,136 @@
+.search-container {
+	display:			inline-block;
+	user-select:		none;
+	font-size:			12pt;
+    font-weight:		400;
+    color:				map-get($theme-colors, "dark");
+    border:             solid 1px map-get($neutrals, "400");
+    border-radius:		4px;
+    margin:             0 auto;
+    overflow:           hidden;
+}
+
+.search-form {
+    all:                unset;
+    display:			inline-block;
+}
+
+.search-input {
+    all:                unset;
+    display:			inline-block;
+    line-height:        20px;
+    width:              500px;
+	vertical-align:		middle;
+	user-select:		none;
+	background-color:	$white;
+    padding:			map-get($padding, "2") map-get($padding, "3.5");
+}
+
+.search-button, .filter-button {
+    all:                unset;
+    display:            inline-block;
+    line-height:        20px;
+    vertical-align:		middle;
+    cursor:             pointer;
+    user-select:		none;
+    background-color:	map-get($theme-colors, "light");
+    padding:			map-get($padding, "2") map-get($padding, "4.5");
+    border-left:        solid 1px map-get($neutrals, "400");
+
+    &:hover {
+        background-color:	map-get($neutrals, "200");
+    }
+}
+
+.filter-button {
+    padding:    map-get($padding, "2") map-get($padding, "4");
+}
+
+.filter-button.selected {
+    background-color:	map-get($neutrals, "300");
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+        box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.16);
+    }
+}
+
+.search-filter-dropdown {
+    display: none;
+    position: absolute; 
+    top: calc(30px + 1.25em);    
+    left: 0;   
+    right: 0;
+    background: white;
+    height: 250px;
+    border: solid 1px rgb(186, 186, 186);
+    border-radius: 4px;   
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    transition: height 0.5s ease-in-out;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+.search-filter-dropdown.active {
+    display: block;
+}
+
+li.check-box {
+    padding-left: 8px;
+}
+
+li.check-box::marker {
+    content: '\f0c8';
+    font-family: 'Font Awesome 5 Free';
+    font-style: normal;
+    font-weight: 400;
+}
+
+li.check-box.checked::marker {
+    content: '\f14a';
+}
+
+// Media Queries
+    @media only screen and (max-width: map-get($breakpoints, xl)) {
+        .search-input {
+            width:  400px;
+        }
+    }
+
+    @media only screen and (max-width: map-get($breakpoints, lg)) {
+        .search-input {
+            width:  300px;
+        }
+
+        .search-button {
+            padding: map-get($padding, "2") map-get($padding, "4");
+        }
+
+        .filter-button {
+            padding: map-get($padding, "2") map-get($padding, "3.5");
+        }
+    }
+
+    @media only screen and (max-width: map-get($breakpoints, md)) {
+        .search-input {
+            width:  200px;
+        }
+
+        .search-button {
+            padding: map-get($padding, "2") map-get($padding, "3.5");
+        }
+
+        .filter-button {
+            padding: map-get($padding, "2") map-get($padding, "3");
+        }
+    }
+
+    @media only screen and (max-width: map-get($breakpoints, sm)) {
+        .search-input {
+            display: none;
+        }
+
+        .search-button {
+            border: none;
+        }
+    }

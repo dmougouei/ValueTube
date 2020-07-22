@@ -1,0 +1,80 @@
+//  Nav Bar Element Styling
+    .nav-bar {
+        display:        flex;
+        position:       sticky;
+        top:            0;
+        left:           0;
+        right:          0;
+        height:         $nav-height;
+        max-width:      100%;
+        line-height:    $nav-line-height;
+        flex-direction: row;
+        z-index:        $nav-z-index;
+        padding:        $nav-padding-y $nav-padding-x;
+        background:     $nav-background;
+        box-shadow:     $nav-box-shadow;
+    }
+
+    @each $position, $value in $scroll-positions {
+        html[data-scroll="#{$position}"] .nav-bar {
+            padding:        calc(#{$nav-scroll-padding-top} - #{$value}) $nav-padding-y calc(#{$nav-scroll-padding-bottom} - 0.4*#{$value});
+            background:     $nav-scroll-background;
+            box-shadow:     $nav-scroll-box-shadow;
+        }
+    }
+
+    .nav-bar .logo-container {
+        display:        flex;
+        height:         100%;
+        width:          $nav-logo-width;
+        margin:         $nav-logo-margin;
+    }
+
+    .nav-bar .profile_icon {
+        display:        flex;
+        position:       relative;
+        top:            -10px;
+        height:         40px;
+        border-radius:  50%;
+        border:         solid 0.5px #eeeeee;
+        overflow:       hidden;
+        margin:         $nav-logo-margin;    
+    }
+
+    .nav-bar .logo-container img, .nav-bar .profile_icon img {
+        height: 100%;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-link {
+        display:        flex;
+        width:          $nav-link-width;
+        vertical-align: top;
+        margin:         $nav-link-margin;
+        font-weight:    $nav-link-font-weight;
+        cursor:         pointer;
+
+        &:hover {
+            color:      $nav-link-hover-color;
+        }
+    }
+
+    .nav-bar .search {
+        display:        flex;
+        position:       relative;
+        top:            $nav-search-top;
+        height:         $nav-search-height;
+        margin:         $nav-search-margin;
+    }
+
+    .nav-bar .signin-container {
+        display:        flex;
+        position:       relative;
+        top:            $nav-signin-top;
+        height:         $nav-signin-height;
+        width:          $nav-signin-width;
+    }
+
+    .nav-bar .signin-container .btn{
+        margin: $nav-signin-button-margin;
+    }

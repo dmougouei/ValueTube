@@ -1,7 +1,82 @@
+//  Type Element Styling
 body {
-    font-family: $default-text;
-    font-weight: map-get($font-weights, "regular");
-    line-height: $text-line-height;
-    color: $text-color;
+    font-family:    $default-text;
+    font-size:      $default-font-size;
+    font-weight:    map-get($font-weights, "regular");
+    line-height:    $text-line-height;
+    color:          $text-color;
 }
 
+//  Links
+    a {
+        color: $link-color;
+
+        &:link {
+            color: $link-color; 
+        }
+        
+        &:visited {
+            color: adjust-hue($link-color, $link-visited-hue);
+        }
+    }
+
+//  Headings
+    h1, h2, h3, h4, h5, h6,
+    .h1, .h2, .h3, .h4, .h5, .h6 {
+        display: block;
+        font-family: $default-heading;
+        font-weight: $heading-weight;
+        letter-spacing: $heading-letter-spacing;
+        line-height: 1.5;
+        color: $heading-color;
+        margin: $heading-margin;
+    }
+
+    h1, .h1 {
+        font-size:  map-get($heading-font-size, "h1");
+    }
+
+    h2, .h2 {
+        font-size:  map-get($heading-font-size, "h2");
+    }
+
+    h3, .h3 {
+        font-size:  map-get($heading-font-size, "h3");
+    }
+
+    h4, .h4 {
+        font-size:  map-get($heading-font-size, "h4");
+    }
+
+    h5, .h5 {
+        font-size:  map-get($heading-font-size, "h5");
+    }
+
+    h6, .h6 {
+        font-size:  map-get($heading-font-size, "h6");
+    }
+
+// Specific Type Stying
+    //  Team Member
+        .team-member h1, .team-member .h1,
+        .team-member h2, .team-member .h2,
+        .team-member h3, .team-member .h3,
+        .team-member h4, .team-member .h4,
+        .team-member h5, .team-member .h5,
+        .team-member h6, .team-member .h6 {
+            margin: 0 0 4px 0;
+
+            &::after {
+                content: none;
+                display: none;
+            }
+        }
+
+        .team-member .sub {
+            color: map-get($neutrals, "500");
+        }
+        
+        .team-member p {
+            margin: 4px 0;
+            font-size: 12px;
+        }

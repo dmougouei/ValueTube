@@ -1,4 +1,4 @@
-class ButtonGroup {
+module.exports = class ButtonGroup {
     constructor(parent) {
         this.parent = parent;
         this.buttons = [
@@ -20,8 +20,6 @@ class ButtonGroup {
         btnGrpHTML += `<div class="btn end ` + this.buttons[(this.buttons.length - 1)].color + `">` + this.buttons[(this.buttons.length - 1)].text + `</div>`;
         btnGrpHTML += `</div>`;
 
-        this.parent.innerHTML += btnGrpHTML;
+        return btnGrpHTML;
     }
 }
-
-export default ButtonGroup;

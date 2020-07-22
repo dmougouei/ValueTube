@@ -96,10 +96,10 @@
                     "900":      $warm-gray-900,
                     "black":    $black
                 ),
-                $warm-grays
+                $grays
             );
 
-        $neutrals: $grays;
+        $neutrals: $warm-grays;
 
     //  Colors  --- NOTE: Check these values ---
         $red:           #f00000 !default;
@@ -168,12 +168,151 @@
             $theme-colors
         );
 
+//  Layout
+    //  Padding
+        $padding-0:     0px;
+        $padding-1:     2px;
+        $padding-2:     4px;
+        $padding-3:     8px;
+        $padding-3-5:   12px;
+        $padding-4:     16px;
+        $padding-4-5:   24px;
+        $padding-5:     32px;
+        $padding-6:     64px;
+        $padding-7:     128px;
+        $padding-8:     256px;
+        $padding-9:     512px;
+
+        $padding: () !default;
+        $padding: map-merge(
+            (
+                "0":    $padding-0,
+                "1":    $padding-1,
+                "2":    $padding-2,
+                "3":    $padding-3,
+                "3.5":  $padding-3-5,
+                "4":    $padding-4,
+                "4.5":  $padding-4-5,
+                "5":    $padding-5,
+                "6":    $padding-6,
+                "7":    $padding-7,
+                "8":    $padding-8,
+                "9":    $padding-9
+            ),
+            $padding
+        );
+    
+    //  Margin
+        $margin-0:      0px;
+        $margin-1:      2px;
+        $margin-2:      4px;
+        $margin-3:      8px;
+        $margin-4:      16px;
+        $margin-4-5:    24px;
+        $margin-5:      32px;
+        $margin-6:      64px;
+        $margin-7:      128px;
+        $margin-8:      256px;
+        $margin-9:      512px;
+
+        $margin: () !default;
+        $margin: map-merge(
+            (
+                "0":    $margin-0,
+                "1":    $margin-1,
+                "2":    $margin-2,
+                "3":    $margin-3,
+                "4":    $margin-4,
+                "4.5":  $margin-4-5,
+                "5":    $margin-5,
+                "6":    $margin-6,
+                "7":    $margin-7,
+                "8":    $margin-8,
+                "9":    $margin-9
+            ),
+            $margin
+        );
+
+    //  Z-Index Master List
+        $z-index-0: 0;
+        $z-index-1: 100;
+        $z-index-2: 200;
+        $z-index-3: 300;
+        $z-index-4: 400;
+        $z-index-5: 500;
+        $z-index-6: 600;
+        $z-index-7: 700;
+        $z-index-8: 800;
+        $z-index-9: 900;
+
+        $z-index: () !default;
+        $z-index: map-merge(
+            (
+                "0": $z-index-0,
+                "100": $z-index-1,
+                "200": $z-index-2,
+                "300": $z-index-3,
+                "400": $z-index-4,
+                "500": $z-index-5,
+                "600": $z-index-6,
+                "700": $z-index-7,
+                "800": $z-index-8,
+                "900": $z-index-9
+            ),
+            $z-index
+        );
+
+    //  Breakpoints
+        $breakpoints: (
+            xs: 480px,
+            sm: 720px,
+            md: 960px,
+            lg: 1080px,
+            xl: 1200px
+        ) !default;
+
+        $max-widths: (
+            sm: 540px,
+            md: 720px,
+            lg: 960px,
+            xl: 1140px
+        ) !default;
+
+    //  Box Shadows
+        $shadow-0: 0 1px 2px rgba(0, 0, 0, 0.04);
+        $shadow-1: 0 2px 4px rgba(0, 0, 0, 0.08);
+        $shadow-2: 0 4px 8px rgba(0, 0, 0, 0.08);
+        $shadow-3: 0 8px 16px rgba(0, 0, 0, 0.10);
+        $shadow-4: 0 16px 32px rgba(0, 0, 0, 0.12);
+        $shadow-5: 0 32px 64px rgba(0, 0, 0, 0.16);
+        $shadow-6: 0 64px 128px rgba(0, 0, 0, 0.20);
+
+        $shadows: () !default;
+        $shadows: map-merge(
+            (
+                "0": $shadow-0,
+                "1": $shadow-1,
+                "2": $shadow-2,
+                "3": $shadow-3,
+                "4": $shadow-4,
+                "5": $shadow-5,
+                "6": $shadow-6,
+            ),
+            $shadows
+        );
+
+    //  Containers
+        $full-width-padding:    0 map-get($padding, "4.5");
+
+        $color-section-margin:  map-get($margin, "6") 0;
+        $color-section-padding: map-get($padding, "5") 0;
+
 //  Type
-    // Comment out any unused fonts to reduce load times/download size.
+    //  Comment out any unused fonts to reduce load times/download size.
     @import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Comfortaa&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Literata&display=swap');
-    @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+    //  @import url('https://fonts.googleapis.com/css2?family=Literata&display=swap');
+    //  @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap');
 
     $text-sans-serif: 'Work Sans', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
     $heading-sans-serif: 'Comfortaa', 'Work Sans', 'Gill Sans', 'Gill Sans MT', 'Calibri', 'Trebuchet MS', sans-serif;
@@ -184,8 +323,14 @@
     $default-text: $text-sans-serif;
     $default-heading: $heading-sans-serif;
 
+    //  Size
+        $default-font-size: 16px;
+
     //  Color
-        $text-color: map-get($theme-colors, "dark");
+        $text-color:    map-get($theme-colors, "dark");
+        $link-color:    map-get($theme-colors, "primary");
+
+        $link-visited-hue:  30deg;
 
     //  Font Weight
         $thin:          100 !default;
@@ -219,98 +364,39 @@
     //  Line Height
         $text-line-height: 1.5 !default;
 
-//  Layout
-    //  Padding
-        $padding-0:     0px;
-        $padding-1:     2px;
-        $padding-2:     4px;
-        $padding-3:     8px;
-        $padding-3-5:   12px;
-        $padding-4:     16px;
-        $padding-5:     32px;
-        $padding-6:     64px;
-        $padding-7:     128px;
-        $padding-8:     256px;
-        $padding-9:     512px;
+    //  Headings
+        $default-heading:           $default-heading;
+        $heading-weight:            map-get($font-weights, "700");
+        $heading-letter-spacing:    .067em;
+        $heading-line-height:       1.5;
+        $heading-color:             $text-color;
+        $heading-margin:            map-get($margin, "4") 0;
 
-        $padding: () !default;
-        $padding: map-merge(
+        $h1-font-size:  2em     !default;
+        $h2-font-size:  1.5em   !default;
+        $h3-font-size:  1.25em  !default;
+        $h4-font-size:  1em     !default;
+        $h5-font-size:  .75em   !default;
+        $h6-font-size:  .5em    !default;
+
+        $heading-font-size: ()  !default;
+
+        $heading-font-size: map-merge(
             (
-                "0":    $padding-0,
-                "1":    $padding-1,
-                "2":    $padding-2,
-                "3":    $padding-3,
-                "3.5":  $padding-3-5,
-                "4":    $padding-4,
-                "5":    $padding-5,
-                "6":    $padding-6,
-                "7":    $padding-7,
-                "8":    $padding-8,
-                "9":    $padding-9
+                "h1": $h1-font-size,
+                "h2": $h2-font-size,
+                "h3": $h3-font-size,
+                "h4": $h4-font-size,
+                "h5": $h5-font-size,
+                "h6": $h6-font-size
             ),
-            $padding
+            $heading-font-size
         );
-    
-    //  Margin
-        $margin-0: 0px;
-        $margin-1: 2px;
-        $margin-2: 4px;
-        $margin-3: 8px;
-        $margin-4: 16px;
-        $margin-5: 32px;
-        $margin-6: 64px;
-        $margin-7: 128px;
-        $margin-8: 256px;
-        $margin-9: 512px;
-
-        $margin: () !default;
-        $margin: map-merge(
-            (
-                "0": $margin-0,
-                "1": $margin-1,
-                "2": $margin-2,
-                "3": $margin-3,
-                "4": $margin-4,
-                "5": $margin-5,
-                "6": $margin-6,
-                "7": $margin-7,
-                "8": $margin-8,
-                "9": $margin-9
-            ),
-            $margin
-        );
-
-//  Z-Index Master List
-
-//  Breakpoints
-
-//  Box Shadows
-    $shadow-0: 0 1px 2px rgba(0, 0, 0, 0.04);
-    $shadow-1: 0 2px 4px rgba(0, 0, 0, 0.08);
-    $shadow-2: 0 4px 8px rgba(0, 0, 0, 0.08);
-    $shadow-3: 0 8px 16px rgba(0, 0, 0, 0.10);
-    $shadow-4: 0 16px 32px rgba(0, 0, 0, 0.12);
-    $shadow-5: 0 32px 64px rgba(0, 0, 0, 0.16);
-    $shadow-6: 0 64px 128px rgba(0, 0, 0, 0.20);
-
-    $shadows: () !default;
-    $shadows: map-merge(
-        (
-            "0": $shadow-0,
-            "1": $shadow-1,
-            "2": $shadow-2,
-            "3": $shadow-3,
-            "4": $shadow-4,
-            "5": $shadow-5,
-            "6": $shadow-6,
-        ),
-        $shadows
-    );
 
 //  Button
     $btn-background-color:  $primary;
     $btn-font-size:         12pt;
-    $btn-font-weight:       $regular;
+    $btn-font-weight:       map-get($font-weights, "regular");
     $btn-color:             $white;
     $btn-text-transform:    none;
     $btn-letter-spacing:    normal;
@@ -318,6 +404,8 @@
     $btn-padding-y:         map-get($padding, "2");
     $btn-border-radius:     4px;
     $btn-border:            solid 1.5px $primary;
+
+    $btn-hover-hue:         5deg;
 
     //  Caps
         $btn-font-size-caps:        10pt;
@@ -333,19 +421,23 @@
         $btn-background-color-outline:  unset;
         $btn-color-outline:             map-get($theme-colors, "primary");
 
+        $btn-hover-font-weight-outline:     map-get($font-weights, "semi-bold");
+		$btn-hover-border-width-outline:    2px;
+		$btn-hover-padding-outline:			calc(#{map-get($padding, "2")} - 1px) calc(#{map-get($padding, "3")} - 1px);
+
     //  Varients
         $button-default: () !default;
         $button-default: map-merge(
             (
-                "background-color": $btn-background-color,
-                "font-size":        $btn-font-size,
-                "font-weight":      $btn-font-weight,
-                "color":            $btn-color,
-                "text-transform":   $btn-text-transform,
-                "letter-spacing":   $btn-letter-spacing,
-                "padding":          $btn-padding-y $btn-padding-x,
-                "border-radius":    $btn-border-radius,
-                "border":           $btn-border
+                "background-color":         $btn-background-color,
+                "font-size":                $btn-font-size,
+                "font-weight":              $btn-font-weight,
+                "color":                    $btn-color,
+                "text-transform":           $btn-text-transform,
+                "letter-spacing":           $btn-letter-spacing,
+                "padding":                  $btn-padding-y $btn-padding-x,
+                "border-radius":            $btn-border-radius,
+                "border":                   $btn-border
             ),
             $button-default
         );
@@ -353,8 +445,11 @@
         $button-outline: () !default;
         $button-outline: map-merge(
             (
-                "background-color": $btn-background-color-outline,
-                "color":            $btn-color-outline,
+                "background-color":     $btn-background-color-outline,
+                "color":                $btn-color-outline,
+                "hover-font-weight":    $btn-hover-font-weight-outline,
+                "hover-border-width":   $btn-hover-border-width-outline,
+                "hover-padding":        $btn-hover-padding-outline
             ),
             $button-outline
         );
@@ -394,6 +489,8 @@
     $btn-grp-btn-border:        solid 0 $primary;
     $btn-grp-btn-border-width:  1.5px;
 
+    $btn-grp-hover-hue:         5deg;
+
 //  Caps
     $btn-grp-font-size-caps:        10pt;
     $btn-grp-font-weight-caps:      $medium;
@@ -412,17 +509,17 @@
     $button-group-default: () !default;
     $button-group-default: map-merge(
         (
-            "background-color": $btn-grp-background-color,
-            "font-size":        $btn-grp-font-size,
-            "font-weight":      $btn-grp-font-weight,
-            "color":            $btn-grp-color,
-            "text-transform":   $btn-grp-text-transform,
-            "letter-spacing":   $btn-grp-letter-spacing,
-            "padding":          $btn-grp-padding-y $btn-grp-padding-x,
-            "border-radius":    $btn-grp-border-radius,
-            "border":           $btn-grp-border,
-            "btn-border":       $btn-grp-btn-border,
-            "btn-border-width": $btn-grp-btn-border-width
+            "background-color":             $btn-grp-background-color,
+            "font-size":                    $btn-grp-font-size,
+            "font-weight":                  $btn-grp-font-weight,
+            "color":                        $btn-grp-color,
+            "text-transform":               $btn-grp-text-transform,
+            "letter-spacing":               $btn-grp-letter-spacing,
+            "padding":                      $btn-grp-padding-y $btn-grp-padding-x,
+            "border-radius":                $btn-grp-border-radius,
+            "border":                       $btn-grp-border,
+            "btn-border":                   $btn-grp-btn-border,
+            "btn-border-width":             $btn-grp-btn-border-width
         ),
         $button-group-default
     );
@@ -458,10 +555,12 @@
 
 //  Card
     $crd-width:     296px;
-    $crd-margin:    map-get($margin, "4") map-get($margin, "3");
+    $crd-margin:    0 auto;
 
     $crd-border-default:    solid .5px map-get($neutrals, "200");
     $crd-shadow-default:    map-get($shadows, "2");
+
+    // $crd-shadow-hover-default: map-get($shadows, "3");
 
     //  Flat
     $crd-border-flat:    none;
@@ -478,7 +577,7 @@
         $crd-duration-margin:           0 map-get($margin, "2") map-get($margin, "2") 0;
         $crd-duration-padding:          map-get($padding, "0") map-get($padding, "2");
 
-        $crd-details-padding:   map-get($padding, "2") map-get($padding, "3");
+        $crd-details-padding:   map-get($padding, "3") map-get($padding, "3.5");
 
         $crd-title-font-size:       13pt;
         $crd-title-font-weight:     map-get($font-weights, "medium");
@@ -489,4 +588,81 @@
         $crd-details-sub-line-height:   1em;
         $crd-details-sub-color:         map-get($neutrals, "500");
 
+        $crd-details-sub-hover-color:   map-get($theme-colors, "dark");
+
         $crd-views-after-content:   ' - ';
+
+//  Nav Bar
+    $nav-height:        20px;
+    $nav-line-height:   20px;
+    $nav-z-index:       map-get($z-index, "700");
+    $nav-padding-x:     map-get($padding, "4.5");
+    $nav-padding-y:     15px;
+    $nav-background:    map-get($neutrals, "white");
+    $nav-box-shadow:    map-get($shadows, "3");
+
+    $nav-scroll-padding-top:    40px;
+    $nav-scroll-padding-bottom: 25px;
+    $nav-scroll-background:     unset;
+    $nav-scroll-box-shadow:     unset;
+
+    //  Items
+        $nav-item-margin:   0 map-get($margin, "4");
+
+    //  Logo
+        $nav-logo-width:    136.4px;
+        $nav-logo-margin:   $nav-item-margin;
+
+    //  Link
+        $nav-link-width:          47px;
+        $nav-link-margin:         $nav-item-margin;
+        $nav-link-font-weight:    map-get($font-weights, "medium");
+        $nav-link-hover-color:    map-get($neutrals, "black");
+    
+    //  Search
+        $nav-search-top:    -.25em;
+        $nav-search-height: 30px;
+        $nav-search-margin: 0 auto;
+
+    //  Sign In
+        $nav-signin-top:     -.25em;
+        $nav-signin-height:  30px;
+        $nav-signin-width:   187px;
+
+        //  Button
+            $nav-signin-button-margin:   map-get($margin, "0") map-get($margin, "3");
+
+    //  Scroll Reaction
+        $scroll-positions: () !default;
+
+        $scroll-positions: map-merge(
+            (
+                "0": 0px,
+                "1": 1px,
+                "2": 2px,
+                "3": 3px,
+                "4": 4px,
+                "5": 5px,
+                "6": 6px,
+                "7": 7px,
+                "8": 8px,
+                "9": 9px,
+                "10": 10px,
+                "11": 11px,
+                "12": 12px,
+                "13": 13px,
+                "14": 14px,
+                "15": 15px,
+                "16": 16px,
+                "17": 17px,
+                "18": 18px,
+                "19": 19px,
+                "20": 20px,
+                "21": 21px,
+                "22": 22px,
+                "23": 23px,
+                "24": 24px,
+                "25": 25px
+            ),
+            $scroll-positions
+        );
