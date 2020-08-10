@@ -1,58 +1,90 @@
+const WIDTH_VALUES = require('windlass').Components.Default.WIDTH_VALUES;
+const {
+    Container,
+    Seperator,
+} = require('windlass').Components.Layout;
+const {
+    HEADING_VALUES,
+    Heading,
+} = require('windlass').Components.Typography;
+const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
+const TypeHelpers = require('windlass').Utilities.Server.TypeHelpers;
 const NavBar = require("../../components/navBar/navBar.js");
 const Card = require("../../components/card/card.js");
 
-module.exports = class HomePage {
-    constructor(loggedIn) {
-        this.videos = false;
-        this.loggedIn = loggedIn
-    }
-    
-    render(videos) {
-        this.videos = videos;
-        const navBar = new NavBar();
-        let cardsHTML_1 = "";
-        if (this.videos) {
-            for (let i = 0; i < 8; i++) {
-                const card = new Card(this.videos[i].metadata);
-                cardsHTML_1 += card.render();
-            }
-        }
-        let cardsHTML_2 = "";
-        if (this.videos) {
-            for (let i = 8; i < 30; i++) {
-                const card = new Card(this.videos[i].metadata);
-                cardsHTML_2 += card.render();
-            }
-        }
-    
-        return `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>ValueTube</title>
-                    <link rel="icon" href="./frontend/img/ValueTube_Logogram.svg" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/fonts/font-awesome/css/all.min.css" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
-                </head>
-                <body>
-                    ` + navBar.render(this.loggedIn) + `
-                    <div class="full-width-container">
-                        <div class="grid-container mw-1300">
-                            <h2>Recommended</h2>
-                            <div class="seperator"></div>
-                            <div class="grid-4">` +
-                                cardsHTML_1
-                            + `</div>
-                            <div class="seperator"></div>
-                            <div class="grid-4">` +
-                                cardsHTML_2
-                            + `</div>
-                        </div>
-                    <script type="module" src="./frontend/utilities/common.js"></script>
-                    <script type="module" src="./frontend/pages/home/home.js"></script>
-                </body>
-            </html>
-        `;
+class HOME_PAGE_PROPERTIES {
+    constructor(props) {
+        // loggedIn
+        TypeHelpers.typeCheckPrimative(
+            this,
+            props,
+            "loggedIn",
+            TypeHelpers.PRIMATIVES.BOOLEAN,
+            false,
+            props.loggedIn
+        );
+
+        // videos
+        TypeHelpers.typeCheckPrimative(
+            this,
+            props,
+            "videos",
+            TypeHelpers.PRIMATIVES.ARRAY,
+            "",
+            props.videos
+        );
     }
 }
+
+module.exports = function HomePage (props) {
+    try {
+        if (typeof props === "object" || props instanceof Object) {
+            props instanceof HOME_PAGE_PROPERTIES
+                ? (this.props = props)
+                : (this.props = new HOME_PAGE_PROPERTIES(props));
+            return DefaultTemplate({
+                description: "Home page for the ValueTube website.",
+                title: "ValueTube",
+                icon: "./frontend/img/ValueTube_Logogram.svg",
+                linkedStylesheets: [
+                    "./frontend/fonts/font-awesome/css/all.min.css",
+                    "./frontend/css/style.css",
+                ],
+                linkedScripts: [
+                    "./frontend/utilities/common.js",
+                    "./frontend/pages/home/home.js",
+                ],
+                content: [
+                    NavBar(this.props.loggedIn),
+                    Container({
+                        class: "full-width-container",
+                        content:
+                            Container({
+                                class: "grid-container",
+                                maxWidth: WIDTH_VALUES.LARGE,
+                                content: [
+                                    Heading({
+                                        variant: HEADING_VALUES.HEADING_2,
+                                        content: "Recommended",
+                                    }),
+                                    Seperator(),
+                                    Container({
+                                        class: "grid-4",
+                                        content:
+                                            this.props.videos.map((video) => {
+                                                return Card(video.metadata);
+                                            }).join("\n"),
+                                    })
+                                ].join("\n"),
+                            })
+                        ,
+                    }),
+                ].join("\n"),
+            });
+        } else {
+          throw new TypeError(`${props} on HomePage is not a valid Object type.`);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+};

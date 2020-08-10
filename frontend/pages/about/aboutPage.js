@@ -1,61 +1,118 @@
+const {
+    CONTAINER_VALUES,
+    Container,
+    Seperator,
+} = require('windlass').Components.Layout;
+const {
+    HEADING_VALUES,
+    Heading,
+    Link,
+    Text,
+} = require('windlass').Components.Typography;
+const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const NavBar = require("../../components/navBar/navBar.js");
 const aboutData = require("./aboutData.js");
 
-module.exports = class AboutPage {
-    constructor() { }
-    
-    render() {
-        const navBar = new NavBar();
-        let teamMembersHTML = "";
-        
-        aboutData.teamMembers.forEach((teamMember) => {
-            teamMembersHTML +=
-                `<div class="team-member">
-                    <img src="./frontend/img/team/` + teamMember.img + `" />
-                    <h4>` + teamMember.name + `</h4>
-                    <h6 class="sub">` + teamMember.role + `</h6>
-                    <p>` + teamMember.description + `</p>
-                    <p><a href="mailto://` + teamMember.link + `" />Email</a></p>
-                </div>`;
-        });
-    
-        return `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>ValueTube - About</title>
-                    <link rel="icon" href="./frontend/img/ValueTube_Logogram.svg" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/fonts/font-awesome/css/all.min.css" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
-                </head>
-                <body>
-                    ` + navBar.render() + `
-                    <div class="full-width-container">
-                        <div class="content-container">
-                            <h2>About Us</h2>
-                            <div class="seperator"></div>
-                            <p>` + aboutData.mission + `</p>
-                        </div>
-                        <div class="color-section primary-secondary parallax" data-speed="-32"></div>
-                        <div class="content-container">
-                            <h2>Meet the Team</h2>
-                            <div class="seperator"></div>
-                            <div class="grid-3">` +
-                                teamMembersHTML
-                            + `</div>
-                        </div>
-                        <div class="content-container">
-                            <h2>Find out more</h2>
-                            <div class="seperator"></div>
-                            <p>For more information about this project. Please checkout our GitLab repository at:</p>
-                            <p><a href="https://gitlab.com/ValueTube/ValueTube">https://gitlab.com/ValueTube/ValueTube</a></p>
-                        </div>
-                    </div>
-                    <script type="module" src="./frontend/utilities/common.js"></script>
-                    <script type="module" src="./frontend/pages/about/about.js"></script>
-                </body>
-            </html>
-        `;
-    }
-}
+module.exports = function AboutPage() {
+    return DefaultTemplate({
+        description: "About page for the ValueTube website.",
+        title: "ValueTube - About",
+        icon: "./frontend/img/ValueTube_Logogram.svg",
+        linkedStylesheets: [
+            "./frontend/fonts/font-awesome/css/all.min.css",
+            "./frontend/css/style.css",
+        ],
+        linkedScripts: [
+            "./frontend/utilities/common.js",
+            "./frontend/pages/about/about.js",
+        ],
+        content: [
+            NavBar(),
+            Container({
+                variant: CONTAINER_VALUES.MAIN,
+                class: "full-width-container",
+                content: [
+                    Container({
+                        variant: CONTAINER_VALUES.SECTION,
+                        class: "content-container",
+                        content: [
+                            Heading({
+                                variant: HEADING_VALUES.HEADING_2,
+                                content: "About Us"
+                            }),
+                            Seperator(),
+                            Text({
+                                paragraph: true,
+                                content: aboutData.mission
+                            }),
+                        ].join("\n"),
+                    }),
+                    `<div class="color-section primary-secondary parallax" data-speed="-32"></div>`,
+                    Container({
+                        variant: CONTAINER_VALUES.SECTION,
+                        class: "content-container",
+                        content: [
+                            Heading({
+                                variant: HEADING_VALUES.HEADING_2,
+                                content: "Meet the Team"
+                            }),
+                            Seperator(),
+                            Container({
+                                class: "grid-3",
+                                content:
+                                    aboutData.teamMembers.map((teamMember) => {
+                                        return Container({
+                                            class: "team-member",
+                                            content: [
+                                                `<img alt="Picture of ${teamMember.name}" src="./frontend/img/team/${teamMember.img}" />`,
+                                                Heading({
+                                                    variant: HEADING_VALUES.HEADING_4,
+                                                    content: teamMember.name,
+                                                }),
+                                                Heading({
+                                                    variant: HEADING_VALUES.HEADING_6,
+                                                    class: "sub",
+                                                    content: teamMember.role,
+                                                }),
+                                                Text({
+                                                    paragraph: true,
+                                                    content: teamMember.description,
+                                                }),
+                                                Link({
+                                                    paragraph: true,
+                                                    link: `mailto://${teamMember.link}`,
+                                                    content: "Email"
+                                                })
+                                            ].join("\n"),
+                                        });
+                                    }).join("\n")
+                                ,
+                            }),
+                        ].join("\n"),
+                    }),
+                    Container({
+                        variant: CONTAINER_VALUES.SECTION,
+                        class: "content-container",
+                        content: [
+                            Heading({
+                                variant: HEADING_VALUES.HEADING_2,
+                                content: "Find out more"
+                            }),
+                            Seperator(),
+                            Text({
+                                paragraph: true,
+                                content: "For more information about this project. Please checkout our GitLab repository at:"
+                            }),
+                            Link({
+                                link: "https://gitlab.com/ValueTube/ValueTube",
+                                paragraph: true,
+                                tabIndex: 0,
+                                content: "https://gitlab.com/ValueTube/ValueTube",
+                            }),
+                        ].join("\n"),
+                    }),
+                ].join("\n"),
+            }),
+        ].join("\n"),
+    });
+};

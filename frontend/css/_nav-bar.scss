@@ -54,7 +54,15 @@
         font-weight:    $nav-link-font-weight;
         cursor:         pointer;
 
-        &:hover {
+        a {
+            all: inherit;
+        }
+
+        a:focus {
+            color:      $nav-link-hover-color;
+        }
+
+        a:hover {
             color:      $nav-link-hover-color;
         }
     }

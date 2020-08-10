@@ -366,10 +366,12 @@ html, body {
   height: 50vh;
 }
 
-.seperator {
+hr {
+  all: unset;
+  display: block;
   margin: 16px 0;
 }
-.seperator::after {
+hr::after {
   content: "";
   display: block;
   background: #424242;
@@ -1516,7 +1518,13 @@ html[data-scroll="25"] .nav-bar {
   font-weight: 500;
   cursor: pointer;
 }
-.nav-bar .nav-link:hover {
+.nav-bar .nav-link a {
+  all: inherit;
+}
+.nav-bar .nav-link a:focus {
+  color: #000000;
+}
+.nav-bar .nav-link a:hover {
   color: #000000;
 }
 
@@ -1715,11 +1723,6 @@ li.check-box.checked::marker {
 
 .signup-form label, .signin-form label {
   display: block;
-}
-
-.signup-form .name, .signup-form .username {
-  display: inline-block;
-  width: calc(50% - 3px);
 }
 
 .signup-form .btn, .signin-form .btn, .survey-form .btn {

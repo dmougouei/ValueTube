@@ -1,0 +1,1 @@
+openssl x509 -req -sha256 -days 1024 -in localhost.csr -CA RootSSL.pem -CAkey RootSSL.key -CAcreateserial -extfile domains.ext -out localhost.crt

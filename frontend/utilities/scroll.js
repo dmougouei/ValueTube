@@ -45,4 +45,7 @@ window.addEventListener("scroll", function(){
     }
 });
 
-export {debounce, storeScroll};
+export {
+    debounce,
+    storeScroll,
+};

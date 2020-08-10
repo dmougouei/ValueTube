@@ -21,7 +21,6 @@ module.exports = class WatchPage {
     
     render(videos) {
         this.videos = videos;
-        const navBar = new NavBar();
         const media = new Media(this.metadata);
         let listHTML = "";
         if (this.videos.length != 0) {
@@ -94,7 +93,7 @@ module.exports = class WatchPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ${NavBar()}
                     <div class="full-width-container">
                         <div class="grid-container">
                             <div class="grid-3-1">
