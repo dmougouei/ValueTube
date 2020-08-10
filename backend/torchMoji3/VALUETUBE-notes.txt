@@ -1,0 +1,16 @@
+- Go through commentsEmojid table and remove any comments with duplicate Text field,
+there may be some videos added twice if they are the most popular videos in multiple regions
+videos were grabbed from (NZ, AU, US, etc). Maybe do a "SELECT" statement for each VideoID, then a "SELECT DISTINCT" for each
+Text field? Some comments may have a similar/identical Text field between each VideoID so need to take this into consideration.
+- Maybe add region code as a field as well as a future stretch goal - can draw comparisons between emotional content on
+different popular videos between Countries and cultures e.g. interesting that among Australian videos, the most popular
+video with the most red angry faces (emoji 32 in emoji_overview.png) was a youtube video for NRL highlights.
+- Figure out if using the deepmoji model for languages other than English is possible - transfer learning?
+Or maybe some kind of translator (e.g. google translate may have an API and this may be good enough to get the meaning of words simply for tokenization).
+- Try and make more processing use the GPU, particularly for transfer learning
+
+- We can use clustering to reduce dimensionality of dataset
+
+Clustering research:
+https://link.springer.com/article/10.1007/s10994-013-5374-3
+https://wiskojo.github.io/visualizing-reddit-sentiments-with-emojis/ this link has good info for how clustering is used
