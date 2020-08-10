@@ -35,7 +35,9 @@
         height: 50vh;
     }
 
-    .seperator {
+    hr {
+        all: unset;
+        display: block;
         margin: 16px 0;
         &::after {
             content: '';

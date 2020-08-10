@@ -8,7 +8,6 @@ module.exports = class ResultsPage {
    
     render(videos) {
         this.videos = videos;
-        const navBar = new NavBar();
         let listHTML = "";
         if (this.videos.length != 0) {
             for (let i = 0; i < this.videos.length; i++) {
@@ -35,7 +34,7 @@ module.exports = class ResultsPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ${NavBar()}
                     <div class="full-width-container">
                         <div class="list-container mw-1300">
                             <h2>Results for "<span id="searchQuery">` + encodeURI(this.searchQuery) + `</span>"</h2>

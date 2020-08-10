@@ -1,28 +1,32 @@
 const express = require('express');
 const app = express();
+const spdy = require('spdy');
+const compression = require('compression')
 const fs = require('fs');
-var exec = require('child_process').exec;
-const {Pool} = require('pg');
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'ValueTubeUserInfo',
-    password: '',
-    port: '5432'
-});
+// const {Pool} = require('pg');
+// const pool = new Pool({
+//     user: 'postgres',
+//     host: 'localhost',
+//     database: 'ValueTubeUserInfo',
+//     password: '',
+//     port: '5432'
+// });
+const Pages = require("./frontend/pages")
 
-function execute(command, callback){
-    exec(command, function(error, stdout, stderr){ callback(stdout); });
-};
+const options = {
+    key: fs.readFileSync('./keys/localhost.key'),
+    cert: fs.readFileSync('./keys/localhost.crt')
+}
 
-const HomePage = require('./frontend/pages/home/homePage.js');
-const WatchPage = require("./frontend/pages/watch/watchPage.js");
-const AboutPage = require('./frontend/pages/about/aboutPage.js');
-const ErrorPage = require('./frontend/pages/error/errorPage.js');
-const ResultsPage = require('./frontend/pages/results/resultsPage.js');
-const SignInPage = require('./frontend/pages/signIn/signInPage.js');
-const SignUpPage = require('./frontend/pages/signUp/signUpPage.js');
-const SuccessPage = require('./frontend/pages/success/successPage.js');
+const compress = (req, res) => {
+    // don't compress responses asking explicitly not
+    if (req.headers['x-no-compression']) {
+      return false
+    }
+  
+    // use compression filter function
+    return compression.filter(req, res)
+}
 
 let videoList = false;
 fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
@@ -33,20 +37,23 @@ fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
     videoList = JSON.parse(data);
 });
 
-app.use('/', express.static('./'));
+app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', (req, res) => {
-    const home = new HomePage();
     if (videoList) {
-        res.send(home.render(videoList));
+        res.send(Pages.HomePage({
+            videos: videoList,
+        }));
     }
     return;
 });
 
 app.get('/-', (req, res) => {
-    const home = new HomePage(true);
     if (videoList) {
-        res.send(home.render(videoList));
+        res.send(Pages.HomePage({
+            loggedIn: true,
+            videos: videoList,
+        }));
     }
     return;
 });
@@ -57,7 +64,7 @@ app.get('/watch', (req, res) => {
             return (video.id == req.query.v);
         }).metadata;
 
-        const watch = new WatchPage(metadata);
+        const watch = new Pages.WatchPage(metadata);
         res.send(watch.render(videoList));
         return;
     } else {
@@ -67,13 +74,12 @@ app.get('/watch', (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    const about = new AboutPage();
-    res.send(about.render());
+    res.send(Pages.AboutPage());
     return;
 });
 
 app.get('/results', (req, res) => {
-    const results = new ResultsPage(req.query.search_query);
+    const results = new Pages.ResultsPage(req.query.search_query);
     if (videoList) {
         res.send(results.render(videoList));
     }
@@ -81,13 +87,13 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    const signin = new SignInPage();
+    const signin = new Pages.SignInPage();
     res.send(signin.render());
     return;
 });
 
 app.get('/signup', (req, res) => {
-    const signup = new SignUpPage();
+    const signup = new Pages.SignUpPage();
         if (req.query.survey != '') {
             res.send(signup.render(false));
         } else {
@@ -97,7 +103,7 @@ app.get('/signup', (req, res) => {
 });
 
 app.get('/success', (req, res) => {
-    const success = new SuccessPage();
+    const success = new Pages.SuccessPage();
     res.send(success.render());
     return;
 });
@@ -108,8 +114,7 @@ app.get('*', (req, res) => {
   
     // respond with html page
     if (req.accepts('html')) {
-        const error = new ErrorPage();
-        res.send(error.render());
+        res.send(Pages.ErrorPage());
         return;
     }
   
@@ -124,7 +129,23 @@ app.get('*', (req, res) => {
 });
 
 
-let ipAddr = 'localhost';
+const ipAddr = 'localhost';
+const PORT = 443;
 
-app.listen(8080);
-console.log('Running on http://' + ipAddr + ':8080');
+spdy.createServer(options, app).listen(PORT, error => {
+    if (error) {
+      console.error(error)
+      return process.exit(1)
+    } else {
+      console.log(`HTTP/2 server 'Running on https://` + ipAddr)
+    }
+});
+
+// Redirect http traffic to https
+var httpServer = express();
+
+httpServer.get('*', function(req, res) {  
+    res.redirect('https://' + req.headers.host + req.url);
+})
+
+httpServer.listen(80);

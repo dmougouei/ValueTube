@@ -6,8 +6,6 @@ module.exports = class SignUpPage {
     constructor() { }
     
     render(isSurvey) {
-        const navBar = new NavBar();
-
         const surveyQuestions = new SurveyQuestions();
 
         const googleSignUp = new Button(`<i class="fab fa-google"></i> Sign up with Google`, "", "primary", "");
@@ -24,10 +22,6 @@ module.exports = class SignUpPage {
                 </div>
                 <div class="seperator"></div>
                 <form class="signup-form">
-                    <div class="name">
-                        <label for="name_signup">Name:</label>
-                        <input type="text" placeholder="Name" name="name_signup" required/>
-                    </div>
                     <div class="username">
                         <label for="username_signup">Username:</label>
                         <input type="text" placeholder="Username" name="username_signup" required/>
@@ -75,7 +69,7 @@ module.exports = class SignUpPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ${NavBar()}
                     <div class="full-width-container">
                         <div class="content-container signup">
                             ` + signUpPageHTML + `

@@ -4,8 +4,6 @@ module.exports = class SuccessPage {
     constructor() {}
     
     render() {
-        const navBar = new NavBar();
-    
         return `
             <!DOCTYPE html>
             <html>
@@ -17,7 +15,7 @@ module.exports = class SuccessPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ${NavBar()}
                     <div style="text-align: center;">
                         <h1>Successfully Signed Up</h1>
                         <p>Yay, thankyou for signing up to ValueTube.</p>

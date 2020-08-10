@@ -5,7 +5,6 @@ module.exports = class SignInPage {
     constructor() { }
     
     render() {
-        const navBar = new NavBar();
         const googleSignIn = new Button(`<i class="fab fa-google"></i> Sign in with Google`, "", "primary", "");
         const signIn = new Button("Sign In", "", "primary", "./-");
 
@@ -20,7 +19,7 @@ module.exports = class SignInPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ` + navBar.render() + `
+                    ${NavBar()}
                     <div class="full-width-container">
                         <div class="content-container signin">
                             <div class="sign-title">
