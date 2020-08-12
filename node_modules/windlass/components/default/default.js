@@ -117,7 +117,7 @@ class DEFAULT_PROPERTIES {
       "class",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`class="${props.class}"`)
+      `class="${SecurityHelpers.sanitiseHTML(props.class)}"`
     );
 
     // content
@@ -137,7 +137,7 @@ class DEFAULT_PROPERTIES {
       "direction",
       DIRECTION_VALUES,
       "",
-      SecurityHelpers.sanitiseHTML(`dir="${props.direction}"`)
+      `dir="${SecurityHelpers.sanitiseHTML(props.direction)}"`
     );
 
     // display
@@ -147,7 +147,7 @@ class DEFAULT_PROPERTIES {
       "display",
       DISPLAY_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`display: ${props.display};`)
+      `display: ${SecurityHelpers.sanitiseCSS(props.display)};`
     );
 
     // id
@@ -157,7 +157,7 @@ class DEFAULT_PROPERTIES {
       "id",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`id="${props.id}"`)
+      `id="${SecurityHelpers.sanitiseHTML(props.id)}"`
     );
 
     // language
@@ -167,7 +167,7 @@ class DEFAULT_PROPERTIES {
       "language",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`lang="${props.language}"`)
+      `lang="${SecurityHelpers.sanitiseHTML(props.language)}"`
     );
 
     // style
@@ -187,7 +187,7 @@ class DEFAULT_PROPERTIES {
       "tabIndex",
       TypeHelpers.PRIMATIVES.NUMBER,
       "",
-      SecurityHelpers.sanitiseHTML(`tabIndex="${props.tabIndex}"`)
+      `tabIndex="${SecurityHelpers.sanitiseHTML(`${props.tabIndex}`)}"`
     );
 
     // title
@@ -197,9 +197,9 @@ class DEFAULT_PROPERTIES {
       "title",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(
-        `title="${props.title}" aria-label="${props.title}"`
-      )
+      `title="${SecurityHelpers.sanitiseHTML(
+        props.title
+      )}" aria-label="${SecurityHelpers.sanitiseHTML(props.title)}"`
     );
 
     // stylelist

@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "build:css": "build.bat",
+    "build:windlass": "Xcopy /E /I /Y \"E:\\Documents\\Personal\\Windlass\\windlass\\dist\" \"./frontend/windlass\""
   },
   "author": "",
   "license": "ISC",

@@ -1,53 +1,111 @@
+const WIDTH_VALUES = require('windlass').Components.Default.WIDTH_VALUES;
+const {
+    Container,
+    Seperator,
+} = require('windlass').Components.Layout;
+const {
+    HEADING_VALUES,
+    Heading,
+    Text,
+} = require('windlass').Components.Typography;
+const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
+const {
+    SecurityHelpers,
+    TypeHelpers,
+} = require('windlass').Utilities.Server;
 const NavBar = require("../../components/navBar/navBar.js");
 const ListItem = require("../../components/listItem/listItem.js");
 
-module.exports = class ResultsPage {
-    constructor(searchQuery) {
-        this.searchQuery = searchQuery;
-    }
-   
-    render(videos) {
-        this.videos = videos;
-        let listHTML = "";
-        if (this.videos.length != 0) {
-            for (let i = 0; i < this.videos.length; i++) {
-                const listItem = new ListItem(this.videos[i].metadata);
-                listHTML += listItem.render();
-            }
-        } else {
-            listHTML = `
-                <div style="text-align: center;">
-                    <h2>No results found.</h2>
-                    <p>Try different keywords or remove search filters</p>
-                </div>
-            `;
-        }
+class RESULTS_PAGE_PROPERTIES {
+    constructor(props) {
+        // searchQuery
+        TypeHelpers.typeCheckPrimative(
+            this,
+            props,
+            "searchQuery",
+            TypeHelpers.PRIMATIVES.STRING,
+            false,
+            SecurityHelpers.sanitiseHTML(`${props.searchQuery}`),
+        );
 
-        return `
-            <!DOCTYPE html>
-            <html>
-                <head>
-                    <meta charset="UTF-8">
-                    <title>ValueTube</title>
-                    <link rel="icon" href="./frontend/img/ValueTube_Logogram.svg" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/fonts/font-awesome/css/all.min.css" />
-                    <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
-                </head>
-                <body>
-                    ${NavBar()}
-                    <div class="full-width-container">
-                        <div class="list-container mw-1300">
-                            <h2>Results for "<span id="searchQuery">` + encodeURI(this.searchQuery) + `</span>"</h2>
-                            <div class="seperator"></div>
-                            <div class="list">
-                                ` + listHTML + `
-                            </div>
-                        </div>
-                    </div>
-                    <script type="module" src="./frontend/utilities/common.js"></script>
-                    <script type="module" src="./frontend/pages/results/results.js"></script>
-                </body>
-            </html>
-        `;
+        // videos
+        TypeHelpers.typeCheckPrimative(
+            this,
+            props,
+            "videos",
+            TypeHelpers.PRIMATIVES.ARRAY,
+            [],
+            props.videos
+        );
+    }
+}
+
+module.exports = function ResultsPage(props) {
+    try {
+        if (typeof props === "object" || props instanceof Object) {
+            props instanceof RESULTS_PAGE_PROPERTIES
+                ? (this.props = props)
+                : (this.props = new RESULTS_PAGE_PROPERTIES(props));
+            return DefaultTemplate({
+                description: `Results page for the ValueTube website with the query ${this.props.searchQuery}.`,
+                title: `ValueTube - ${this.props.searchQuery}`,
+                icon: "./frontend/img/ValueTube_Logogram.svg",
+                linkedStylesheets: [
+                    "./frontend/fonts/font-awesome/css/all.min.css",
+                    "./frontend/css/style.css",
+                ],
+                linkedScripts: [
+                    "./frontend/utilities/common.js",
+                    "./frontend/pages/results/results.js",
+                ],
+                content: [
+                    NavBar(this.props.loggedIn),
+                    Container({
+                        class: "full-width-container",
+                        content:
+                            Container({
+                                class: "list-container",
+                                maxWidth: WIDTH_VALUES.LARGE,
+                                content: [
+                                    Heading({
+                                        variant: HEADING_VALUES.HEADING_2,
+                                        content: `Results for ${this.props.searchQuery}`,
+                                    }),
+                                    Seperator(),
+                                    Container({
+                                        class: "list",
+                                        content:
+                                            (this.props.videos.length != 0)
+                                                ? this.props.videos.map((video) => {
+                                                    return ListItem({
+                                                        metadata: video.metadata,
+                                                    });
+                                                }).join("\n")
+                                                : Container({
+                                                    style: "text-align: center;",
+                                                    content: [
+                                                        Heading({
+                                                            variant: HEADING_VALUES.HEADING_2,
+                                                            content: "No results found",
+                                                        }),
+                                                        Text({
+                                                            paragraph: true,
+                                                            content: "Try different keywords or remove search filters."
+                                                        })
+                                                    ].join("\n"),
+                                                })
+                                        ,
+                                    })
+                                ].join("\n"),
+                            })
+                        ,
+                    }),
+                ].join("\n"),
+            });
+        } else {
+          throw new TypeError(`${props} on ResultsPage is not a valid Object type.`);
+        }
+    } catch (e) {
+        console.error(e);
     }
 }
