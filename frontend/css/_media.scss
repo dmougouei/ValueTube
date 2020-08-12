@@ -1,9 +1,7 @@
-.media {
-
-}
-
-.media_controls {
-    
+.media-container #video {
+    width: 100%;
+    object-fit: cover;
+    background-color: map-get($theme-colors, "dark");
 }
 
 .media-container .details {

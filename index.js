@@ -11,6 +11,7 @@ const fs = require('fs');
 //     password: '',
 //     port: '5432'
 // });
+const getVideoInfo = require("./backend/scripts/get_video_info");
 const Pages = require("./frontend/pages")
 
 const options = {
@@ -37,6 +38,25 @@ fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
     videoList = JSON.parse(data);
 });
 
+function renderError(req, res) {
+    res.status(404);
+  
+    // respond with html page
+    if (req.accepts('html')) {
+        res.send(Pages.ErrorPage());
+        return;
+    }
+  
+    // respond with json
+    if (req.accepts('json')) {
+      res.send({ error: 'Not found' });
+      return;
+    }
+  
+    // default to plain-text. send()
+    res.type('txt').send('Not found');
+}
+
 app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', (req, res) => {
@@ -58,17 +78,24 @@ app.get('/-', (req, res) => {
     return;
 });
 
-app.get('/watch', (req, res) => {
-    if (req.query.v) {
-        const metadata = videoList.find((video) => {
-            return (video.id == req.query.v);
-        }).metadata;
+app.get('/watch', async (req, res) => {
+    const validID = /[a-zA-Z0-9_-]{11}/;
+    if (req.query.v && validID.test(req.query.v)) {
+        const videoInfo = await getVideoInfo(req.query.v)
+            .catch((err) => {
+                console.error(err);
+                renderError(req, res);
+                return;
+            });
 
-        const watch = new Pages.WatchPage(metadata);
-        res.send(watch.render(videoList));
+        res.send(Pages.WatchPage({
+            metadata: videoInfo.metadata,
+            videos: videoList,
+        }));
         return;
     } else {
-        res.sendStatus(404);
+        console.error("Error: Invalid video id");
+        renderError(req, res);
         return;
     }
 });
@@ -79,9 +106,13 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/results', (req, res) => {
-    const results = new Pages.ResultsPage(req.query.search_query);
     if (videoList) {
-        res.send(results.render(videoList));
+        res.send(
+            Pages.ResultsPage({
+                searchQuery: req.query.search_query,
+                videos: videoList,
+            })
+        );
     }
     return;
 });
@@ -110,22 +141,7 @@ app.get('/success', (req, res) => {
 
 // 404 Page Not Found - Error Handling
 app.get('*', (req, res) => {
-    res.status(404);
-  
-    // respond with html page
-    if (req.accepts('html')) {
-        res.send(Pages.ErrorPage());
-        return;
-    }
-  
-    // respond with json
-    if (req.accepts('json')) {
-      res.send({ error: 'Not found' });
-      return;
-    }
-  
-    // default to plain-text. send()
-    res.type('txt').send('Not found');
+    renderError(req, res);
 });
 
 
@@ -137,7 +153,7 @@ spdy.createServer(options, app).listen(PORT, error => {
       console.error(error)
       return process.exit(1)
     } else {
-      console.log(`HTTP/2 server 'Running on https://` + ipAddr)
+      console.log(`HTTP/2 server 'Running on https://${ipAddr}`)
     }
 });
 
@@ -145,7 +161,7 @@ spdy.createServer(options, app).listen(PORT, error => {
 var httpServer = express();
 
 httpServer.get('*', function(req, res) {  
-    res.redirect('https://' + req.headers.host + req.url);
+    res.redirect(`https://${req.headers.host}${req.url}`);
 })
 
 httpServer.listen(80);

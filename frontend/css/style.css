@@ -1265,6 +1265,12 @@ h6, .h6 {
   overflow: hidden;
 }
 
+.media-container #video {
+  width: 100%;
+  object-fit: cover;
+  background-color: #424242;
+}
+
 .media-container .details {
   position: relative;
   margin: 12px;

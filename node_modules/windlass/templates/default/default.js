@@ -62,9 +62,7 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       TypeHelpers.PRIMATIVES.STRING,
       "",
       SecurityHelpers.sanitiseHTML(
-        SecurityHelpers.sanitiseCSS(
-          `<style>${props.inlineStylesheet}</style>`
-        )
+        SecurityHelpers.sanitiseCSS(`<style>${props.inlineStylesheet}</style>`)
       )
     );
 
@@ -95,7 +93,7 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       "linkedStylesheets",
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
-      props.linkedStylesheets,
+      props.linkedStylesheets
     );
 
     // title
@@ -126,21 +124,33 @@ function DefaultTemplate(props) {
                 <meta name="title" content="${this.props.title}" />
                 <title>${this.props.title}</title>
                 <link rel="icon" href="${this.props.icon}" />
-                ${this.props.linkedStylesheets ? this.props.linkedStylesheets.map((url) => {
-                  return `<link rel="stylesheet" type="text/css" href="${SecurityHelpers.sanitiseHTML(
-                    url
-                  )}" media="print" onload="this.media='all'"></link>`;
-                })
-                .join("\n") : ``}
+                ${
+                  this.props.linkedStylesheets
+                    ? this.props.linkedStylesheets
+                        .map((url) => {
+                          return `<link rel="stylesheet" type="text/css" href="${SecurityHelpers.sanitiseHTML(
+                            url
+                          )}" media="print" onload="this.media='all'"></link>`;
+                        })
+                        .join("\n")
+                    : ``
+                }
                 ${this.props.inlineStylesheet}
                 ${this.props.head}
             </head>
             <body>
               ${this.props.content}
-              ${this.props.linkedScripts ? this.props.linkedScripts.map((url) => {
-                return `<script type="module" src="${SecurityHelpers.sanitiseHTML(url)}"></script>`;
-              })
-              .join("\n"): ``}
+              ${
+                this.props.linkedScripts
+                  ? this.props.linkedScripts
+                      .map((url) => {
+                        return `<script type="module" src="${SecurityHelpers.sanitiseHTML(
+                          url
+                        )}"></script>`;
+                      })
+                      .join("\n")
+                  : ``
+              }
             </body>
         </html>
       `;

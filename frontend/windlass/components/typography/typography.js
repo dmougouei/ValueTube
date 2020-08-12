@@ -32,7 +32,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       "align",
       ALIGN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`text-align: ${props.align};`)
+      `text-align: ${SecurityHelpers.sanitiseCSS(props.align)};`
     );
 
     // color
@@ -41,7 +41,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       props,
       "color",
       undefined,
-      SecurityHelpers.sanitiseCSS(`color: ${props.color};`)
+      `color: ${SecurityHelpers.sanitiseCSS(props.color)};`
     );
 
     // noWrap
@@ -73,7 +73,7 @@ class TYPOGRAPHY_PROPERTIES extends DEFAULT_PROPERTIES {
       "transform",
       TRANSFORM_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`text-transform: ${props.transform};`)
+      `text-transform: ${SecurityHelpers.sanitiseCSS(props.transform)};`
     );
 
     // styleList
@@ -115,7 +115,7 @@ class TEXT_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "variant",
       TEXT_VALUES,
       TEXT_VALUES.DEFAULT,
-      props.variant
+      `${SecurityHelpers.sanitiseHTML(props.variant)}`
     );
   }
 }
@@ -171,7 +171,7 @@ class HEADING_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "variant",
       HEADING_VALUES,
       HEADING_VALUES.DEFAULT,
-      props.variant
+      `${SecurityHelpers.sanitiseHTML(props.variant)}`
     );
   }
 }
@@ -233,7 +233,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "download",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`download="${props.download}"`)
+      `download="${SecurityHelpers.sanitiseHTML(props.download)}"`
     );
 
     // link
@@ -243,7 +243,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "link",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(`href="${props.link}"`)
+      `href="${SecurityHelpers.sanitiseHTML(props.link)}"`
     );
 
     // value
@@ -253,7 +253,7 @@ class LINK_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "value",
       LINK_VALUES,
       "",
-      SecurityHelpers.sanitiseHTML(`rel="${props.value}"`)
+      `rel="${SecurityHelpers.sanitiseHTML(props.value)}"`
     );
   }
 }
@@ -266,7 +266,9 @@ function Link(props) {
       props instanceof LINK_PROPERTIES
         ? (this.props = props)
         : (this.props = new LINK_PROPERTIES(props));
-      return `${this.props.paragraph ? "<p>" : ""}<a ${StringHelpers.combineStrings([
+      return `${
+        this.props.paragraph ? "<p>" : ""
+      }<a ${StringHelpers.combineStrings([
         this.props.id,
         this.props.class,
         this.props.title,
@@ -297,7 +299,7 @@ class QUOTE_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "source",
       string,
       "",
-      SecurityHelpers.sanitiseHTML(`cite="${props.source}"`)
+      `cite="${SecurityHelpers.sanitiseHTML(props.source)}"`
     );
   }
 }
@@ -536,7 +538,7 @@ class LIST_PROPERTIES extends TYPOGRAPHY_PROPERTIES {
       "value",
       LIST_VALUES,
       "",
-      SecurityHelpers.sanitiseCSS(`list-style-type: ${props.value};`)
+      `list-style-type: ${SecurityHelpers.sanitiseCSS(props.value)};`
     );
 
     // styleList

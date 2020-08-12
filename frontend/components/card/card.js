@@ -24,9 +24,9 @@ module.exports = function Card(metadata) {
     let timeSinceUpload = "";
     const date = new Date();
     const timeSince = [
-        date.getUTCFullYear() - metadata.upload_date.substr(0,4),
-        date.getUTCMonth() - metadata.upload_date.substr(4,2),
-        date.getUTCDay() - metadata.upload_date.substr(6,2)
+        date.getUTCFullYear() - metadata.upload_date.substring(0,4),
+        date.getUTCMonth() - metadata.upload_date.substring(4,6),
+        date.getUTCDay() - metadata.upload_date.substring(6,8)
     ];
 
     if (timeSince[0] > 1) {

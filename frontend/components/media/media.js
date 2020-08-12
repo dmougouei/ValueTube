@@ -1,43 +1,17 @@
-class Video {
-    constructor(thumbnail, videoData) {
-        this.thumbnail = thumbnail;
-        this.v_url = videoData.url;
-    }
-    
-    render() {
-        return `
-            <video id="video" src="` + this.v_url + `" poster="` + this.thumbnail + `" width="100%" controls></video>
-        `;
-    }
+function Video(thumbnail, videoUrl) {
+    return `
+        <video id="video" ${videoUrl} poster="${thumbnail}" controls></video>
+    `;
 }
 
-class Audio {
-    constructor(audioData) {
-        this.a_url = audioData.url;
-    }
+module.exports = function Media(metadata) {
+    const thumbnail = metadata.thumbnails[metadata.thumbnails.length - 1].url;
+    const videoUrl = metadata.formats == null ? "" : `src="${metadata.formats[metadata.formats.length - 1].url}"`;
     
-    render() {
-        return `
-            <audio id="audio" src="` + this.a_url + `"></audio>
-        `;
-    }
-}
-
-module.exports = class Media {
-    constructor(metadata) {
-        this.title = metadata.fulltitle;
-        this.thumbnail = metadata.thumbnail;
-        this.video = new Video(this.thumbnail, metadata.requested_formats[0]);
-        this.audio = new Audio(metadata.requested_formats[1]);
-    }
-    
-    render() {
-        return `
-            <div class="media">
-                <div class="media_controls"></div>
-                ` + this.video.render()
-                  + this.audio.render() + `
-            </div>
-        `;
-    }
+    return `
+        <div class="media">
+            <div class="media_controls"></div>
+            ${Video(thumbnail, videoUrl)}
+        </div>
+    `;
 }

@@ -155,7 +155,6 @@ are not used to seperate multi-line comments from the rest of the code
 - [@dmougouei](https://gitlab.com/dmougouei) Davoud Mougouei
 
 ## Authors
-- [@WiredAlice](https://gitlab.com/WiredAlice) Alice Duk (6139565)
 - [@bethTheDeath](https://gitlab.com/bethTheDeath) Bethany Cooper (6137003)
 - [@bugsy924](https://gitlab.com/bugsy924) Gustavo Borromeo (5430276)
 - [@JingM](https://gitlab.com/JingM) Jingxu Meng (6117375)

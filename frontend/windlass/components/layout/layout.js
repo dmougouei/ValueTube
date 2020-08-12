@@ -33,7 +33,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "align",
       ALIGN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`align: ${props.align};`)
+      `align: ${SecurityHelpers.sanitiseCSS(props.align)};`
     );
 
     // color
@@ -42,7 +42,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       props,
       "color",
       undefined,
-      SecurityHelpers.sanitiseCSS(`background-color: ${props.color};`)
+      `background-color: ${SecurityHelpers.sanitiseCSS(props.color)};`
     );
 
     // border
@@ -52,9 +52,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "border",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       undefined,
-      SecurityHelpers.sanitiseCSS(
-        props.border ? `border: solid 1px currentcolor;` : ``
-      )
+      props.border ? `border: solid 1px currentcolor;` : ``
     );
 
     // fluid
@@ -64,13 +62,9 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "fluid",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       false,
-      SecurityHelpers.sanitiseCSS(
-        `${
-          props.fluid
-            ? `width: 100%;`
-            : `min-width: ${WIDTH_VALUES.EXTRA_SMALL}; width: fit-content(100%);`
-        };`
-      )
+      props.fluid
+        ? `width: 100%;`
+        : `min-width: ${WIDTH_VALUES.EXTRA_SMALL}; width: fit-content(100%);`
     );
 
     // margin
@@ -80,7 +74,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "margin",
       MARGIN_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`margin: ${props.margin};`)
+      `margin: ${SecurityHelpers.sanitiseCSS(props.margin)};`
     );
 
     // maxWidth
@@ -90,7 +84,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "maxWidth",
       WIDTH_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`max-width: ${props.maxWidth};`)
+      `max-width: ${SecurityHelpers.sanitiseCSS(props.maxWidth)};`
     );
 
     // padding
@@ -100,7 +94,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "padding",
       PADDING_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`padding: ${props.padding};`)
+      `padding: ${SecurityHelpers.sanitiseCSS(props.padding)};`
     );
 
     // visibility
@@ -110,9 +104,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "visibility",
       TypeHelpers.PRIMATIVES.BOOLEAN,
       false,
-      SecurityHelpers.sanitiseCSS(
-        props.visibility ? `visibility: visible;` : `visibility: hidden;`
-      )
+      props.visibility ? `visibility: visible;` : `visibility: hidden;`
     );
 
     // zIndex
@@ -122,7 +114,7 @@ class LAYOUT_PROPERTIES extends DEFAULT_PROPERTIES {
       "zIndex",
       ZINDEX_VALUES,
       undefined,
-      SecurityHelpers.sanitiseCSS(`z-index: ${props.zIndex};`)
+      `z-index: ${SecurityHelpers.sanitiseCSS(props.zIndex)};`
     );
 
     // styleList
