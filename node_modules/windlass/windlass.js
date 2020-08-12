@@ -8,7 +8,7 @@
 // Imports
 const Components = require("./components/components");
 const Extensions = require("./extensions/extensions");
-const Structures = require("./structures/structures");
+// const Structures = require("./structures/structures");
 const Templates = require("./templates/templates");
 const Utilities = require("./utilities/utilities");
 
@@ -16,7 +16,7 @@ const Utilities = require("./utilities/utilities");
 const Windlass = {
   Components,
   Extensions,
-  Structures,
+  // Structures,
   Templates,
   Utilities,
 };

@@ -124,12 +124,11 @@ app.get('/signin', (req, res) => {
 });
 
 app.get('/signup', (req, res) => {
-    const signup = new Pages.SignUpPage();
-        if (req.query.survey != '') {
-            res.send(signup.render(false));
-        } else {
-            res.send(signup.render(true));
-        }
+    if (req.query.survey != '') {
+        res.send(Pages.SignUpPage(false));
+    } else {
+        res.send(Pages.SignUpPage(true));
+    }
     return;
 });
 
@@ -146,14 +145,14 @@ app.get('*', (req, res) => {
 
 
 const ipAddr = 'localhost';
-const PORT = 443;
+const PORT = 8080;
 
 spdy.createServer(options, app).listen(PORT, error => {
     if (error) {
       console.error(error)
       return process.exit(1)
     } else {
-      console.log(`HTTP/2 server 'Running on https://${ipAddr}`)
+      console.log(`HTTP/2 server 'Running on https://${ipAddr}:${PORT}`)
     }
 });
 
