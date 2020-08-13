@@ -1712,10 +1712,12 @@ li.check-box.checked::marker {
   display: block;
 }
 
+.signup-form button, .signin-form button, .survey-form button,
 .signup-form .btn, .signin-form .btn, .survey-form .btn {
   padding: 4px 16px;
 }
 
+.signup-form button, .signin-form button,
 .signup-form .btn, .signin-form .btn {
   margin: 12px;
 }

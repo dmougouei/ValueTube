@@ -39,28 +39,32 @@ function SignInPage() {
                                         variant: HEADING_VALUES.HEADING_2,
                                         content: "Sign in to ValueTube",
                                     }),
-                                    Seperator(),
-                                    `<form class="signin-form">
-                                        <label for="username_signin">Username:</label>
-                                        <input class="username" type="text" placeholder="Username" name="username_signin" required/>
-                                        <label for="password_signin">Password:</label>
-                                        <input class="password" type="text" placeholder="Password" name="password_signin" required/>
-                                        <div class="btn-container center">
-                                            ${Button({
-                                                class: "primary",
-                                                actionDown: `window.location.href='./-'`,
-                                                content: "Sign In"
-                                            })}
-                                        </div>
-                                    </form>`,
-                                    Container({
-                                        class: "member-check",
-                                        content: `Not a member? ${Link({
-                                            link: './signup',
-                                            content: "Sign up now",
-                                        })}`
+                                    Button({
+                                        class: "primary",
+                                        content: `<i class="fab fa-google"></i> Sign in with Google`
                                     }),
                                 ].join("\n"),
+                            }),
+                            Seperator(),
+                            `<form class="signin-form">
+                                <label for="username_signin">Username:</label>
+                                <input class="username" type="text" placeholder="Username" name="username_signin" required/>
+                                <label for="password_signin">Password:</label>
+                                <input class="password" type="text" placeholder="Password" name="password_signin" required/>
+                                <div class="btn-container center">
+                                    ${Button({
+                                        class: "primary",
+                                        actionDown: `window.location.href='./-'`,
+                                        content: "Sign In"
+                                    })}
+                                </div>
+                            </form>`,
+                            Container({
+                                class: "member-check",
+                                content: `Not a member? ${Link({
+                                    link: './signup',
+                                    content: "Sign up now",
+                                })}`
                             }),
                         ].join("\n"),
                     }),
