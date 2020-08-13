@@ -1,19 +1,19 @@
-const HomePage = require('./home/homePage.js');
-const WatchPage = require("./watch/watchPage.js");
-const AboutPage = require('./about/aboutPage.js');
-const ErrorPage = require('./error/errorPage.js');
-const ResultsPage = require('./results/resultsPage.js');
-const SignInPage = require('./signIn/signInPage.js');
-const SignUpPage = require('./signUp/signUpPage.js');
-const SuccessPage = require('./success/successPage.js');
+const About = require('./about/aboutPage.js');
+const Error = require('./error/errorPage.js');
+const Home = require('./home/homePage.js');
+const Results = require('./results/resultsPage.js');
+const SignIn = require('./signIn/signInPage.js');
+const SignUp = require('./signUp/signUpPage.js');
+const Success = require('./success/successPage.js');
+const Watch = require("./watch/watchPage.js");
 
 module.exports = {
-    HomePage,
-    WatchPage,
-    AboutPage,
-    ErrorPage,
-    ResultsPage,
-    SignInPage,
-    SignUpPage,
-    SuccessPage,
+    Home,
+    Watch,
+    About,
+    Error,
+    Results,
+    SignIn,
+    SignUp,
+    Success,
 }

@@ -3,10 +3,10 @@ const {
     Heading,
     Text,
 } = require('windlass').Components.Typography;
+const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
-const NavBar = require("../../components/navBar/navBar.js");
 
-module.exports = function ErrorPage() {
+function ErrorPage() {
     return DefaultTemplate({
         description: "Error 404 page not found for the ValueTube website.",
         title: "ValueTube - Error 404 page not found",
@@ -20,7 +20,7 @@ module.exports = function ErrorPage() {
             "./frontend/pages/error/error.js",
         ],
         content: [
-            NavBar(),
+            Navbar(),
             Container({
                 style: "text-align: center",
                 content: [
@@ -40,3 +40,5 @@ module.exports = function ErrorPage() {
         ].join("\n"),
     });
 };
+
+module.exports = { ErrorPage };
