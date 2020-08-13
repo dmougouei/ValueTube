@@ -1,5 +1,6 @@
 // Button Element Styling
-	.btn {
+	button, .btn {
+		all: unset;
 		display:			inline-block;
 		text-align:			center;
 		vertical-align:		middle;
@@ -18,62 +19,62 @@
 		&:hover {
 			background-color:	map-get($button-default, "hover-background-color");
 		}
-	}
-
-	.btn.outline {
-		background-color: 	map-get($button-outline, "background-color");
-		color:            	map-get($button-outline, "color");
-	}
-
-	.btn.round {
-		padding:			map-get($button-round, "padding");
-		border-radius:		map-get($button-round, "border-radius");
-	}
-
-	.btn.caps {
-		font-size:			map-get($button-caps, "font-size");
-		font-weight:		map-get($button-caps, "font-weight");
-		text-transform:		map-get($button-caps, "text-transform");
-		letter-spacing:		map-get($button-caps, "letter-spacing");
-	}
-
-	.btn.left {
-		float: left;
-	}
-
-	.btn.right {
-		float: right;
-	}
-
-	@each $color, $value in $theme-colors {
-		.btn.#{$color} {
-			background-color:	$value;
-			border-color:		$value;
-
-			&:hover {
-				background-color:	adjust-hue($value, $btn-hover-hue);
-			}
+		
+		&.outline {
+			background-color: 	map-get($button-outline, "background-color");
+			color:            	map-get($button-outline, "color");
 		}
 
-		.btn.outline.#{$color} {
-			background-color: 	map-get($button-outline, "background-color");
-			color:				$value;
-			border-color:		$value;
-			
-			//	---	NOTE: Choose between the following and apply to btn-grp. ---
-			&:hover {
-				font-weight:		map-get($button-outline, "hover-font-weight");
-				color:				adjust-hue($value, $btn-hover-hue);
-				border-width:		map-get($button-outline, "hover-border-width");
-				padding:			map-get($button-outline, "hover-padding");
-				border-color:		adjust-hue($value, $btn-hover-hue);
+		&.round {
+			padding:			map-get($button-round, "padding");
+			border-radius:		map-get($button-round, "border-radius");
+		}
+	
+		&.caps {
+			font-size:			map-get($button-caps, "font-size");
+			font-weight:		map-get($button-caps, "font-weight");
+			text-transform:		map-get($button-caps, "text-transform");
+			letter-spacing:		map-get($button-caps, "letter-spacing");
+		}
+	
+		&.left {
+			float: left;
+		}
+	
+		&.right {
+			float: right;
+		}
+	
+		@each $color, $value in $theme-colors {
+			&.#{$color} {
+				background-color:	$value;
+				border-color:		$value;
+	
+				&:hover {
+					background-color:	adjust-hue($value, $btn-hover-hue);
+				}
 			}
-
-			/*	&:hover {
-					background-color: 	$value;
-					color:				map-get($button-default, "color");
-					border-color:		$value;
-				}	*/
+	
+			&.outline.#{$color} {
+				background-color: 	map-get($button-outline, "background-color");
+				color:				$value;
+				border-color:		$value;
+				
+				//	---	NOTE: Choose between the following and apply to btn-grp. ---
+				&:hover {
+					font-weight:		map-get($button-outline, "hover-font-weight");
+					color:				adjust-hue($value, $btn-hover-hue);
+					border-width:		map-get($button-outline, "hover-border-width");
+					padding:			map-get($button-outline, "hover-padding");
+					border-color:		adjust-hue($value, $btn-hover-hue);
+				}
+	
+				/*	&:hover {
+						background-color: 	$value;
+						color:				map-get($button-default, "color");
+						border-color:		$value;
+					}	*/
+			}
 		}
 	}
 
@@ -84,4 +85,3 @@
 	.btn-container.center {
 		text-align: center;
 	}
-	

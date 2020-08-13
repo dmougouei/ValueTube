@@ -5,12 +5,7 @@
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
  *  ---------------------------------------------------------------------------  */
 
-const {
-  SecurityHelpers,
-  StringHelpers,
-  StyleHelpers,
-  TypeHelpers,
-} = require("../../utilities/utilities").Server;
+const { SecurityHelpers, TypeHelpers } = require("../../utilities").Server;
 
 class DEFAULT_TEMPLATE_PROPERTIES {
   constructor(props) {

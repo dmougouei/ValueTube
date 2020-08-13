@@ -8,21 +8,12 @@ const {
 } = require('windlass').Components.Typography;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const TypeHelpers = require('windlass').Utilities.Server.TypeHelpers;
-const NavBar = require("../../components/navBar/navBar.js");
-const Comment = require("../../components/comment/comment.js")
-const ListItem = require("../../components/listItem/listItem.js")
-const Media = require("../../components/media/media.js");
-
-const comments = [
-    {
-        user: "John Smith",
-        commentBody: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue enim, tempus at egestas vitae, vehicula ac dui. Pellentesque gravida orci non sem tincidunt hendrerit. Nunc cursus sollicitudin tellus. Phasellus molestie ante sit amet arcu varius congue."
-    },
-    {
-        user: "Jane Doe",
-        commentBody: "Sed quis ligula sed purus pharetra dignissim. Sed ut tempor mauris, eget ullamcorper quam. Aenean pretium ornare ante ac aliquam. Donec condimentum felis turpis, ut laoreet massa interdum eget."
-    }
-];
+const {
+    Comment,
+    ListItem,
+    Media,
+    Navbar,
+} = require('windlass').Structures;
 
 class WATCH_PAGE_PROPERTIES {
     constructor(props) {
@@ -48,7 +39,7 @@ class WATCH_PAGE_PROPERTIES {
     }
 }
 
-module.exports = function WatchPage(props) {
+function WatchPage(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             props instanceof WATCH_PAGE_PROPERTIES
@@ -57,6 +48,17 @@ module.exports = function WatchPage(props) {
 
             const title = this.props.metadata.title;
             const description = this.props.metadata.description;
+
+            const comments = [
+                {
+                    user: "John Smith",
+                    commentBody: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In augue enim, tempus at egestas vitae, vehicula ac dui. Pellentesque gravida orci non sem tincidunt hendrerit. Nunc cursus sollicitudin tellus. Phasellus molestie ante sit amet arcu varius congue."
+                },
+                {
+                    user: "Jane Doe",
+                    commentBody: "Sed quis ligula sed purus pharetra dignissim. Sed ut tempor mauris, eget ullamcorper quam. Aenean pretium ornare ante ac aliquam. Donec condimentum felis turpis, ut laoreet massa interdum eget."
+                }
+            ];
 
             let views = "";
             if (this.props.metadata.viewCount < 1000) {
@@ -107,7 +109,7 @@ module.exports = function WatchPage(props) {
                     "./frontend/pages/watch/watch.js",
                 ],
                 content: [
-                    NavBar(),
+                    Navbar(),
                     Container({
                         class: "full-width-container",
                         content:
@@ -151,8 +153,7 @@ module.exports = function WatchPage(props) {
                                                                         content: `${comments.length} Comments`,
                                                                     }),
                                                                     comments.map((comment) => {
-                                                                        const commentHTML = new Comment(comment);
-                                                                        return commentHTML.render();
+                                                                        return Comment(comment);
                                                                     }).join("\n"),
                                                                 ].join("\n"),
                                                             }),
@@ -191,3 +192,8 @@ module.exports = function WatchPage(props) {
         console.error(e);
     }
 }
+
+module.exports = {
+    WATCH_PAGE_PROPERTIES,
+    WatchPage,
+};

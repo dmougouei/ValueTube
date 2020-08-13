@@ -4,4 +4,7 @@ keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
 subjectAltName = @alt_names
 [alt_names]
 DNS.1 = localhost
-DNS.2 = web.local
+DNS.2 = 192.168.0.131
+DNS.3 = 180.150.44.187
+DNS.4 = 180.150.44.187:8080
+DNS.5 = www.valuetube.tech

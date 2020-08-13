@@ -641,7 +641,7 @@ wbuf@^1.1.0, wbuf@^1.7.3:
   dependencies:
     minimalistic-assert "^1.0.0"
 
-"windlass@file:frontend/Windlass/windlass/src":
+"windlass@file:frontend/windlass":
   version "1.0.0"
 
 xtend@^4.0.0:

@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
 const spdy = require('spdy');
-const compression = require('compression')
+const compression = require('compression');
+const net = require('net');
 const fs = require('fs');
 // const {Pool} = require('pg');
 // const pool = new Pool({
@@ -11,39 +12,33 @@ const fs = require('fs');
 //     password: '',
 //     port: '5432'
 // });
-const getVideoInfo = require("./backend/scripts/get_video_info");
-const Pages = require("./frontend/pages")
+const getVideoInfo = require("./backend/scripts/getVideoInfo");
+const Pages = require("./frontend/pages");
 
 const options = {
     key: fs.readFileSync('./keys/localhost.key'),
     cert: fs.readFileSync('./keys/localhost.crt')
-}
+};
 
 const compress = (req, res) => {
-    // don't compress responses asking explicitly not
     if (req.headers['x-no-compression']) {
       return false
     }
-  
-    // use compression filter function
     return compression.filter(req, res)
-}
+};
 
 let videoList = false;
-fs.readFile('./backend/data/temp_video_list.json', function read(err, data) {
-    if (err) {
-        throw err;
-    }
-
+fs.readFile('./backend/data/temp_video_list.json', (err, data) => {
+    if (err) { throw err; }
     videoList = JSON.parse(data);
 });
 
-function renderError(req, res) {
+const renderError = (req, res) => {
     res.status(404);
   
     // respond with html page
     if (req.accepts('html')) {
-        res.send(Pages.ErrorPage());
+        res.send(Pages.Error.ErrorPage());
         return;
     }
   
@@ -61,7 +56,7 @@ app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', (req, res) => {
     if (videoList) {
-        res.send(Pages.HomePage({
+        res.send(Pages.Home.HomePage({
             videos: videoList,
         }));
     }
@@ -70,7 +65,7 @@ app.get('/', (req, res) => {
 
 app.get('/-', (req, res) => {
     if (videoList) {
-        res.send(Pages.HomePage({
+        res.send(Pages.Home.HomePage({
             loggedIn: true,
             videos: videoList,
         }));
@@ -88,7 +83,7 @@ app.get('/watch', async (req, res) => {
                 return;
             });
 
-        res.send(Pages.WatchPage({
+        res.send(Pages.Watch.WatchPage({
             metadata: videoInfo.metadata,
             videos: videoList,
         }));
@@ -101,14 +96,14 @@ app.get('/watch', async (req, res) => {
 });
 
 app.get('/about', (req, res) => {
-    res.send(Pages.AboutPage());
+    res.send(Pages.About.AboutPage());
     return;
 });
 
 app.get('/results', (req, res) => {
     if (videoList) {
         res.send(
-            Pages.ResultsPage({
+            Pages.Results.ResultsPage({
                 searchQuery: req.query.search_query,
                 videos: videoList,
             })
@@ -118,36 +113,50 @@ app.get('/results', (req, res) => {
 });
 
 app.get('/signin', (req, res) => {
-    const signin = new Pages.SignInPage();
-    res.send(signin.render());
+    res.send(Pages.SignIn.SignInPage());
     return;
 });
 
 app.get('/signup', (req, res) => {
     if (req.query.survey != '') {
-        res.send(Pages.SignUpPage(false));
+        res.send(Pages.SignUp.SignUpPage(false));
     } else {
-        res.send(Pages.SignUpPage(true));
+        res.send(Pages.SignUp.SignUpPage(true));
     }
     return;
 });
 
 app.get('/success', (req, res) => {
-    const success = new Pages.SuccessPage();
-    res.send(success.render());
+    res.send(Pages.Success.SuccessPage());
     return;
 });
 
 // 404 Page Not Found - Error Handling
-app.get('*', (req, res) => {
-    renderError(req, res);
-});
+app.get('*', renderError);
 
 
 const ipAddr = 'localhost';
 const PORT = 8080;
 
-spdy.createServer(options, app).listen(PORT, error => {
+
+// Manage http and https
+function tcpConnection(connection) {
+    connection.once('data', function (buffer) {
+        // A TLS handshake record starts with byte 22.
+        let proxy = net.createConnection(
+            (buffer[0] === 22) ? (PORT + 2) : (PORT + 1),
+            () => {
+                proxy.write(buffer);
+                connection.pipe(proxy).pipe(connection);
+            }
+        );
+    });
+}
+
+net.createServer(tcpConnection).listen(PORT);
+
+// Run https server
+spdy.createServer(options, app).listen((PORT + 2), error => {
     if (error) {
       console.error(error)
       return process.exit(1)
@@ -163,4 +172,4 @@ httpServer.get('*', function(req, res) {
     res.redirect(`https://${req.headers.host}${req.url}`);
 })
 
-httpServer.listen(80);
+httpServer.listen((PORT + 1));

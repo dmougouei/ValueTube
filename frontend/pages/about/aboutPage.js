@@ -9,11 +9,11 @@ const {
     Link,
     Text,
 } = require('windlass').Components.Typography;
+const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
-const NavBar = require("../../components/navBar/navBar.js");
 const aboutData = require("./aboutData.js");
 
-module.exports = function AboutPage() {
+function AboutPage() {
     return DefaultTemplate({
         description: "About page for the ValueTube website.",
         title: "ValueTube - About",
@@ -27,7 +27,7 @@ module.exports = function AboutPage() {
             "./frontend/pages/about/about.js",
         ],
         content: [
-            NavBar(),
+            Navbar(),
             Container({
                 variant: CONTAINER_VALUES.MAIN,
                 class: "full-width-container",
@@ -116,3 +116,5 @@ module.exports = function AboutPage() {
         ].join("\n"),
     });
 };
+
+module.exports = { AboutPage };

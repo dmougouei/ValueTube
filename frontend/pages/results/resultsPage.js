@@ -8,13 +8,15 @@ const {
     Heading,
     Text,
 } = require('windlass').Components.Typography;
+const {
+    ListItem,
+    Navbar,
+} = require('windlass').Structures;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const {
     SecurityHelpers,
     TypeHelpers,
 } = require('windlass').Utilities.Server;
-const NavBar = require("../../components/navBar/navBar.js");
-const ListItem = require("../../components/listItem/listItem.js");
 
 class RESULTS_PAGE_PROPERTIES {
     constructor(props) {
@@ -40,7 +42,7 @@ class RESULTS_PAGE_PROPERTIES {
     }
 }
 
-module.exports = function ResultsPage(props) {
+function ResultsPage(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             props instanceof RESULTS_PAGE_PROPERTIES
@@ -59,7 +61,7 @@ module.exports = function ResultsPage(props) {
                     "./frontend/pages/results/results.js",
                 ],
                 content: [
-                    NavBar(this.props.loggedIn),
+                    Navbar(this.props.loggedIn),
                     Container({
                         class: "full-width-container",
                         content:
@@ -108,4 +110,9 @@ module.exports = function ResultsPage(props) {
     } catch (e) {
         console.error(e);
     }
+}
+
+module.exports = {
+    RESULTS_PAGE_PROPERTIES,
+    ResultsPage,
 }

@@ -7,10 +7,12 @@ const {
     HEADING_VALUES,
     Heading,
 } = require('windlass').Components.Typography;
+const {
+    Card,
+    Navbar,
+} = require('windlass').Structures;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const TypeHelpers = require('windlass').Utilities.Server.TypeHelpers;
-const NavBar = require("../../components/navBar/navBar.js");
-const Card = require("../../components/card/card.js");
 
 class HOME_PAGE_PROPERTIES {
     constructor(props) {
@@ -36,7 +38,7 @@ class HOME_PAGE_PROPERTIES {
     }
 }
 
-module.exports = function HomePage (props) {
+function HomePage (props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             props instanceof HOME_PAGE_PROPERTIES
@@ -55,7 +57,7 @@ module.exports = function HomePage (props) {
                     "./frontend/pages/home/home.js",
                 ],
                 content: [
-                    NavBar(this.props.loggedIn),
+                    Navbar(this.props.loggedIn),
                     Container({
                         class: "full-width-container",
                         content:
@@ -88,3 +90,8 @@ module.exports = function HomePage (props) {
         console.error(e);
     }
 };
+
+module.exports = {
+    HOME_PAGE_PROPERTIES,
+    HomePage,
+}

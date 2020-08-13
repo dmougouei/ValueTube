@@ -1,6 +1,6 @@
-const NavBar = require("../../components/navBar/navBar.js");
+const Navbar = require('windlass').Structures.Navbar;
 
-module.exports = class SuccessPage {
+class SuccessPage {
     constructor() {}
     
     render() {
@@ -15,7 +15,7 @@ module.exports = class SuccessPage {
                     <link rel="stylesheet" type="text/css" href="./frontend/css/style.css" />
                 </head>
                 <body>
-                    ${NavBar()}
+                    ${Navbar()}
                     <div style="text-align: center;">
                         <h1>Successfully Signed Up</h1>
                         <p>Yay, thankyou for signing up to ValueTube.</p>
@@ -29,3 +29,5 @@ module.exports = class SuccessPage {
         `;
     }
 }
+
+module.exports = { SuccessPage };

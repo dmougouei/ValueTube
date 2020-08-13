@@ -53,4 +53,7 @@ const teamMembers = [
     }
 ];
 
-module.exports = {mission, teamMembers};
+module.exports = {
+    mission,
+    teamMembers,
+};
