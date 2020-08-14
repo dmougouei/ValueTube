@@ -15,11 +15,8 @@ import googleapiclient.discovery
 import googleapiclient.errors
 import sqlite3
 
-conn1 = sqlite3.connect(
-    "youtube-data.db")
-
-conn2 = sqlite3.connect(
-    "/home/beth/PycharmProjects/torchMoji3/examples/youtubeComments.db")
+conn1 = sqlite3.connect("youtube-data.db")
+conn2 = sqlite3.connect("youtubeComments.db")
 
 scopes = ["https://www.googleapis.com/auth/youtube.readonly"]
 
@@ -43,12 +40,10 @@ def get_video_id():
     youtube = googleapiclient.discovery.build(
         api_service_name, api_version, credentials=credentials)
 
-    c2.execute(
-        "CREATE TABLE IF NOT EXISTS ytidlist (categoryID text, videoID text)")
-
-
+    c2.execute("CREATE TABLE IF NOT EXISTS ytidlist (categoryID text, videoID text)")
     c1.execute("SELECT categoryID FROM main.ytcategorylist ")
 
+    # Get the id of each of the 50 most popular youtube videos in the each category 
     catid_arr = c1.fetchall()
     for r in catid_arr:
         request = youtube.videos().list(
@@ -61,8 +56,8 @@ def get_video_id():
         response = request.execute()
 
         for itr in response['items']:
-            params = (r[0], itr["id"], r[2])
-            c2.execute("insert into ytidlist values (?, ?, ?)", params)
+            params = (r[0], itr["id"])
+            c2.execute("insert into ytidlist values (?, ?)", params)
     conn2.commit()
 
 
