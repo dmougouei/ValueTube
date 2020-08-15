@@ -140,7 +140,6 @@ const PORT = 443;
 spdy.createServer(options, app).listen(PORT, error => {
     if (error) {
       console.error(error)
-      return process.exit(1)
     } else {
       console.log(`HTTP/2 server 'Running on https://${ipAddr}`)
     }

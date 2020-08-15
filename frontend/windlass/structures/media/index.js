@@ -1,5 +1,5 @@
 function Video(thumbnail, videoUrl) {
-  return `<video id="video" ${videoUrl} poster="${thumbnail}" controls></video>`;
+  return `<video id="video" ${videoUrl} poster="${thumbnail}" autoplay controls></video>`;
 }
 
 module.exports = function Media(metadata) {

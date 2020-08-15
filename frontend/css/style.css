@@ -428,12 +428,17 @@ hr::after {
 .grid-3-1 {
   display: grid;
   grid-gap: 16px 16px;
-  grid-template-columns: minmax(900px, 3fr) minmax(300px, 1fr);
+  grid-template-columns: minmax(620px, auto) minmax(460px, 480px);
   justify-content: center;
   align-content: center;
   grid-auto-rows: auto;
 }
 
+@media only screen and (max-width: 1080px) {
+  .grid-3-1 {
+    grid-template-columns: 1fr;
+  }
+}
 .team-member {
   display: block;
   max-width: 220px;

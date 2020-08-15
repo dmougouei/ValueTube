@@ -1,9 +1,10 @@
-const express = require('express');
-const app = express();
+const fs = require('fs');
+const net = require('net');
+const http = require('http');
 const spdy = require('spdy');
 const compression = require('compression');
-const net = require('net');
-const fs = require('fs');
+const express = require('express');
+const app = express();
 // const {Pool} = require('pg');
 // const pool = new Pool({
 //     user: 'postgres',
@@ -14,6 +15,8 @@ const fs = require('fs');
 // });
 const getVideoInfo = require("./backend/scripts/getVideoInfo");
 const Pages = require("./frontend/pages");
+
+const PORT = (process.env.PORT || 8080);
 
 const options = {
     key: fs.readFileSync('./keys/localhost.key'),
@@ -134,42 +137,11 @@ app.get('/success', (req, res) => {
 // 404 Page Not Found - Error Handling
 app.get('*', renderError);
 
-
-const ipAddr = 'localhost';
-const PORT = 8080;
-
-
-// Manage http and https
-function tcpConnection(connection) {
-    connection.once('data', function (buffer) {
-        // A TLS handshake record starts with byte 22.
-        let proxy = net.createConnection(
-            (buffer[0] === 22) ? (PORT + 2) : (PORT + 1),
-            () => {
-                proxy.write(buffer);
-                connection.pipe(proxy).pipe(connection);
-            }
-        );
-    });
-}
-
-net.createServer(tcpConnection).listen(PORT);
-
 // Run https server
-spdy.createServer(options, app).listen((PORT + 2), error => {
+let server = spdy.createServer(options, app).listen(PORT, error => {
     if (error) {
       console.error(error)
-      return process.exit(1)
     } else {
-      console.log(`HTTP/2 server 'Running on https://${ipAddr}:${PORT}`)
+      console.log(`HTTP/2 server 'Running on ${server.address().address}:${PORT}`)
     }
 });
-
-// Redirect http traffic to https
-var httpServer = express();
-
-httpServer.get('*', function(req, res) {  
-    res.redirect(`https://${req.headers.host}${req.url}`);
-})
-
-httpServer.listen((PORT + 1));
