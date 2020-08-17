@@ -5,18 +5,16 @@ const spdy = require('spdy');
 const compression = require('compression');
 const express = require('express');
 const app = express();
-// const {Pool} = require('pg');
+// const Pool = require('pg').Pool;
 // const pool = new Pool({
 //     user: 'postgres',
 //     host: 'localhost',
-//     database: 'ValueTubeUserInfo',
+//     database: 'ValueTubeDB',
 //     password: '',
 //     port: '5432'
 // });
 const getVideoInfo = require("./backend/scripts/getVideoInfo");
 const Pages = require("./frontend/pages");
-
-const PORT = (process.env.PORT || 8080);
 
 const options = {
     key: fs.readFileSync('./keys/localhost.key'),
@@ -138,10 +136,19 @@ app.get('/success', (req, res) => {
 app.get('*', renderError);
 
 // Run https server
-let server = spdy.createServer(options, app).listen(PORT, error => {
+spdy.createServer(options, app).listen(PORT, error => {
     if (error) {
       console.error(error)
     } else {
-      console.log(`HTTP/2 server 'Running on ${server.address().address}:${PORT}`)
+      console.log(`HTTP/2 server 'Running on https://localhost`)
     }
 });
+
+// Redirect http traffic to https
+var httpServer = express();
+
+httpServer.get('*', function(req, res) {  
+    res.redirect(`https://${req.headers.host}${req.url}`);
+})
+
+httpServer.listen(80);
