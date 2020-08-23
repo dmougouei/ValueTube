@@ -15,15 +15,17 @@ import re
 
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
-conn1 = sqlite3.connect(
-    "/home/beth/PycharmProjects/torchMoji3/examples/youtubeComments.db")
-conn2 = sqlite3.connect(
-    "youtube-data.db")
+conn1 = sqlite3.connect("youtubeComments.db")
+conn2 = sqlite3.connect("youtube-data.db")
 
-
-# c = conn%.cursor() changed this to local variable in each method
 
 def main():
+    # Reset the commentsThreads table to avoid inserting duplicate data
+    # if this script is run multiple times
+    c = conn1.cursor()
+    c.execute("DROP TABLE IF EXISTS commentsThreads")
+    c.execute("CREATE TABLE commentsThreads (videoID text, textOriginal blob)")
+    
     getCommentsThreads()
     conn1.close()
     conn2.close()
@@ -52,9 +54,11 @@ def getCommentsThreads():
     for video in youtubeVideoArray:
         print(video[0])
         request = youtube.commentThreads().list(
-            part="id, replies, snippet",
+            part="snippet,replies",
             textFormat="plainText",
-            videoId="%s" % video[0]
+            videoId="%s" % video[0],
+            order="relevance", # this gives higher quality comments and also comments with more replies
+            maxResults = 100 # the highest maxResults can be is 100
         )
         try:
             response = request.execute()
@@ -69,18 +73,18 @@ def getCommentsThreads():
         sqliteJsonInsert(video[0].strip(), response)
     conn1.commit()
 
-
+    
+# insert all the comments of a video into the commentsThreads database
 def sqliteJsonInsert(videoID, commentObj):
     c = conn1.cursor()
-    data = commentObj
-    c.execute(
-        "CREATE TABLE IF NOT EXISTS commentsThreads (videoID text, textOriginal blob)")
-
-    for itmm in data['items']:
-        txtOrg = itmm['snippet']['topLevelComment']['snippet']['textOriginal']
-        print(txtOrg)
-        params = (videoID, txtOrg)
-        c.execute("insert into commentsThreads values (?, ?)", params)
+    for item in commentObj['items']:
+        comments = [item['snippet']['topLevelComment']]
+        if item['snippet']['totalReplyCount'] != 0: # most comments have no replies so check first
+            comments += item['replies']['comments']
+        
+        for comment in comments:
+            txtOrg = comment['snippet']['textOriginal']
+            c.execute("insert into commentsThreads values (?, ?)", (videoID, txtOrg))
     conn1.commit()
 
 
