@@ -13,6 +13,7 @@ df = df.fillna("Non-Relevant") # any remaining null values are blank spaces in t
 
 # create a new table storing videoID and label
 c1 = sqlite3.connect("youtubeComments.db")
+c1.execute("DROP TABLE IF EXISTS labels")
 c1.execute("""CREATE TABLE IF NOT EXISTS labels (videoID text,
            SelfDirection int, Stimulation int, Hedonism int,
            Achievement int, Power int, Security int, Tradition int,

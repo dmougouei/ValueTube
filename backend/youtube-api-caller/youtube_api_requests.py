@@ -79,7 +79,7 @@ def sqliteJsonInsert(videoID, commentObj):
     c = conn1.cursor()
     for item in commentObj['items']:
         comments = [item['snippet']['topLevelComment']]
-        if item['snippet']['totalReplyCount'] != 0: # most comments have no replies so check first
+        if 'replies' in item: # most comments have no replies so check first
             comments += item['replies']['comments']
         
         for comment in comments:
