@@ -5,15 +5,15 @@ const spdy = require('spdy');
 const compression = require('compression');
 const express = require('express');
 const app = express();
-// const Pool = require('pg').Pool;
-// const pool = new Pool({
-//     user: 'postgres',
-//     host: 'localhost',
-//     database: 'ValueTubeDB',
-//     password: '',
-//     port: '5432'
-// });
-const getVideoInfo = require("./backend/scripts/getVideoInfo");
+const Pool = require('pg').Pool;
+const pool = new Pool({
+    user: 'postgres',
+    host: 'localhost',
+    database: 'Valuetube',
+    password: '',
+    port: '5432'
+});
+const getVideoInfo = require("./backend/scripts/getVideoInfo").getVideoInfo;
 const Pages = require("./frontend/pages");
 
 const options = {
@@ -102,6 +102,19 @@ app.get('/about', (req, res) => {
 });
 
 app.get('/results', (req, res) => {
+    pool.connect((err, client, release) => {
+        if (err) {
+            return console.error('Error acquiring client', err.stack);
+        }
+        client.query('SELECT NOW()', (err, result) => {
+            release();
+            if (err) {
+                return console.error('Error executing query', err.stack)
+            }
+            console.log(result.rows);
+        })
+    });
+
     if (videoList) {
         res.send(
             Pages.Results.ResultsPage({
@@ -136,7 +149,7 @@ app.get('/success', (req, res) => {
 app.get('*', renderError);
 
 // Run https server
-spdy.createServer(options, app).listen(PORT, error => {
+spdy.createServer(options, app).listen(443, error => {
     if (error) {
       console.error(error)
     } else {
