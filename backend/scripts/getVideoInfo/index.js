@@ -1,7 +1,7 @@
 const fs = require('fs');
-const rl = require('readline').createInterface({
-    input: fs.createReadStream("./youtube_urls.txt")
-});
+// const rl = require('readline').createInterface({
+//     input: fs.createReadStream("./youtube_urls.txt")
+// });
 const request = require('request');
 const Pool = require('pg').Pool;
 const pool = new Pool({
@@ -271,9 +271,9 @@ async function runDataInsert () {
     let videoArray = [];
     let count = 0;
 
-    for await (const line of rl) {
-        videoArray.push(line.substring(line.length - 11));
-    }
+    // for await (const line of rl) {
+    //     videoArray.push(line.substring(line.length - 11));
+    // }
 
     for await (const videoId of videoArray) {
         await populateDatabase(videoId)
@@ -288,4 +288,4 @@ async function runDataInsert () {
     console.log(`Successfully added ${count} of ${videoArray.length} videos to database.`)
 }
 
-runDataInsert();
+// runDataInsert();
