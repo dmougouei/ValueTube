@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const net = require('net');
 const http = require('http');
@@ -17,8 +18,8 @@ const getVideoInfo = require("./backend/scripts/getVideoInfo");
 const Pages = require("./frontend/pages");
 
 const options = {
-    key: fs.readFileSync('./keys/localhost.key'),
-    cert: fs.readFileSync('./keys/localhost.crt')
+    key: fs.readFileSync('./keys/dev/valuetube.tech.key'),
+    cert: fs.readFileSync('./keys/dev/valuetube.tech.crt')
 };
 
 const compress = (req, res) => {
@@ -136,7 +137,7 @@ app.get('/success', (req, res) => {
 app.get('*', renderError);
 
 // Run https server
-spdy.createServer(options, app).listen(PORT, error => {
+spdy.createServer(options, app).listen(443, error => {
     if (error) {
       console.error(error)
     } else {
