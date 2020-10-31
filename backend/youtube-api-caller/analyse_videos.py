@@ -10,6 +10,7 @@ import google_auth_oauthlib.flow
 import googleapiclient.discovery
 import googleapiclient.errors
 import psycopg2
+import model_prod
 
 # request video data from youtube
 def video_request(video_id):
@@ -69,7 +70,7 @@ conn = psycopg2.connect(host="192.168.1.102",
     user="liamdb",
     password=password)
 cur = conn.cursor()
-cur.execute("delete from coments")
+cur.execute("delete from comments")
 
 # Connect to Youtube API
 os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
@@ -84,7 +85,7 @@ youtube = googleapiclient.discovery.build(api_service_name, api_version, credent
 # Retrieve comments from youtube and upload to database
 cur.execute("select videoid from videos")
 video_ids = cur.fetchall()
-vid_comments = [] # stores all the comments of a video in a large string
+vid_comments = [] # stores a tuple of (videoid, all the comments of a video in a large string)
 for video_id in video_ids:
     # make request
     video_id = video_id[0].strip()
@@ -99,9 +100,18 @@ for video_id in video_ids:
         continue
 
     # store comment data locally and on database
-    vid_comments.append(retrieve_comments(response))
+    vid_comments.append((video_id, retrieve_comments(response)))
 
+# Build model and make predictions
+model = model_prod.Model()
+predictions = model.predict(vid_comments) # results is a tuple (videoid, label1, label2, ...)
 
+# Insert predictions into the "videos.values" column of the database
+for pred in predictions:
+    videoid = pred[0]
+    labels = pred[1:]
+    values_matrix = "(" + ",".join(map(str, labels)) + ")::values_matrix"
+    cur.execute("UPDATE videos SET values = {} WHERE videoid = {}".format(values_matrix, quotes(videoid)))
 
 # Close database connection
 conn.commit()
