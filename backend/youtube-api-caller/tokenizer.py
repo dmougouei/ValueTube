@@ -1,4 +1,3 @@
-# get like to dislike ratio by modifying youtube-api-requests.py
 import re
 import sqlite3
 import pandas as pd
