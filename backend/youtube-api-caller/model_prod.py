@@ -110,7 +110,7 @@ class Model:
         data = np.array(data)
         features = convert_to_sparse_tensor(self.vectorizer.transform(data[:, 1]))
         preds = (self.nn.predict(features) > self.cutoff).astype(int)
-        output = np.concatenate([data[:, 0].reshape(data.shape[1], 1), preds], axis=1) # add indexes to the predictions
+        output = np.concatenate([data[:, 0].reshape(data.shape[0], 1), preds], axis=1) # add indexes to the predictions
         return output
 
 # run a test of the model class
@@ -120,5 +120,7 @@ if __name__ == "__main__":
         I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life...
         He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural.
         He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did.
-        Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself."""), (2, "Hello there! General Kenobi")]
+        Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself."""),
+        (2, "Hello there! General Kenobi"),
+        (3, "Why is this code not working")]
     print(model.predict(data))
