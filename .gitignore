@@ -1,0 +1,7 @@
+.git
+node_modules
+package-lock.json
+.idea
+.vs
+.vscode
+./vt_env/vt_env.js

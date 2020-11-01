@@ -1,0 +1,10 @@
+{
+  "name": "@vt/backend",
+  "version": "1.0.0",
+  "private": false,
+  "description": "The backend folder for the ValueTube website.",
+  "main": "backend.js",
+  "scripts": {},
+  "author": "Timothy Martin",
+  "license": "MIT"
+}

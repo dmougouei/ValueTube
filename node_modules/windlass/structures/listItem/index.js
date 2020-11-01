@@ -32,34 +32,41 @@ module.exports = function ListItem(props) {
         ? (this.props = props)
         : (this.props = new LIST_ITEM_PROPERTIES(props));
 
-      const hours = Math.floor(this.props.metadata.duration / 3600);
-      let minutes = Math.floor(
-        (this.props.metadata.duration - hours * 3600) / 60
-      );
-      let seconds = this.props.metadata.duration - hours * 3600 - minutes * 60;
+      let duration = "";
+      const approxDurationSeconds = +this.props.metadata.duration / 1000;
+      const hours = Math.floor(approxDurationSeconds / 3600);
+      let minutes = Math.floor((approxDurationSeconds - hours * 3600) / 60);
+      let seconds = Math.floor(approxDurationSeconds - hours * 3600 - minutes * 60);
+    
       minutes = minutes < 10 && hours != 0 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
+      duration =
+        hours != 0
+          ? hours + ":" + minutes + ":" + seconds
+          : minutes + ":" + seconds;
+      
 
       let views = "";
-      if (this.props.metadata.view_count < 1000) {
-        views = this.props.metadata.view_count;
-      } else if (this.props.metadata.view_count < 1000000) {
-        views = (this.props.metadata.view_count / 1000).toFixed(1) + "K";
-      } else if (this.props.metadata.view_count < 1000000000) {
-        views = (this.props.metadata.view_count / 1000000).toFixed(1) + "M";
-      } else if (this.props.metadata.view_count < 1000000000000) {
-        views = (this.props.metadata.view_count / 1000000000).toFixed(1) + "B";
+      if (this.props.metadata.viewcount < 1000) {
+        views = this.props.metadata.viewcount;
+      } else if (this.props.metadata.viewcount < 1000000) {
+        views = (this.props.metadata.viewcount / 1000).toFixed(1) + "K";
+      } else if (this.props.metadata.viewcount < 1000000000) {
+        views = (this.props.metadata.viewcount / 1000000).toFixed(1) + "M";
+      } else if (this.props.metadata.viewcount < 1000000000000) {
+        views = (this.props.metadata.viewcount / 1000000000).toFixed(1) + "B";
       } else {
         views =
-          (this.props.metadata.view_count / 1000000000000).toFixed(1) + "T";
+          (this.props.metadata.viewcount / 1000000000000).toFixed(1) + "T";
       }
 
       let timeSinceUpload = "";
       const date = new Date();
+      const uploadDate = new Date(this.props.metadata.uploaddate);
       const timeSince = [
-        date.getUTCFullYear() - this.props.metadata.upload_date.substring(0, 4),
-        date.getUTCMonth() - this.props.metadata.upload_date.substring(4, 6),
-        date.getUTCDay() - this.props.metadata.upload_date.substring(6, 8),
+        date.getUTCFullYear() - uploadDate.getUTCFullYear(),
+        date.getUTCMonth() - uploadDate.getUTCMonth(),
+        date.getUTCDay() - uploadDate.getUTCDay(),
       ];
       if (timeSince[0] > 1) {
         timeSinceUpload = timeSince[0] + " years ago";
@@ -81,7 +88,7 @@ module.exports = function ListItem(props) {
                 <div class="list-item${
                   this.props.small ? " sm" : ""
                 }" onclick="window.location.href = './watch?v=${
-        this.props.metadata.id
+        this.props.metadata.videoid
       }'">
                     <div class="preview">
                         <img alt="${this.props.metadata.title}" src="${
@@ -105,9 +112,7 @@ module.exports = function ListItem(props) {
                                 )} ...`
                             : this.props.metadata.title
                         }</div>
-                        <div class="content-creator youtube-link" data-url="${
-                          this.props.metadata.uploader_url
-                        }">${this.props.metadata.uploader}</div>
+                        <div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${this.props.metadata.channelid}/">${this.props.metadata.channelname}</div>
                         <div class="views">${views} views</div>
                         <div class="published">${timeSinceUpload}</div>
                         ${Container({

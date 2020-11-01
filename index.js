@@ -1,20 +1,10 @@
 const fs = require('fs');
-const net = require('net');
-const http = require('http');
 const spdy = require('spdy');
 const compression = require('compression');
 const express = require('express');
 const app = express();
-const Pool = require('pg').Pool;
-const pool = new Pool({
-    user: 'postgres',
-    host: 'localhost',
-    database: 'Valuetube',
-    password: '',
-    port: '5432'
-});
-const getVideoInfo = require("./backend/scripts/getVideoInfo").getVideoInfo;
 const Pages = require("./frontend/pages");
+const Backend = require('@vt/backend');
 
 const options = {
     key: fs.readFileSync('./keys/localhost.key'),
@@ -23,111 +13,91 @@ const options = {
 
 const compress = (req, res) => {
     if (req.headers['x-no-compression']) {
-      return false
+        return false
     }
     return compression.filter(req, res)
 };
 
-let videoList = false;
-fs.readFile('./backend/data/temp_video_list.json', (err, data) => {
-    if (err) { throw err; }
-    videoList = JSON.parse(data);
-});
-
 const renderError = (req, res) => {
     res.status(404);
-  
-    // respond with html page
     if (req.accepts('html')) {
         res.send(Pages.Error.ErrorPage());
         return;
     }
-  
-    // respond with json
     if (req.accepts('json')) {
-      res.send({ error: 'Not found' });
-      return;
+        res.send({ error: 'Not found' });
+        return;
     }
-  
-    // default to plain-text. send()
     res.type('txt').send('Not found');
 }
 
 app.use('/', express.static('./'), compression({ filter: compress }));
 
-app.get('/', (req, res) => {
-    if (videoList) {
-        res.send(Pages.Home.HomePage({
-            videos: videoList,
-        }));
-    }
-    return;
-});
-
-app.get('/-', (req, res) => {
-    if (videoList) {
-        res.send(Pages.Home.HomePage({
-            loggedIn: true,
-            videos: videoList,
-        }));
+app.get('/', async (req, res) => {
+    try {
+        // console.log(req.headers.cookie);
+        // res.setHeader('Set-Cookie', ['authId=ABCDE123; Max-Age=1000'])
+        res.send(await Pages.Home.HomePage());
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
     }
     return;
 });
 
 app.get('/watch', async (req, res) => {
-    const validID = /[a-zA-Z0-9_-]{11}/;
-    if (req.query.v && validID.test(req.query.v)) {
-        const videoInfo = await getVideoInfo(req.query.v)
-            .catch((err) => {
-                console.error(err);
-                renderError(req, res);
-                return;
-            });
-
-        res.send(Pages.Watch.WatchPage({
-            metadata: videoInfo.metadata,
-            videos: videoList,
-        }));
-        return;
-    } else {
-        console.error("Error: Invalid video id");
+    try {
+        if (Backend.Utilities.YouTube.validId(req.query.v)) {
+            res.send(
+                await Pages.Watch.WatchPage({
+                    videoId: req.query.v,
+                })
+            );
+        } else {
+            throw new Error("Error: Invalid video id");
+        }
+    } catch (err) {
+        console.error(err);
         renderError(req, res);
-        return;
     }
-});
-
-app.get('/about', (req, res) => {
-    res.send(Pages.About.AboutPage());
     return;
 });
 
-app.get('/results', (req, res) => {
-    pool.connect((err, client, release) => {
-        if (err) {
-            return console.error('Error acquiring client', err.stack);
-        }
-        client.query('SELECT NOW()', (err, result) => {
-            release();
-            if (err) {
-                return console.error('Error executing query', err.stack)
-            }
-            console.log(result.rows);
-        })
-    });
-
-    if (videoList) {
+app.get('/about', async (req, res) => {
+    try {
         res.send(
-            Pages.Results.ResultsPage({
+            await Pages.About.AboutPage()
+        );
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.get('/results', async (req, res) => {
+    try {
+        res.send(
+            await Pages.Results.ResultsPage({
                 searchQuery: req.query.search_query,
-                videos: videoList,
             })
         );
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
     }
     return;
 });
 
-app.get('/signin', (req, res) => {
-    res.send(Pages.SignIn.SignInPage());
+app.get('/signin', async (req, res) => {
+    try {
+        res.send(
+            await Pages.SignIn.SignInPage()
+        );
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
     return;
 });
 
@@ -151,16 +121,16 @@ app.get('*', renderError);
 // Run https server
 spdy.createServer(options, app).listen(443, error => {
     if (error) {
-      console.error(error)
+        console.error(error)
     } else {
-      console.log(`HTTP/2 server 'Running on https://localhost`)
+        console.log(`HTTP/2 server 'Running on https://localhost`)
     }
 });
 
 // Redirect http traffic to https
 var httpServer = express();
 
-httpServer.get('*', function(req, res) {  
+httpServer.get('*', function (req, res) {
     res.redirect(`https://${req.headers.host}${req.url}`);
 })
 

@@ -17,6 +17,7 @@ const {
     SecurityHelpers,
     TypeHelpers,
 } = require('windlass').Utilities.Server;
+const queryDatabase = require('@vt/backend').Utilities.Database.queryDatabase;
 
 class RESULTS_PAGE_PROPERTIES {
     constructor(props) {
@@ -29,25 +30,16 @@ class RESULTS_PAGE_PROPERTIES {
             false,
             SecurityHelpers.sanitiseHTML(`${props.searchQuery}`),
         );
-
-        // videos
-        TypeHelpers.typeCheckPrimative(
-            this,
-            props,
-            "videos",
-            TypeHelpers.PRIMATIVES.ARRAY,
-            [],
-            props.videos
-        );
     }
 }
 
-function ResultsPage(props) {
+async function ResultsPage(props) {
     try {
         if (typeof props === "object" || props instanceof Object) {
             props instanceof RESULTS_PAGE_PROPERTIES
                 ? (this.props = props)
                 : (this.props = new RESULTS_PAGE_PROPERTIES(props));
+            const videoList = await queryDatabase(resultsQuery(this.props.searchQuery));
             return DefaultTemplate({
                 description: `Results page for the ValueTube website with the query ${this.props.searchQuery}.`,
                 title: `ValueTube - ${this.props.searchQuery}`,
@@ -58,7 +50,6 @@ function ResultsPage(props) {
                 ],
                 linkedScripts: [
                     "./frontend/utilities/common.js",
-                    "./frontend/pages/results/results.js",
                 ],
                 content: [
                     Navbar(this.props.loggedIn),
@@ -77,10 +68,10 @@ function ResultsPage(props) {
                                     Container({
                                         class: "list",
                                         content:
-                                            (this.props.videos.length != 0)
-                                                ? this.props.videos.map((video) => {
+                                            (videoList.length != 0)
+                                                ? videoList.map((video) => {
                                                     return ListItem({
-                                                        metadata: video.metadata,
+                                                        metadata: video,
                                                     });
                                                 }).join("\n")
                                                 : Container({
@@ -112,7 +103,41 @@ function ResultsPage(props) {
     }
 }
 
+function resultsQuery(searchQuery) {
+    try {
+        if (typeof searchQuery === "string" || searchQuery instanceof String) {
+            return `
+                SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
+                    keywords, category, values, tn.thumbnail,
+                    fm.duration, difference(lower(title), lower('${searchQuery}'))
+                FROM videos
+                INNER JOIN
+                (
+                        SELECT videoid,
+                                url AS thumbnail,
+                                MAX(height) OVER (PARTITION BY videoid) AS max_height
+                        FROM thumbnails
+                ) tn ON videos.videoid = tn.videoid
+                INNER JOIN
+                (
+                        SELECT videoid,
+                            MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
+                                MAX(height) OVER (PARTITION BY videoid) AS max_height
+                        FROM formats
+                    ) fm ON tn.videoid = fm.videoid
+                WHERE difference(lower(title), lower('${searchQuery}')) >= 2
+                ORDER BY videos.videoid, difference(lower(title), lower('${searchQuery}')) DESC;
+            `;
+        } else {
+            throw new TypeError(`${searchQuery} on queryDatabase is not a valid String type.`);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
+
 module.exports = {
     RESULTS_PAGE_PROPERTIES,
     ResultsPage,
+    resultsQuery,
 }
