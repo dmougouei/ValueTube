@@ -1,0 +1,10 @@
+{
+  "name": "vt_env",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Environment variables for the ValueTube server",
+  "main": "vt_env.js",
+  "scripts": {},
+  "author": "Timothy Martin",
+  "license": "MIT"
+}

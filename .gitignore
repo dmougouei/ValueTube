@@ -1,5 +1,12 @@
-backend/youtube-api-caller/enwiki_20180420_win10_100d.txt.bz2
-backend/youtube-api-caller/client_secret.json
-backend/youtube-api-caller/postgresql_password.txt
-backend/youtube-api-caller/.ipynb_checkpoints/*
-backend/youtube-api-caller/__pycache__/*
+.git
+node_modules
+package-lock.json
+.idea
+.vs
+.vscode
+./vt_env/vt_env.js
+./backend/scripts/youtube-api-caller/enwiki_20180420_win10_100d.txt.bz2
+./backend/scripts/youtube-api-caller/client_secret.json
+./backend/scripts/youtube-api-caller/postgresql_password.txt
+./backend/scripts/youtube-api-caller/.ipynb_checkpoints/*
+./backend/scripts/youtube-api-caller/__pycache__/*

@@ -11,7 +11,7 @@ const {
 } = require('windlass').Components.Typography;
 const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
-const aboutData = require("./aboutData.js");
+const AboutData = require('@vt/backend').Data.About;
 
 function AboutPage() {
     return DefaultTemplate({
@@ -43,7 +43,7 @@ function AboutPage() {
                             Seperator(),
                             Text({
                                 paragraph: true,
-                                content: aboutData.mission
+                                content: AboutData.mission
                             }),
                         ].join("\n"),
                     }),
@@ -60,7 +60,7 @@ function AboutPage() {
                             Container({
                                 class: "grid-3",
                                 content:
-                                    aboutData.teamMembers.map((teamMember) => {
+                                    AboutData.teamMembers.map((teamMember) => {
                                         return Container({
                                             class: "team-member",
                                             content: [
@@ -78,10 +78,19 @@ function AboutPage() {
                                                     paragraph: true,
                                                     content: teamMember.description,
                                                 }),
-                                                Link({
+                                                Text({
                                                     paragraph: true,
-                                                    link: `mailto://${teamMember.link}`,
-                                                    content: "Email"
+                                                    content: [
+                                                        Link({
+                                                            link: `mailto://${teamMember.email}`,
+                                                            content: "Email"
+                                                        }),
+                                                        (teamMember.phone != undefined) ?
+                                                            Text({
+                                                                content: ` - PH. ${teamMember.phone}`,
+                                                            }) :
+                                                            null
+                                                    ].join("\n")
                                                 })
                                             ].join("\n"),
                                         });
