@@ -88,11 +88,10 @@ def create_dataset():
 
 class Model:
     # builds and trains the model, storing the vectorizer for predictions later
-    def __init__(self, cutoff=0.2): # cutoff of 0.2 favours precision over recall
-        self.cutoff = cutoff
+    def __init__(self):
         X_train, X_test, y_train, y_test, self.vectorizer = create_dataset()
         self.train(X_train, y_train)
-        val_preds = (self.nn.predict(X_test) > cutoff).astype(int)
+        val_preds = (self.nn.predict(X_test) > 0.2).astype(int)
         print("Trained model with {} F score".format(f1_score(y_test, val_preds, average="micro")))
 
     def train(self, X_train, y_train):
@@ -109,7 +108,7 @@ class Model:
     def predict(self, data):
         data = np.array(data)
         features = convert_to_sparse_tensor(self.vectorizer.transform(data[:, 1]))
-        preds = (self.nn.predict(features) > self.cutoff).astype(int)
+        preds = self.nn.predict(features)
         output = np.concatenate([data[:, 0].reshape(data.shape[0], 1), preds], axis=1) # add indexes to the predictions
         return output
 
