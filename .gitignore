@@ -5,3 +5,8 @@ package-lock.json
 .vs
 .vscode
 ./vt_env/vt_env.js
+./backend/scripts/youtube-api-caller/enwiki_20180420_win10_100d.txt.bz2
+./backend/scripts/youtube-api-caller/client_secret.json
+./backend/scripts/youtube-api-caller/postgresql_password.txt
+./backend/scripts/youtube-api-caller/.ipynb_checkpoints/*
+./backend/scripts/youtube-api-caller/__pycache__/*

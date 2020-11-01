@@ -1,3 +1,4 @@
+
 const fs = require('fs');
 const spdy = require('spdy');
 const compression = require('compression');
@@ -7,8 +8,8 @@ const Pages = require("./frontend/pages");
 const Backend = require('@vt/backend');
 
 const options = {
-    key: fs.readFileSync('./keys/localhost.key'),
-    cert: fs.readFileSync('./keys/localhost.crt')
+    key: fs.readFileSync('./keys/dev/valuetube.tech.key'),
+    cert: fs.readFileSync('./keys/dev/valuetube.tech.crt')
 };
 
 const compress = (req, res) => {

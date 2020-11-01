@@ -15,6 +15,7 @@ import re
 
 scopes = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
+<<<<<<< HEAD:backend/scripts/youtube-api-caller/youtube-api-requests.py
 conn1 = sqlite3.connect(
     "/home/beth/PycharmProjects/torchMoji3/examples/youtubeComments.db")
 conn2 = sqlite3.connect(
@@ -24,6 +25,19 @@ conn2 = sqlite3.connect(
 # c = conn%.cursor() changed this to local variable in each method
 
 def main():
+=======
+conn1 = sqlite3.connect("youtubeComments.db")
+conn2 = sqlite3.connect("youtube-data.db")
+
+
+def main():
+    # Reset the commentsThreads table to avoid inserting duplicate data
+    # if this script is run multiple times
+    c = conn1.cursor()
+    c.execute("DROP TABLE IF EXISTS commentsThreads")
+    c.execute("CREATE TABLE commentsThreads (videoID text, textOriginal blob)")
+    
+>>>>>>> master:backend/youtube-api-caller/youtube_api_requests.py
     getCommentsThreads()
     conn1.close()
     conn2.close()
@@ -52,9 +66,17 @@ def getCommentsThreads():
     for video in youtubeVideoArray:
         print(video[0])
         request = youtube.commentThreads().list(
+<<<<<<< HEAD:backend/scripts/youtube-api-caller/youtube-api-requests.py
             part="id, replies, snippet",
             textFormat="plainText",
             videoId="%s" % video[0]
+=======
+            part="snippet,replies",
+            textFormat="plainText",
+            videoId="%s" % video[0],
+            order="relevance", # this gives higher quality comments and also comments with more replies
+            maxResults = 100 # the highest maxResults can be is 100
+>>>>>>> master:backend/youtube-api-caller/youtube_api_requests.py
         )
         try:
             response = request.execute()
@@ -69,6 +91,7 @@ def getCommentsThreads():
         sqliteJsonInsert(video[0].strip(), response)
     conn1.commit()
 
+<<<<<<< HEAD:backend/scripts/youtube-api-caller/youtube-api-requests.py
 
 def sqliteJsonInsert(videoID, commentObj):
     c = conn1.cursor()
@@ -81,6 +104,20 @@ def sqliteJsonInsert(videoID, commentObj):
         print(txtOrg)
         params = (videoID, txtOrg)
         c.execute("insert into commentsThreads values (?, ?)", params)
+=======
+    
+# insert all the comments of a video into the commentsThreads database
+def sqliteJsonInsert(videoID, commentObj):
+    c = conn1.cursor()
+    for item in commentObj['items']:
+        comments = [item['snippet']['topLevelComment']]
+        if 'replies' in item: # most comments have no replies so check first
+            comments += item['replies']['comments']
+        
+        for comment in comments:
+            txtOrg = comment['snippet']['textOriginal']
+            c.execute("insert into commentsThreads values (?, ?)", (videoID, txtOrg))
+>>>>>>> master:backend/youtube-api-caller/youtube_api_requests.py
     conn1.commit()
 
 
