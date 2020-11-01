@@ -104,7 +104,7 @@ for video_id in video_ids:
 
 # Build model and make predictions
 model = model_prod.Model()
-predictions = model.predict(vid_comments) # results is a tuple (videoid, label1, label2, ...)
+predictions = model.predict(vid_comments) # results in a tuple (videoid, label1, label2, ...)
 
 # Insert predictions into the "videos.values" column of the database
 for pred in predictions:
