@@ -1,7 +1,7 @@
 module.exports = {
     AUTH_USER: "postgres",
     AUTH_HOST: "localhost",
-    AUTH_DATABASE: "User",
+    AUTH_DATABASE: "ValueTube",
     AUTH_PASS: "MBy7XkgWlBj5UOpNZPKR",
     AUTH_PORT: "5432",
     DB_USER: "postgres",

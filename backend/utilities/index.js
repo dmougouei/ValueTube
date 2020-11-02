@@ -1,11 +1,11 @@
 // Imports
-const Authorisation = require('./authorisation');
+const Auth = require('./auth');
 const Database = require('./database');
 const YouTube = require('./youtube');
 
 // Exports
 const Utilities = {
-    Authorisation,
+    Auth,
     Database,
     YouTube
 }

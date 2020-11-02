@@ -41,9 +41,9 @@ const teamMembers = [
     {
         name:           "Liam Watts",
         role:           "Backend Developer",
-        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        description:    "Hi I’m Liam, a 3rd Computer Science student majoring in Big Data who likes all things Math and AI. In this project I’ve worked on some of the data backend and primarily on building the ML models that we use for assigning values to videos and the recommendation algorithm.",
         email:           "lfw342@uowmail.edu.au",
-        img:            "default_profile.jpg"
+        img:            "LiamWatts_profile.jpg"
     },
     {
         name:           "Tim Martin",

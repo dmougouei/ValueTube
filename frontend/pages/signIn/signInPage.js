@@ -46,19 +46,19 @@ function SignInPage() {
                                 ].join("\n"),
                             }),
                             Seperator(),
-                            `<form class="signin-form">
-                                <label for="username_signin">Username:</label>
-                                <input class="username" type="text" placeholder="Username" name="username_signin" required/>
-                                <label for="password_signin">Password:</label>
-                                <input class="password" type="text" placeholder="Password" name="password_signin" required/>
+                            `<form class="signin-form" method="POST" action="/signin">
+                                <label for="username">Username:</label>
+                                <input id="username" class="username" type="text" placeholder="Username" name="username" required/>
+                                <label for="password">Password:</label>
+                                <input id="username" class="password" type="password" placeholder="Password" name="password" required/>
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",
-                                        actionDown: `window.location.href='./-'`,
                                         content: "Sign In"
                                     })}
                                 </div>
-                            </form>`,
+                            </form>
+                            `,
                             Container({
                                 class: "member-check",
                                 content: `Not a member? ${Link({

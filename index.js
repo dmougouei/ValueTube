@@ -1,6 +1,6 @@
-
 const fs = require('fs');
 const spdy = require('spdy');
+const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
 const app = express();
@@ -8,8 +8,8 @@ const Pages = require("./frontend/pages");
 const Backend = require('@vt/backend');
 
 const options = {
-    key: fs.readFileSync('./keys/dev/valuetube.tech.key'),
-    cert: fs.readFileSync('./keys/dev/valuetube.tech.crt')
+    key: fs.readFileSync('./keys/localhost.key'),
+    cert: fs.readFileSync('./keys/localhost.crt')
 };
 
 const compress = (req, res) => {
@@ -32,13 +32,16 @@ const renderError = (req, res) => {
     res.type('txt').send('Not found');
 }
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', async (req, res) => {
     try {
-        // console.log(req.headers.cookie);
-        // res.setHeader('Set-Cookie', ['authId=ABCDE123; Max-Age=1000'])
-        res.send(await Pages.Home.HomePage());
+        res.send(
+            await Pages.Home.HomePage({
+                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
+            })
+        );
     } catch (err) {
         console.error(err);
         renderError(req, res);
@@ -52,6 +55,7 @@ app.get('/watch', async (req, res) => {
             res.send(
                 await Pages.Watch.WatchPage({
                     videoId: req.query.v,
+                    userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
                 })
             );
         } else {
@@ -67,7 +71,9 @@ app.get('/watch', async (req, res) => {
 app.get('/about', async (req, res) => {
     try {
         res.send(
-            await Pages.About.AboutPage()
+            await Pages.About.AboutPage({
+                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
+            })
         );
     } catch (err) {
         console.error(err);
@@ -81,6 +87,7 @@ app.get('/results', async (req, res) => {
         res.send(
             await Pages.Results.ResultsPage({
                 searchQuery: req.query.search_query,
+                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
             })
         );
     } catch (err) {
@@ -92,9 +99,14 @@ app.get('/results', async (req, res) => {
 
 app.get('/signin', async (req, res) => {
     try {
-        res.send(
-            await Pages.SignIn.SignInPage()
-        );
+        if (Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
+            res.redirect(`https://${req.headers.host}`);
+        } else {
+            res.send(
+                await Pages.SignIn.SignInPage()
+            );
+        }
     } catch (err) {
         console.error(err);
         renderError(req, res);
@@ -102,17 +114,63 @@ app.get('/signin', async (req, res) => {
     return;
 });
 
-app.get('/signup', (req, res) => {
-    if (req.query.survey != '') {
-        res.send(Pages.SignUp.SignUpPage(false));
-    } else {
-        res.send(Pages.SignUp.SignUpPage(true));
+app.post('/signin', async (req, res) => {
+    try {
+        Backend.Utilities.Auth.signIn(req.body.username, req.body.password)
+            .then((result) => {
+                res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
+                res.redirect(`https://${req.headers.host}`);
+            })
+            .catch((e) => {
+                res.send(e);
+            });
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
     }
     return;
 });
 
-app.get('/success', (req, res) => {
-    res.send(Pages.Success.SuccessPage());
+app.get('/signup', async (req, res) => {
+    try {
+        if (Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
+            res.redirect(`https://${req.headers.host}`);
+        } else {
+            res.send(
+                await Pages.SignUp.SignUpPage()
+            );
+        }
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.post('/signup', async (req, res) => {
+    try {
+        Backend.Utilities.Auth.signUp(req.body).then((result) => {
+            res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
+            res.redirect(`https://${req.headers.host}/survey`);
+        }).catch((e) => {
+            res.send(e);
+        });
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.get('/survey', async (req, res) => {
+    try {
+        Backend.Utilities.Auth.authorise(req.headers.cookie);
+        res.redirect(`https://${req.headers.host}`);
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
     return;
 });
 

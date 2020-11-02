@@ -78,27 +78,27 @@ function SignUpPage(isSurvey) {
                                 ].join("\n"),
                             }),
                             Seperator(),
-                            `<form class="signup-form">
+                            `<form class="signup-form" method="POST" action="/signup">
                                 <div class="username">
-                                    <label for="username_signup">Username:</label>
-                                    <input type="text" placeholder="Username" name="username_signup" required/>
-                                </div>
-                                <div class="email">
-                                    <label for="email_signup">Email:</label>
-                                    <input type="text" placeholder="Email" name="email_signup" required/>
+                                    <label for="username">Username:</label>
+                                    <input id="username" type="text" placeholder="Username" name="username" required/>
                                 </div>
                                 <div class="password">
-                                    <label for="password_signup">Password:</label>
-                                    <input type="text" placeholder="Password" name="password_signup" required/>
+                                    <label for="password">Password:</label>
+                                    <input id="password" type="password" placeholder="Password" name="password" required/>
                                 </div>
                                 <div class="confirm_password">
-                                    <label for="confirm_password_signup">Confirm Password:</label>
-                                    <input type="text" placeholder="Password" name="confirm_password_signup" required/>
+                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <input name="confirmPassword" type="password" placeholder="Password" name="confirmPassword" required/>
+                                </div>
+                                <div class="email">
+                                    <label for="email">Email:</label>
+                                    <input id="email" type="text" placeholder="Email" name="email" required/>
                                 </div>
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",
-                                        actionDown: `window.location.href='./signup?survey'`,
+                                        //actionDown: `window.location.href='./signup?survey'`,
                                         content: "Next",
                                     })}
                                 </div>
