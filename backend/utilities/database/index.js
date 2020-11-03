@@ -1,12 +1,12 @@
-const env = require('vt_env');
+const env = require('@vt/vt_env');
 const YouTube = require('../youtube');
 const Pool = require('pg').Pool;
 const pool = new Pool({
-    user: env.DB_USER,
-    host: env.DB_HOST,
-    database: env.DB_DATABASE,
-    password: env.DB_PASS,
-    port: env.DB_PORT
+    user: env.DB.DB_USER,
+    host: env.DB.DB_HOST,
+    database: env.DB.DB_DATABASE,
+    password: env.DB.DB_PASS,
+    port: env.DB.DB_PORT
 });
 
 const queryDatabase = async (query) => {

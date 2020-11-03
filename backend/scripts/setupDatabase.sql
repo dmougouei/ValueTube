@@ -2,6 +2,19 @@ BEGIN;
 CREATE DOMAIN unInt AS BIGINT
    CHECK(VALUE >= 0 AND VALUE < 9223372036854775807);
 
+CREATE TYPE questionOption AS (
+	optionValue INTEGER,
+	optionText TEXT
+);
+
+CREATE TYPE question AS (
+	questionId INTEGER,
+	questionText TEXT,
+	valueAttribute TEXT,
+	questionOptions questionOption[],
+	internalNotes TEXT
+);
+
 CREATE TYPE thumbnail AS (
     videoId TEXT,
     url TEXT,
@@ -85,6 +98,11 @@ CREATE TYPE video AS (
    keywords TEXT[],
    category TEXT,
 );
+
+CREATE TABLE questions OF question;
+ALTER TABLE questions
+    ADD CONSTRAINT questions_pkey
+    PRIMARY KEY (questionId);
 
 CREATE TABLE videos OF video;
 ALTER TABLE videos

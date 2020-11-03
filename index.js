@@ -6,6 +6,7 @@ const express = require('express');
 const app = express();
 const Pages = require("./frontend/pages");
 const Backend = require('@vt/backend');
+const ROOT_URL = require('@vt/vt_env').ROOT_URL;
 
 const options = {
     key: fs.readFileSync('./keys/localhost.key'),
@@ -39,7 +40,7 @@ app.get('/', async (req, res) => {
     try {
         res.send(
             await Pages.Home.HomePage({
-                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
+                userData: await Backend.Utilities.Auth.authorise(req.headers.cookie)
             })
         );
     } catch (err) {
@@ -97,11 +98,36 @@ app.get('/results', async (req, res) => {
     return;
 });
 
+app.get('/profile', async (req, res) => {
+    try {
+        Backend.Utilities.Auth.authorise(req.headers.cookie);
+        res.redirect(`https://${ROOT_URL}`);
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.get('/image', async (req, res) => {
+    try {
+        const userData = Backend.Utilities.Auth.authorise(req.headers.cookie);
+        res.send(getImage(userData.userId));
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
 app.get('/signin', async (req, res) => {
     try {
         if (Backend.Utilities.Auth.authorise(req.headers.cookie)) {
-            res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
-            res.redirect(`https://${req.headers.host}`);
+            res.send(
+                await Pages.SignIn.SignInPage()
+            );
+            // res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            // res.redirect(`https://${ROOT_URL}`);
         } else {
             res.send(
                 await Pages.SignIn.SignInPage()
@@ -119,7 +145,7 @@ app.post('/signin', async (req, res) => {
         Backend.Utilities.Auth.signIn(req.body.username, req.body.password)
             .then((result) => {
                 res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
-                res.redirect(`https://${req.headers.host}`);
+                res.redirect(`https://${ROOT_URL}`);
             })
             .catch((e) => {
                 res.send(e);
@@ -133,12 +159,12 @@ app.post('/signin', async (req, res) => {
 
 app.get('/signup', async (req, res) => {
     try {
-        if (Backend.Utilities.Auth.authorise(req.headers.cookie)) {
-            res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
-            res.redirect(`https://${req.headers.host}`);
+        if (await Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`authToken=${req.headers.cookie.split('=')[1]}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}`);
         } else {
             res.send(
-                await Pages.SignUp.SignUpPage()
+                await Pages.SignUp.SignUpPage({})
             );
         }
     } catch (err) {
@@ -150,11 +176,18 @@ app.get('/signup', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
     try {
-        Backend.Utilities.Auth.signUp(req.body).then((result) => {
-            res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
-            res.redirect(`https://${req.headers.host}/survey`);
-        }).catch((e) => {
-            res.send(e);
+        Backend.Utilities.Auth.signUp(
+            req.body.username,
+            req.body.email,
+            req.body.password,
+            req.body.confirmPassword,
+        ).then((result) => {
+            res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}/profile`);
+        }).catch(async (error) => {
+            res.send(await Pages.SignUp.SignUpPage({
+                errors: error,
+            }));
         });
     } catch (err) {
         console.error(err);
@@ -163,12 +196,12 @@ app.post('/signup', async (req, res) => {
     return;
 });
 
-app.get('/survey', async (req, res) => {
+app.post('/signout', async (req, res) => {
     try {
-        Backend.Utilities.Auth.authorise(req.headers.cookie);
-        res.redirect(`https://${req.headers.host}`);
-    } catch (err) {
-        console.error(err);
+        res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=-1; Secure; HttpOnly; SameSite=Strict;`]);
+        res.redirect(`https://${ROOT_URL}`);
+    } catch (error) {
+        console.error(error);
         renderError(req, res);
     }
     return;
@@ -182,7 +215,7 @@ spdy.createServer(options, app).listen(443, error => {
     if (error) {
         console.error(error)
     } else {
-        console.log(`HTTP/2 server 'Running on https://localhost`)
+        console.log(`HTTP/2 server 'Running on https://${ROOT_URL}`)
     }
 });
 
@@ -190,7 +223,7 @@ spdy.createServer(options, app).listen(443, error => {
 var httpServer = express();
 
 httpServer.get('*', function (req, res) {
-    res.redirect(`https://${req.headers.host}${req.url}`);
+    res.redirect(`https://${ROOT_URL}${req.url}`);
 })
 
 httpServer.listen(80);

@@ -1,5 +1,5 @@
 {
-  "name": "vt_env",
+  "name": "@vt/vt_env",
   "version": "1.0.0",
   "private": true,
   "description": "Environment variables for the ValueTube server",

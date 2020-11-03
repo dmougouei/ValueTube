@@ -1,56 +1,52 @@
-const mission = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est. 
-    Curabitur ornare odio sit amet nibh lacinia, et semper neque cursus. Fusce nibh quam, porttitor sit amet ex vel, laoreet volutpat enim. In interdum, lorem ac finibus cursus, enim mi 
-    accumsan est, ut scelerisque tortor orci eu ligula. Sed eget magna aliquet, tincidunt ante non, tempus arcu. Nam purus libero, efficitur ut nisl quis, tincidunt maximus sem. Morbi 
-    vitae libero id metus elementum malesuada.
-    <br></br>
-    Vestibulum placerat sem sed viverra placerat. Mauris eu tempor dolor, et fringilla tellus. Integer tincidunt, lorem sit amet cursus tincidunt, quam elit placerat metus, ut maximus 
-    leo urna blandit erat. Proin id tortor dictum, fringilla nunc eu, fermentum erat. Nunc in tristique nulla. Phasellus ut ultrices quam. Vivamus ullamcorper id erat in cursus. 
-    Pellentesque tempus finibus ex, quis vulputate justo rutrum vel. In vitae sapien ipsum. Nunc at porttitor odio. Aenean aliquet, ex eget condimentum viverra, mi lectus blandit erat, 
-    eu imperdiet purus quam ut sapien. Donec pulvinar, libero sit amet sagittis efficitur, urna ante aliquet nibh, eget ultrices massa augue vitae quam.`;
+const mission = `The core philosophy of ValueTube is to respect the values of individuals, tailoring YouTube videos results to best suit its users. This website has been created so 
+    that users can browse YouTube videos which are filtered using their unique value profile based on the Schwartz theory of basic values. The unique value profile assigned to users 
+    is created using a survey presented during sign-up, allowing the system to tailor a unique experience to every ValueTube user. For this to be possible, the ValueTube team has 
+    implemented a machine learning model which extracts comment data from YouTube videos and uses these to decide on the possible values that the video holds. It is expected that 
+    this system will have numerous benefits for all individuals, especially those who are more vulnerable and sensitive and do not wish to see distressing content.`;
 
 const teamMembers = [
     {
         name:           "Davoud Mougouei",
         role:           "Project Supervisor",
-        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
-        email:           "davoud@uow.edu.au",
-        img:            "default_profile.jpg"
+        description:    "Dr. Davoud Mougouei has a Ph.D. in Software Engineering with 10+ years of professional experience with current research in software engineering, artificial intelligence and combinational optimisation.",
+        email:          "davoud@uow.edu.au",
+        img:            "DavoudMougouei_profile.jpg",
     },
     {
         name:           "Bethany Cooper",
         role:           "Team Manager/Backend Developer",
         description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
-        email:           "bwc928@uowmail.edu.au ",
-        img:            "default_profile.jpg"
+        email:          "bwc928@uowmail.edu.au ",
+        img:            "default_profile.jpg",
     },
     {
-        name:           "Bugsy Borromeo",
+        name:           "Gustavo Borromeo",
         role:           "Team Manager/Documentation",
         description:    "I am in my final year of studies towards a Bachelor of Information Technology majoring in Network Design and Management. My roles on this team are the closing team manager and to work on documentation.",
-        email:           "gb995@uowmail.edu.au ",
-        img:            "BugsyBorromeo_profile.jpg"
+        email:          "gb995@uowmail.edu.au ",
+        img:            "BugsyBorromeo_profile.jpg",
     },
     {
         name:           "Jingxu Meng",
         role:           "Documentation",
-        description:    "I am a Chinese girl who speaks Mandarin, English and Japanese. Studying a bachelor’s degree in IT at UOW, love talking about cultures with different values with friends from all over the world.",
-        email:           "jm877@uowmail.edu.au",
+        description:    "I am a Chinese girl who speaks Mandarin, English and Japanese. I am studying towards a Bachelor of Information Technology at UOW, love talking about cultures with different values with friends from all over the world.",
+        email:          "jm877@uowmail.edu.au",
         phone:          "0468512068",
-        img:            "JingxuMeng_profile.jpg"
+        img:            "JingxuMeng_profile.jpg",
     },
     {
         name:           "Liam Watts",
         role:           "Backend Developer",
         description:    "Hi I’m Liam, a 3rd Computer Science student majoring in Big Data who likes all things Math and AI. In this project I’ve worked on some of the data backend and primarily on building the ML models that we use for assigning values to videos and the recommendation algorithm.",
-        email:           "lfw342@uowmail.edu.au",
-        img:            "LiamWatts_profile.jpg"
+        email:          "lfw342@uowmail.edu.au",
+        img:            "LiamWatts_profile.jpg",
     },
     {
         name:           "Tim Martin",
         role:           "Full Stack Developer",
-        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
-        email:           "tm894@uowmail.edu.au",
-        img:            "TimMartin_profile.jpg"
+        description:    "I am in my fourth year of my studies for a double degree for a Bachelor of Engineering (Mechatronics) and Bachelor of Computer Science. I am a full stack web developer and primarily worked as the frontend developer for the ValueTube project.",
+        email:          "tm894@uowmail.edu.au",
+        img:            "TimMartin_profile.jpg",
     }
 ];
 

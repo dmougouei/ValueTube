@@ -12,40 +12,15 @@ const {
     Navbar,
 } = require('windlass').Structures;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
+const recommend = require('@vt/backend').Utilities.Recommendation.recommend;
 const queryDatabase = require('@vt/backend').Utilities.Database.queryDatabase;
 
-const query = `
-    SELECT * FROM (
-        SELECT * FROM (
-            SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
-            keywords, category, values, tn.thumbnail,
-            fm.duration, (videos.averagerating::FLOAT * videos.viewcount::FLOAT) AS popularity
-            FROM videos
-            INNER JOIN
-            (
-                SELECT videoid,
-                        url AS thumbnail,
-                        MAX(height) OVER (PARTITION BY videoid) AS max_height
-                FROM thumbnails
-            ) tn ON videos.videoid = tn.videoid
-            INNER JOIN
-            (
-                SELECT videoid,
-                    MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
-                        MAX(height) OVER (PARTITION BY videoid) AS max_height
-                FROM formats
-            ) fm ON tn.videoid = fm.videoid
-            ORDER BY videos.videoid DESC
-        ) AS sortedVideos
-        ORDER BY popularity DESC
-        LIMIT 50
-    ) AS topVideos
-    ORDER BY RANDOM()
-    LIMIT 36;
-`;
-
-async function HomePage () {
-    const videoList = await queryDatabase(query);
+async function HomePage (props) {
+    let recommendedVideos = await recommend(props.userData.userId);
+    recommendedVideos = recommendedVideos.slice(0, 36).map((x) => {
+        return `'${x[0]}'`
+    });
+    const videoList = await queryDatabase(homeQuery(recommendedVideos));
 
     return DefaultTemplate({
         description: "Home page for the ValueTube website.",
@@ -86,6 +61,41 @@ async function HomePage () {
         ].join("\n"),
     });
 };
+
+function homeQuery(videoIdArray) {
+    try {
+        if (typeof videoIdArray === "array" || videoIdArray instanceof Array) {
+            return `
+                SELECT * FROM (
+                    SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
+                    keywords, category, values, tn.thumbnail,
+                    fm.duration
+                    FROM videos
+                    INNER JOIN
+                    (
+                        SELECT videoid,
+                                url AS thumbnail,
+                                MAX(height) OVER (PARTITION BY videoid) AS max_height
+                        FROM thumbnails
+                    ) tn ON videos.videoid = tn.videoid
+                    INNER JOIN
+                    (
+                        SELECT videoid,
+                            MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
+                                MAX(height) OVER (PARTITION BY videoid) AS max_height
+                        FROM formats
+                    ) fm ON tn.videoid = fm.videoid
+                    ORDER BY videos.videoid DESC
+                ) AS sortedVideos
+                WHERE sortedVideos.videoid IN (${videoIdArray.join()});
+            `;
+        } else {
+            throw new TypeError(`${videoIdArray} on queryDatabase is not a valid Array type.`);
+        }
+    } catch (e) {
+        console.error(e);
+    }
+}
 
 module.exports = {
     HomePage,
