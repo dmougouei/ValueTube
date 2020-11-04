@@ -1,10 +1,14 @@
 module.exports = {
-    ROOT_URL: "localhost",
+    ROOT_URL: "valuetube.tech",
+    CERT_ROUTE: {
+        KEY: './keys/dev/valuetube.tech.key',
+        CERT: './keys/dev/valuetube.tech.crt'
+    },
     AUTH: {
-        AUTH_USER: "postgres",
-        AUTH_HOST: "localhost",
-        AUTH_DATABASE: "ValueTube",
-        AUTH_PASS: "MBy7XkgWlBj5UOpNZPKR",
+        AUTH_USER: "vt_users_maintainer",
+        AUTH_HOST: "127.0.0.1",
+        AUTH_DATABASE: "vt_users",
+        AUTH_PASS: "zhm06ZrIrJDnwRe",
         AUTH_PORT: "5432",
     },
     DB: {

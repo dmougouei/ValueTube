@@ -6,11 +6,14 @@ const express = require('express');
 const app = express();
 const Pages = require("./frontend/pages");
 const Backend = require('@vt/backend');
-const ROOT_URL = require('@vt/vt_env').ROOT_URL;
+const {
+    ROOT_URL,
+    CERT_ROUTE
+ } = require('@vt/vt_env');
 
 const options = {
-    key: fs.readFileSync('./keys/localhost.key'),
-    cert: fs.readFileSync('./keys/localhost.crt')
+    key: fs.readFileSync(CERT_ROUTE.KEY),
+    cert: fs.readFileSync(CERT_ROUTE.CERT)
 };
 
 const compress = (req, res) => {
@@ -176,7 +179,7 @@ app.get('/signup', async (req, res) => {
 
 app.post('/signup', async (req, res) => {
     try {
-        Backend.Utilities.Auth.signUp(
+        await Backend.Utilities.Auth.signUp(
             req.body.username,
             req.body.email,
             req.body.password,
@@ -184,16 +187,14 @@ app.post('/signup', async (req, res) => {
         ).then((result) => {
             res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
             res.redirect(`https://${ROOT_URL}/profile`);
-        }).catch(async (error) => {
-            res.send(await Pages.SignUp.SignUpPage({
-                errors: error,
-            }));
+            return;
+        }).catch((error) => {
+            res.send(Pages.SignUp.SignUpPage(error));
         });
-    } catch (err) {
-        console.error(err);
+    } catch (error) {
+        console.error(error);
         renderError(req, res);
     }
-    return;
 });
 
 app.post('/signout', async (req, res) => {

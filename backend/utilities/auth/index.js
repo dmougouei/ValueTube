@@ -191,7 +191,7 @@ const signUp = async (username, email, password, confirmPassword) => {
                 // Check that the username is unique
                 if (+res.rows[0].count != 0) {
                     errors.push({
-                        error: `The username ${username} is already taken.`,
+                        error: `That username is already taken.`,
                     });
                 }
                 // Check that email is valid
