@@ -106,7 +106,7 @@ const SignUpPage = (errors) => {
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",
-                                        content: "Next",
+                                        content: "Sign Up",
                                     })}
                                 </div>
                             </form>`,

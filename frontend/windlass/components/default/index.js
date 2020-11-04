@@ -33,6 +33,7 @@ Object.freeze(DIRECTION_VALUES);
 const DISPLAY_VALUES = {
   INITIAL: "initial",
   BLOCK: "block",
+  GRID: "grid",
   INLINE: "inline",
 };
 Object.freeze(DISPLAY_VALUES);

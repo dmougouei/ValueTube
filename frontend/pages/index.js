@@ -4,7 +4,7 @@ const Home = require('./home/homePage.js');
 const Results = require('./results/resultsPage.js');
 const SignIn = require('./signIn/signInPage.js');
 const SignUp = require('./signUp/signUpPage.js');
-const Success = require('./success/successPage.js');
+const Profile = require('./profile');
 const Watch = require("./watch/watchPage.js");
 
 module.exports = {
@@ -15,5 +15,5 @@ module.exports = {
     Results,
     SignIn,
     SignUp,
-    Success,
+    Profile,
 }

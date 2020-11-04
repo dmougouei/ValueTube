@@ -17,7 +17,6 @@ function ErrorPage() {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/error/error.js",
         ],
         content: [
             Navbar(),

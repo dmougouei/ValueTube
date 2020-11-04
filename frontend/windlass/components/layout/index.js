@@ -13,6 +13,7 @@ const {
   WIDTH_VALUES,
   ZINDEX_VALUES,
   DEFAULT_PROPERTIES,
+  DISPLAY_VALUES,
 } = require("../default");
 const {
   SecurityHelpers,
@@ -158,7 +159,7 @@ class CONTAINER_PROPERTIES extends LAYOUT_PROPERTIES {
       "variant",
       CONTAINER_VALUES,
       CONTAINER_VALUES.DEFAULT,
-      SecurityHelpers.sanitiseHTML(props.variant)
+      `${SecurityHelpers.sanitiseHTML(props.variant)}`
     );
   }
 }
@@ -230,7 +231,39 @@ function Figure(props) {
 // Grid Properties
 class GRID_PROPERTIES extends LAYOUT_PROPERTIES {
   constructor(props) {
-    super(props);
+    super({
+      display: DISPLAY_VALUES.GRID,
+      ...props,
+    });
+    // templateColumns
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "templateColumns",
+      TypeHelpers.PRIMATIVES.ARRAY,
+      "",
+      Array.isArray(props.templateColumns)
+        ? `grid-template-columns: ${SecurityHelpers.sanitiseCSS(props.templateColumns.join(" "))};`
+        : "",
+    );
+
+    // templateRows
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "templateRows",
+      TypeHelpers.PRIMATIVES.ARRAY,
+      "",
+      Array.isArray(props.templateRows)
+        ? `grid-template-rows: ${SecurityHelpers.sanitiseCSS(props.templateRows.join(" "))};`
+        : "",
+    );
+
+    // styleList
+    this.styleList = this.styleList.concat([
+      this.templateColumns,
+      this.templateRows,
+    ]);
   }
 }
 // Grid

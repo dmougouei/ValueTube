@@ -24,7 +24,6 @@ function AboutPage() {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/about/about.js",
         ],
         content: [
             Navbar(),

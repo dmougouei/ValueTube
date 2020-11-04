@@ -36,6 +36,33 @@ const renderError = (req, res) => {
     res.type('txt').send('Not found');
 }
 
+const subfolders = (folder) => {
+    return new RegExp(`${folder}\/?(?:[^\/]+\/?)*$`);
+}
+
+app.all('*', (req, res, next) => {
+    if (
+        ([
+            "/frontend/css/style.css",
+            "/",
+            "/watch",
+            "/about",
+            "/results",
+            "/profile",
+            "/signin",
+            "/signup",
+            "/signout",
+            "/error",
+        ]).includes(req.url) ||
+        (subfolders("/frontend/fonts").test(req.url)) ||
+        (subfolders("/frontend/img").test(req.url)) ||
+        (subfolders("/frontend/utilities").test(req.url))
+    ) {
+        next();
+    } else {
+        res.redirect(`https://${ROOT_URL}`);
+    }
+});
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static('./'), compression({ filter: compress }));
 
@@ -103,8 +130,14 @@ app.get('/results', async (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-        Backend.Utilities.Auth.authorise(req.headers.cookie);
-        res.redirect(`https://${ROOT_URL}`);
+        const profilePage = await Pages.Profile.ProfilePage(
+            Backend.Utilities.Auth.authorise(req.headers.cookie)
+        );
+        if (profilePage) {
+            res.send(profilePage);
+        } else {
+            res.redirect(`https://${ROOT_URL}`);
+        }
     } catch (err) {
         console.error(err);
         renderError(req, res);
@@ -212,7 +245,8 @@ app.get('/signout', async (req, res) => {
 });
 
 // 404 Page Not Found - Error Handling
-app.get('*', renderError);
+app.get('/error', renderError);
+
 
 // Run https server
 spdy.createServer(options, app).listen(443, error => {
