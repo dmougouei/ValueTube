@@ -22,9 +22,17 @@ module.exports = function Navbar(loggedIn) {
       }),
       Search(),
       loggedIn
-        ? `<div class="profile_icon">
-          <img src="./frontend/img/team/default_profile.jpg" />
-        </div>`
+        ? `<div class="signin-container">
+            <div class="profile_icon">
+              <img src="./frontend/img/team/default_profile.jpg" />
+            </div>
+            ${Button({
+              class: "primary",
+              caps: true,
+              actionDown: `window.location.href='./signout'`,
+              content: "Sign out",
+            })}
+          </div>`
         : `<div class="signin-container">
           ${Button({
             class: "primary",

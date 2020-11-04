@@ -303,10 +303,14 @@ const signIn = async (username, password) => {
                                 }
                             });
                         } else {
-                            throw new Error("Invalid username or password.");
+                            reject({
+                                error: "Invalid username or password.",
+                            });
                         }
                     } else {
-                        throw new Error("Invalid username or password.");
+                        reject({
+                            error: "Invalid username or password.",
+                        });
                     }
                 }
             });

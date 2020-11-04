@@ -42,9 +42,9 @@ app.use('/', express.static('./'), compression({ filter: compress }));
 app.get('/', async (req, res) => {
     try {
         res.send(
-            await Pages.Home.HomePage({
-                userData: await Backend.Utilities.Auth.authorise(req.headers.cookie)
-            })
+            await Pages.Home.HomePage(
+                await Backend.Utilities.Auth.authorise(req.headers.cookie)
+            )
         );
     } catch (err) {
         console.error(err);
@@ -112,28 +112,27 @@ app.get('/profile', async (req, res) => {
     return;
 });
 
-app.get('/image', async (req, res) => {
-    try {
-        const userData = Backend.Utilities.Auth.authorise(req.headers.cookie);
-        res.send(getImage(userData.userId));
-    } catch (err) {
-        console.error(err);
-        renderError(req, res);
-    }
-    return;
-});
+// app.get('/image', async (req, res) => {
+//     try {
+//         //const userData = Backend.Utilities.Auth.authorise(req.headers.cookie);
+//         if (req.query.src && req.query.w) {
+//             res.send(Backend.Utilities.VTImage.resizeImage(req.query.src, req.query.w));
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         renderError(req, res);
+//     }
+//     return;
+// });
 
 app.get('/signin', async (req, res) => {
     try {
-        if (Backend.Utilities.Auth.authorise(req.headers.cookie)) {
-            res.send(
-                await Pages.SignIn.SignInPage()
-            );
-            // res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
-            // res.redirect(`https://${ROOT_URL}`);
+        if (await Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`authToken=${req.headers.cookie.split('=')[1]}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}`);
         } else {
             res.send(
-                await Pages.SignIn.SignInPage()
+                Pages.SignIn.SignInPage()
             );
         }
     } catch (err) {
@@ -150,8 +149,10 @@ app.post('/signin', async (req, res) => {
                 res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
                 res.redirect(`https://${ROOT_URL}`);
             })
-            .catch((e) => {
-                res.send(e);
+            .catch((error) => {
+                res.send(
+                    Pages.SignIn.SignInPage(error)
+                );
             });
     } catch (err) {
         console.error(err);
@@ -199,9 +200,9 @@ app.post('/signup', async (req, res) => {
     return;
 });
 
-app.post('/signout', async (req, res) => {
+app.get('/signout', async (req, res) => {
     try {
-        res.setHeader('Set-Cookie', [`${req.headers.cookie}; Max-Age=-1; Secure; HttpOnly; SameSite=Strict;`]);
+        res.setHeader('Set-Cookie', [`authToken=undefined; Max-Age=-1; Secure; HttpOnly; SameSite=Strict;`]);
         res.redirect(`https://${ROOT_URL}`);
     } catch (error) {
         console.error(error);

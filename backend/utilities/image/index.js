@@ -10,15 +10,20 @@ const pool = new Pool({
 });
 const queryDatabase = require('../database').queryDatabase;
 
-const query = `
-    SELCT ...
-`;
-
-const getImage = async (userId) => {
-    queryDatabase(query);
-    return `<img src="data:jpegbase64${result}`
+const getProfileImage = async (userId) => {
+    queryDatabase(`
+        SELECT profilePicture
+        FROM users
+        WHERE (userid = ${userId});
+    `);
 }
 
-const resizeImage = async (img, width) => {
-    img
+const resizeImage = async (src, width) => {
 }
+
+const VTImage = {
+    getProfileImage,
+    resizeImage,
+};
+
+module.exports = VTImage;

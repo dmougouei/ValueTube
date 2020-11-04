@@ -11,7 +11,17 @@ const {
 const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 
-function SignInPage() {
+function SignInPage(error) {
+    // Render invalid username or password error message
+    let signInError = "";
+    try {
+        signInError = 
+            (error.error == "Invalid username or password.") ?
+                `<div>${error.error}</div>` :
+                "";
+    } catch (e) {
+        signInError = "";
+    }
     return DefaultTemplate({
         description: "Sign in page for the ValueTube website.",
         title: "ValueTube - Sign in",
@@ -50,6 +60,7 @@ function SignInPage() {
                                 <input id="username" class="username" type="text" placeholder="Username" name="username" required/>
                                 <label for="password">Password:</label>
                                 <input id="username" class="password" type="password" placeholder="Password" name="password" required/>
+                                ${signInError}
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",

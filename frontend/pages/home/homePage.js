@@ -15,8 +15,8 @@ const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const recommend = require('@vt/backend').Utilities.Recommendation.recommend;
 const queryDatabase = require('@vt/backend').Utilities.Database.queryDatabase;
 
-async function HomePage (props) {
-    let recommendedVideos = await recommend(props.userData.userId);
+async function HomePage (userData) {
+    let recommendedVideos = await recommend(userData.userId);
     recommendedVideos = recommendedVideos.slice(0, 36).map((x) => {
         return `'${x[0]}'`
     });
@@ -34,7 +34,7 @@ async function HomePage (props) {
             "./frontend/utilities/common.js",
         ],
         content: [
-            Navbar(),
+            Navbar(userData ? true : false),
             Container({
                 class: "full-width-container",
                 content:
