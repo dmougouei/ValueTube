@@ -167,7 +167,7 @@ app.get('/signup', async (req, res) => {
             res.redirect(`https://${ROOT_URL}`);
         } else {
             res.send(
-                await Pages.SignUp.SignUpPage({})
+                Pages.SignUp.SignUpPage()
             );
         }
     } catch (err) {
@@ -187,14 +187,16 @@ app.post('/signup', async (req, res) => {
         ).then((result) => {
             res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
             res.redirect(`https://${ROOT_URL}/profile`);
-            return;
         }).catch((error) => {
-            res.send(Pages.SignUp.SignUpPage(error));
+            res.send(
+                Pages.SignUp.SignUpPage(error)
+            );
         });
     } catch (error) {
         console.error(error);
         renderError(req, res);
     }
+    return;
 });
 
 app.post('/signout', async (req, res) => {

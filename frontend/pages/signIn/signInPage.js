@@ -22,7 +22,6 @@ function SignInPage() {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/signIn/signIn.js",
         ],
         content: [
             Navbar(),

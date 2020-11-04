@@ -166,7 +166,7 @@ const signUp = async (username, email, password, confirmPassword) => {
                 SELECT COUNT(*)
                 FROM users
                 WHERE username = $1
-            `, [ username ]).then((res) => {
+            `, [ username ]).then(async (res) => {
                 let errors = [];
                 // Check that the password and confirmPassword fields match
                 if (password != confirmPassword) {
@@ -207,14 +207,8 @@ const signUp = async (username, email, password, confirmPassword) => {
                     reject(errors);
                     return;
                 }
-            }).catch((err) => {
-                reject(err);
-            });
-            // Get the current number of entries in the users database
-            pool.query(`SELECT COUNT(*) FROM users`, (err, res) => {
-                if (err) {
-                    reject(err);
-                } else {
+                // Get the current number of entries in the users database
+                await pool.query(`SELECT COUNT(*) FROM users`).then(async (res) => {
                     // Generate a userId from the md5 hash of the current number of users
                     const userId = getHash(res.rows[0].count);
                     // Generate an authKey of length 256 and convert to a base 64 string
@@ -223,7 +217,7 @@ const signUp = async (username, email, password, confirmPassword) => {
                         { length: 256 },
                     ).export().toString('base64');
                     // Insert the user data into the users table
-                    pool.query(`
+                    await pool.query(`
                         INSERT INTO users(
                             userid,
                             authkey,
@@ -239,25 +233,27 @@ const signUp = async (username, email, password, confirmPassword) => {
                         username,
                         bcrypt.hashSync(password, 13),
                         email,
-                    ], (err, res) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            // Encrypt the authToken using the encryptToken function and 
-                            // return the result to the promise object
-                            encryptToken(
-                                userId,
-                                authKey,
-                                username,
-                                email
-                            ).then((authToken) => {
-                                resolve(authToken);
-                            }).catch((error) => {
-                                reject(error);
-                            });
-                        }
+                    ]).then(async (res) => {
+                        // Encrypt the authToken using the encryptToken function and 
+                        // return the result to the promise object
+                        await encryptToken(
+                            userId,
+                            authKey,
+                            username,
+                            email
+                        ).then((authToken) => {
+                            resolve(authToken);
+                        }).catch((error) => {
+                            reject(error);
+                        });
+                    }).catch((err) => {
+                        reject(err);
                     });
-                }
+                }).catch((err) => {
+                    reject(err);
+                });
+            }).catch((err) => {
+                reject(err);
             });
         } catch (error) {
             reject(error);
