@@ -1,8 +1,6 @@
-const mission = `The core philosophy of ValueTube is to respect the values of individuals, tailoring YouTube videos results to best suit its users. This website has been created so 
-    that users can browse YouTube videos which are filtered using their unique value profile based on the Schwartz theory of basic values. The unique value profile assigned to users 
-    is created using a survey presented during sign-up, allowing the system to tailor a unique experience to every ValueTube user. For this to be possible, the ValueTube team has 
-    implemented a machine learning model which extracts comment data from YouTube videos and uses these to decide on the possible values that the video holds. It is expected that 
-    this system will have numerous benefits for all individuals, especially those who are more vulnerable and sensitive and do not wish to see distressing content.`;
+const mission = `The core philosophy of ValueTube is to respect the values of individuals, tailoring YouTube videos results to best suit its users. This website has been created so that users can browse YouTube videos which are filtered using their unique value profile based on the Schwartz theory of basic values. The unique value profile assigned to users is created using a survey presented during sign-up, allowing the system to tailor a unique experience to every ValueTube user.
+<br></br>
+For this to be possible, the ValueTube team has implemented a machine learning model which extracts comment data from YouTube videos and uses these to decide on the possible values that the video holds. It is expected that this system will have numerous benefits for all individuals, especially those who are more vulnerable and sensitive and do not wish to see distressing content.`;
 
 const teamMembers = [
     {
@@ -15,9 +13,9 @@ const teamMembers = [
     {
         name:           "Bethany Cooper",
         role:           "Team Manager/Backend Developer",
-        description:    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec at tortor sem. Donec sit amet commodo sapien. Nullam maximus elementum aliquet. Nullam eget velit est.",
+        description:    "I am currently studying a bachelor of information technology at UOW while working in sydney as a digital forensic analyst. For the Valuetube project I am currently responsible for architectural design and backend development after initially managing the project.",
         email:          "bwc928@uowmail.edu.au ",
-        img:            "default_profile.jpg",
+        img:            "BethanyCooper_profile.jpg",
     },
     {
         name:           "Gustavo Borromeo",

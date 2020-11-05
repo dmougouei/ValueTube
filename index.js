@@ -9,7 +9,7 @@ const Backend = require('@vt/backend');
 const {
     ROOT_URL,
     CERT_ROUTE
- } = require('@vt/vt_env');
+} = require('@vt/vt_env');
 
 const options = {
     key: fs.readFileSync(CERT_ROUTE.KEY),
@@ -53,10 +53,10 @@ app.all('*', (req, res, next) => {
             "/signup",
             "/signout",
             "/error",
-        ]).includes(req.url) ||
-        (subfolders("/frontend/fonts").test(req.url)) ||
-        (subfolders("/frontend/img").test(req.url)) ||
-        (subfolders("/frontend/utilities").test(req.url))
+        ]).includes(req._parsedUrl.pathname) ||
+        (subfolders("/frontend/fonts").test(req._parsedUrl.pathname)) ||
+        (subfolders("/frontend/img").test(req._parsedUrl.pathname)) ||
+        (subfolders("/frontend/utilities").test(req._parsedUrl.pathname))
     ) {
         next();
     } else {

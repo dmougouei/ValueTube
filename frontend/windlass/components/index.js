@@ -10,9 +10,9 @@ const Alert = require("./alert/alert");
 const Badge = require("./badge/badge");
 const Color = require("./color/color");
 const Default = require("./default");
-const Inputs = require("./inputs");
-const Layout = require("./layout/index.js");
-const Media = require("./media/media");
+const Input = require("./input");
+const Layout = require("./layout");
+const Media = require("./media");
 const Nav = require("./nav/nav");
 const Progress = require("./progress/progress");
 const Spinner = require("./spinner/spinner");
@@ -26,7 +26,7 @@ const Components = {
   Badge,
   Color,
   Default,
-  Inputs,
+  Input,
   Layout,
   Media,
   Nav,

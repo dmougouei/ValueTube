@@ -157,7 +157,9 @@ function DefaultTemplate(props) {
   }
 }
 
-module.exports = {
+const Default = {
   DEFAULT_TEMPLATE_PROPERTIES,
   DefaultTemplate,
 };
+
+module.exports = Default;

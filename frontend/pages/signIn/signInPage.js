@@ -1,4 +1,4 @@
-const Button = require('windlass').Components.Inputs.Button;
+const Button = require('windlass').Components.Input.Button;
 const {
     Container,
     Seperator

@@ -1,5 +1,5 @@
 /*  ---------------------------------------------------------------------------
- *    Windlass v1.0.0 - Split Screen Template
+ *    Windlass v1.0.0 - Sidebar Template
  *
  *    Copyright 2020 Timothy Martin
  *    Licensed under MIT (https://github.com/Niten001/windlass/blob/master/LICENSE)
@@ -16,17 +16,16 @@ const {
 } = require("../../components").Layout;
 const TypeHelpers = require("../../utilities").Server.TypeHelpers;
 
-// Split Screen Side Values
-const SPLITSCREEN_SIDE_VALUES = {
-  DEFAULT: [`minmax(${WIDTH_VALUES.SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
-  CENTER: [`minmax(${WIDTH_VALUES.SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
-  LEFT: [`minmax(${WIDTH_VALUES.EXTRA_SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 2fr)`],
-  RIGHT: [`minmax(${WIDTH_VALUES.SMALL}, 2fr)`, `minmax(${WIDTH_VALUES.EXTRA_SMALL}, 1fr)`],
+// Sidebar Side Values
+const SIDEBAR_SIDE_VALUES = {
+  DEFAULT: [`minmax(${WIDTH_VALUES.SMALL}, 8fr)`, `minmax(${WIDTH_VALUES.EXTRA_SMALL}, 3fr)`],
+  LEFT: [`minmax(${WIDTH_VALUES.EXTRA_SMALL}, 3fr)`, `minmax(${WIDTH_VALUES.SMALL}, 8fr)`],
+  RIGHT: [`minmax(${WIDTH_VALUES.EXTRA_SMALL}, 3fr)`, `minmax(${WIDTH_VALUES.SMALL}, 8fr)`],
 };
-Object.freeze(SPLITSCREEN_SIDE_VALUES);
+Object.freeze(SIDEBAR_SIDE_VALUES);
 
-// Split Screen Template Properties
-class SPLITSCREEN_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
+// Sidebar Template Properties
+class SIDEBAR_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
   constructor(props) {
     super(props);
     // side
@@ -34,8 +33,8 @@ class SPLITSCREEN_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
       this,
       props,
       "side",
-      SPLITSCREEN_SIDE_VALUES,
-      SPLITSCREEN_SIDE_VALUES.DEFAULT,
+      SIDEBAR_SIDE_VALUES,
+      SIDEBAR_SIDE_VALUES.DEFAULT,
       props.side
     );
     
@@ -49,35 +48,35 @@ class SPLITSCREEN_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
       String.raw`${props.header}`
     );
 
-    // leftContent
+    // mainContent
     TypeHelpers.typeCheckPrimative(
       this,
       props,
-      "leftContent",
+      "mainContent",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      String.raw`${props.leftContent}`
+      String.raw`${props.mainContent}`
     );
 
-    // rightContent
+    // sidebarContent
     TypeHelpers.typeCheckPrimative(
       this,
       props,
-      "rightContent",
+      "sidebarContent",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      String.raw`${props.rightContent}`
+      String.raw`${props.sidebarContent}`
     );
   }
 }
 
-// Split Screen Template
-function SplitScreenTemplate(props) {
+// Sidebar Template
+function SidebarTemplate(props) {
   try {
     if (typeof props === "object" || props instanceof Object) {
-      props instanceof SPLITSCREEN_TEMPLATE_PROPERTIES
+      props instanceof SIDEBAR_TEMPLATE_PROPERTIES
         ? (this.props = props)
-        : (this.props = new SPLITSCREEN_TEMPLATE_PROPERTIES(props));
+        : (this.props = new SIDEBAR_TEMPLATE_PROPERTIES(props));
       const output = DefaultTemplate({
         description: this.props.description,
         title: this.props.title,
@@ -88,16 +87,22 @@ function SplitScreenTemplate(props) {
           this.props.header,
           Grid({
             templateColumns: this.props.side,
-            content: [
-              this.props.leftContent,
-              this.props.rightContent,
-            ].join("\n"),
+            content:
+              (this.props.side == SIDEBAR_SIDE_VALUES.LEFT)
+                ? [
+                  this.props.sidebarContent,
+                  this.props.mainContent,
+                ].join("\n")
+                : [
+                  this.props.mainContent,
+                  this.props.sidebarContent,
+                ].join("\n"),
           }),
         ].join("\n"),
       });
       return output;
     } else {
-      throw new TypeError(`${props} on SplitScreenTemplate is not a valid Object type.`);
+      throw new TypeError(`${props} on SidebarTemplate is not a valid Object type.`);
     }
   } catch (e) {
     console.error(e);
@@ -105,7 +110,7 @@ function SplitScreenTemplate(props) {
 }
 
 module.exports = {
-  SPLITSCREEN_SIDE_VALUES,
-  SPLITSCREEN_TEMPLATE_PROPERTIES,
-  SplitScreenTemplate,
+  SIDEBAR_SIDE_VALUES,
+  SIDEBAR_TEMPLATE_PROPERTIES,
+  SidebarTemplate,
 };

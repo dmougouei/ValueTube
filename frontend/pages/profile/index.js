@@ -3,15 +3,16 @@
 const Navbar = require('windlass').Structures.Navbar;
 const { Container } = require('windlass').Components.Layout;
 const {
-    SIDE_VALUES,
+    SPLITSCREEN_SIDE_VALUES,
     SplitScreenTemplate,
 } = require('windlass').Templates.SplitScreen;
 
 const ProfilePage = async (userData) => {
-    if (userData) {
+    const data = await userData;
+    if (data) {
         return SplitScreenTemplate({
-            description: `Profile page for ${userData.username} the ValueTube website.`,
-            title: `ValueTube - Profile (${userData.username})`,
+            description: `Profile page for ${data.username} the ValueTube website.`,
+            title: `ValueTube - Profile (${data.username})`,
             icon: "./frontend/img/ValueTube_Logogram.svg",
             linkedStylesheets: [
                 "./frontend/fonts/font-awesome/css/all.min.css",
@@ -20,7 +21,7 @@ const ProfilePage = async (userData) => {
             linkedScripts: [
                 "./frontend/utilities/common.js",
             ],
-            side: SIDE_VALUES.LEFT,
+            side: SPLITSCREEN_SIDE_VALUES.LEFT,
             header: Navbar(true),
             leftContent: Container({
                 content: "Profile Info",

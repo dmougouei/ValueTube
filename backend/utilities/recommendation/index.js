@@ -60,7 +60,6 @@ const recommend = async (userid) => {
                                         .split(',')
                                         .map(parseFloat):
                                     [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5];
-                                    
                             // calculate vector distance
                             distances = videoRes.rows.map(row => {
                                 // for some reason values is a string, great, thanks JS

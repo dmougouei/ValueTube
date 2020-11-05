@@ -1,4 +1,4 @@
-const Button = require("../../components").Inputs.Button;
+const Button = require("../../components").Input.Button;
 const { Container } = require("../../components").Layout;
 const { Link } = require("../../components").Typography;
 const Search = require("../search");
