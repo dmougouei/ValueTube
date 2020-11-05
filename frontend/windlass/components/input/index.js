@@ -153,7 +153,107 @@ function ToggleButton(props) {
   }
 }
 
-// 
+// Input Properties
+class INPUT_PROPERTIES extends DEFAULT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // autocomplete
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "autocomplete",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.autocomplete ? "autocomplete" : ""
+    );
+
+    // autofocus
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "autofocus",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.autofocus ? "autofocus" : ""
+    );
+
+    // disabled
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "disabled",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.disabled ? "disabled" : ""
+    );
+
+    // form
+    // name
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "name",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `name="${SecurityHelpers.sanitiseHTML(props.name)}"`
+    );
+
+    // type
+    // value
+  }
+}
+
+// Text Input Properties
+class TEXT_INPUT_PROPERTIES extends INPUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // dirname
+    // list
+    // maxlength
+    // minlength
+    // pattern
+    // placeholder
+    // readonly
+    // required
+
+    // Label
+    // errorMessage
+  }
+}
+
+// Text Input
+function TextInput(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof BUTTON_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new BUTTON_PROPERTIES(props));
+      const checkboxId = RandomHelpers.randomId("ch_", 5);
+      return `<button role="button" ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        this.props.tabIndex,
+        this.props.actionUp || this.props.actionDown
+          ? `onclick="button.toggleButton(this, () => {${this.props.actionDown}}, () => {${this.props.actionUp}})"`
+          : "",
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>
+        <input id="${checkboxId}" type="checkbox">
+        <label for="${checkboxId}">${this.props.content}</label>
+      </button>`;
+    } else {
+      throw new TypeError(`${props} on Button is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// Password Input
 
 module.exports = {
   BUTTON_PROPERTIES,

@@ -84,7 +84,7 @@ const recommend = async (userid) => {
     });
 }
 // Exports
-const Recommendation = {
+const Recommend = {
     recommend
 }
-module.exports = Recommendation;
+module.exports = Recommend;

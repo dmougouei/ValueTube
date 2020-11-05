@@ -12,7 +12,7 @@ const {
     Navbar,
 } = require('windlass').Structures;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
-const recommend = require('@vt/backend').Utilities.Recommendation.recommend;
+const recommend = require('@vt/backend').Utilities.Recommend.recommend;
 const queryDatabase = require('@vt/backend').Utilities.Database.queryDatabase;
 
 async function HomePage (userData) {
