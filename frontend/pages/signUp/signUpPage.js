@@ -1,4 +1,4 @@
-const Button = require('windlass').Components.Inputs.Button;
+const Button = require('windlass').Components.Input.Button;
 const {
     Container,
     Seperator
@@ -10,9 +10,45 @@ const {
 } = require('windlass').Components.Typography;
 const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
-const Survey = require('windlass').Structures.Form.Survey;
 
-function SignUpPage(isSurvey) {
+const SignUpPage = (errors) => {
+    // Render invalid username error message
+    let usernameError = "";
+    try {
+        usernameError = errors.filter((error) => {
+            return (error.error == "That username is already taken.");
+        })[0].error;
+    } catch (e) {
+        usernameError = "";
+    }
+    // Render invalid email error message
+    let emailError = "";
+    try {
+        emailError = `<div>${errors.filter((error) => (
+            error.error == "Invalid email address."
+        ))[0].error}</div>`;
+    } catch (e) {
+        emailError = "";
+    }
+    // Render invalid password error message
+    let passwordError = "";
+    try {
+        passwordError = `<div>${errors.filter((error) => (
+            error.error == "Password is not strong enough."
+        ))[0].error}</div>`;
+    } catch (e) {
+        passwordError = "";
+    }
+    // Render confirm password error message
+    let confirmPasswordError = "";
+    try {
+        confirmPasswordError = `<div>${errors.filter((error) => (
+            error.error == "Password fields don't match."
+        ))[0].error}</div>`;
+    } catch (e) {
+        confirmPasswordError = "";
+    }
+    // Render SignUp Page
     return DefaultTemplate({
         description: "Sign up page for the ValueTube website.",
         title: "ValueTube - Sign up",
@@ -23,7 +59,6 @@ function SignUpPage(isSurvey) {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/signUp/signUp.js",
         ],
         content: [
             Navbar(),
@@ -32,38 +67,7 @@ function SignUpPage(isSurvey) {
                 content: [
                     Container({
                         class: "content-container signup",
-                        content: isSurvey ? [
-                            Container({
-                                class: "sign-title",
-                                content: Heading({
-                                    variant: HEADING_VALUES.HEADING_2,
-                                    content: "Sign up - Survey Questions",
-                                }),
-                            }),
-                            Seperator(),
-                            `<form class="survey-form">
-                                ${Survey()}
-                                <div class="btn-container">
-                                ${Button({
-                                    class: "primary left",
-                                    actionDown: `window.location.href='./signup?survey'`,
-                                    content: "Back",
-                                })}
-                                ${Button({
-                                    class: "primary right",
-                                    actionDown: `window.location.href='./success'`,
-                                    content: "Create Account",
-                                })}
-                                </div>
-                            </form>`,
-                            Container({
-                                class: "member-check",
-                                content: `Already a member? ${Link({
-                                    link: './signup',
-                                    content: "Sign in",
-                                })}`
-                            }),
-                        ].join("\n") : [
+                        content: [
                             Container({
                                 class: "sign-title",
                                 content: [
@@ -75,31 +79,34 @@ function SignUpPage(isSurvey) {
                                         class: "primary",
                                         content: `<i class="fab fa-google"></i> Sign up with Google`
                                     }),
-                                ].join("\n"),
+                                ].join(''),
                             }),
                             Seperator(),
-                            `<form class="signup-form">
+                            `<form class="signup-form" method="POST" action="/signup">
                                 <div class="username">
-                                    <label for="username_signup">Username:</label>
-                                    <input type="text" placeholder="Username" name="username_signup" required/>
+                                    <label for="username">Username:</label>
+                                    <input id="username" type="text" placeholder="Username" name="username" required/>
+                                    ${usernameError}
                                 </div>
                                 <div class="email">
-                                    <label for="email_signup">Email:</label>
-                                    <input type="text" placeholder="Email" name="email_signup" required/>
+                                    <label for="email">Email:</label>
+                                    <input id="email" type="text" placeholder="Email" name="email" required/>
+                                    ${emailError}
                                 </div>
                                 <div class="password">
-                                    <label for="password_signup">Password:</label>
-                                    <input type="text" placeholder="Password" name="password_signup" required/>
+                                    <label for="password">Password:</label>
+                                    <input id="password" type="password" placeholder="Password" name="password" required/>
+                                    ${passwordError}
                                 </div>
                                 <div class="confirm_password">
-                                    <label for="confirm_password_signup">Confirm Password:</label>
-                                    <input type="text" placeholder="Password" name="confirm_password_signup" required/>
+                                    <label for="confirmPassword">Confirm Password:</label>
+                                    <input name="confirmPassword" type="password" placeholder="Password" name="confirmPassword" required/>
+                                    ${confirmPasswordError}
                                 </div>
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",
-                                        actionDown: `window.location.href='./signup?survey'`,
-                                        content: "Next",
+                                        content: "Sign Up",
                                     })}
                                 </div>
                             </form>`,
@@ -110,14 +117,14 @@ function SignUpPage(isSurvey) {
                                     content: "Sign in",
                                 })}`
                             }),
-                        ].join("\n"),
+                        ].join(''),
                     }),
                     Container({
-                        class: "color-section primary-secondary half"
+                        class: "color-section primary-secondary half",
                     }),
-                ].join("\n"),
+                ].join(''),
             }),
-        ].join("\n"),
+        ].join(''),
     });
 }
 

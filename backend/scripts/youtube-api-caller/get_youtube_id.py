@@ -1,3 +1,4 @@
+# COMPLETED BY: Bethany Cooper (based on script from youtube api website)
 # -*- coding: utf-8 -*-
 
 # Sample Python code for youtube.videos.list

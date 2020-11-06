@@ -1,0 +1,8 @@
+/*COMPLETED BY: Bethany Cooper */
+create user vtweb_readonly WITH PASSWORD 'PASSWORD'
+	NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION VALID UNTIL 'infinity';
+
+GRANT CONNECT ON DATABASE valuetube TO vtweb_readonly;
+GRANT USAGE ON SCHEMA public TO vtweb_readonly;
+GRANT SELECT ON ALL TABLES IN SCHEMA public TO vtweb_readonly;
+GRANT SELECT ON ALL SEQUENCES IN SCHEMA public TO vtweb_readonly;

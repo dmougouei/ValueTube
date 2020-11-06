@@ -1,6 +1,0 @@
-- The pytorch implementation apparently has been tested to work with python 3.5
-(https://github.com/huggingface/torchMoji). Maybe use this implementation instead of rewriting for python 3.
-
-- Make sure to make use of GPU power and enable in pytorch
-(https://towardsdatascience.com/pytorch-switching-to-the-gpu-a7c0b21e8a99)
-(https://stackoverflow.com/questions/48152674/how-to-check-if-pytorch-is-using-the-gpu)

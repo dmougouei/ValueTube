@@ -1,6 +1,7 @@
 const {
     CONTAINER_VALUES,
     Container,
+    Grid,
     Seperator,
 } = require('windlass').Components.Layout;
 const {
@@ -9,6 +10,7 @@ const {
     Link,
     Text,
 } = require('windlass').Components.Typography;
+const Image = require('windlass').Components.Media.Image;
 const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 const AboutData = require('@vt/backend').Data.About;
@@ -24,7 +26,6 @@ function AboutPage() {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/about/about.js",
         ],
         content: [
             Navbar(),
@@ -57,14 +58,17 @@ function AboutPage() {
                                 content: "Meet the Team"
                             }),
                             Seperator(),
-                            Container({
+                            Grid({
                                 class: "grid-3",
                                 content:
                                     AboutData.teamMembers.map((teamMember) => {
                                         return Container({
                                             class: "team-member",
                                             content: [
-                                                `<img alt="Picture of ${teamMember.name}" src="./frontend/img/team/${teamMember.img}" />`,
+                                                Image({
+                                                    alt: `Picture of ${teamMember.name}`,
+                                                    src: `./frontend/img/team/${teamMember.img}`
+                                                }),
                                                 Heading({
                                                     variant: HEADING_VALUES.HEADING_4,
                                                     content: teamMember.name,

@@ -1,23 +1,28 @@
 const {
+    DISPLAY_VALUES,
+    PADDING_VALUES,
+} = require('windlass').Components.Default;
+const {
     Container,
     Seperator,
 } = require('windlass').Components.Layout;
 const {
     HEADING_VALUES,
     Heading,
-    Text,
 } = require('windlass').Components.Typography;
-const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
+const Video = require('windlass').Components.Media.Video;
+const {
+    SidebarTemplate,
+} = require('windlass').Templates.Sidebar;
 const TypeHelpers = require('windlass').Utilities.Server.TypeHelpers;
 const {
     Comment,
     ListItem,
-    Media,
     Navbar,
 } = require('windlass').Structures;
 const Database = require('@vt/backend').Utilities.Database;
 const parseMetadata = require('../../utilities/metadata/');
-
+// watchPageQuery1
 const videoQuery = `
     SELECT * FROM (
         SELECT * FROM (
@@ -45,7 +50,7 @@ const videoQuery = `
         LIMIT 50
     ) AS topVideos
     ORDER BY RANDOM()
-    LIMIT 36;
+    LIMIT 12;
 `;
 
 class WATCH_PAGE_PROPERTIES {
@@ -59,6 +64,16 @@ class WATCH_PAGE_PROPERTIES {
             undefined,
             props.videoId,
         );
+        
+        // userData {
+        TypeHelpers.typeCheckPrimative(
+            this,
+            props,
+            "userData",
+            TypeHelpers.PRIMATIVES.OBJECT,
+            false,
+            props.userData,
+        );
     }
 }
 
@@ -69,14 +84,24 @@ async function WatchPage(props) {
                 ? (this.props = props)
                 : (this.props = new WATCH_PAGE_PROPERTIES(props));
             await Database.updateDatabase(this.props.videoId);
-            const metadata = parseMetadata(
+            let metadata = parseMetadata(
                 await Database.queryDatabase(
                     watchQuery(this.props.videoId)
                 )
             );
+            metadata = {
+                comments: await Database.queryDatabase(`
+                    SELECT authordisplayname AS user,
+                        textdisplay AS text 
+                    FROM comments
+                    WHERE comments.videoid = '${this.props.videoId}'
+                    LIMIT 5;
+                `),
+                ...metadata,
+            };
             const videoList = await Database.queryDatabase(videoQuery);
 
-            return DefaultTemplate({
+            return SidebarTemplate({
                 description: `Watch page for the ValueTube website for the video ${metadata.title}.`,
                 title: `ValueTube - ${metadata.title}`,
                 icon: "./frontend/img/ValueTube_Logogram.svg",
@@ -87,82 +112,74 @@ async function WatchPage(props) {
                 linkedScripts: [
                     "./frontend/utilities/common.js",
                 ],
-                content: [
-                    Navbar(),
-                    Container({
-                        class: "full-width-container",
-                        content:
-                            Container({
-                                class: "grid-container",
-                                content:
-                                    Container({
-                                        class: "grid-3-1",
-                                        content: [
-                                            Container({
-                                                class: "media-container",
-                                                content: [
-                                                    Media(metadata),
-                                                    Container({
-                                                        class: "details",
-                                                        content: [
-                                                            Container({
-                                                                class: "title",
-                                                                content: metadata.title,
-                                                            }),
-                                                            Container({
-                                                                class: "views",
-                                                                content: `${metadata.views} views`,
-                                                            }),
-                                                            Container({
-                                                                class: "published",
-                                                                content: metadata.timeSinceUpload,
-                                                            }),
-                                                            `<div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${metadata.channelId}">${metadata.channelName}</div>`,
-                                                            Seperator(),
-                                                            Container({
-                                                                class: "description",
-                                                                content: metadata.description,
-                                                            }),
-                                                            Seperator(),
-                                                            // Container({
-                                                            //     class: "comments",
-                                                            //     content: [
-                                                            //         Heading({
-                                                            //             variant: HEADING_VALUES.HEADING_4,
-                                                            //             content: `${metadata.comments.length} Comments`,
-                                                            //         }),
-                                                            //         comments.map((comment) => {
-                                                            //             return Comment(metadata.comment);
-                                                            //         }).join("\n"),
-                                                            //     ].join("\n"),
-                                                            // }),
-                                                        ].join("\n"),
-                                                    }),
-                                                ].join("\n"),
-                                            }),
-                                            Container({
-                                                class: "list-container",
-                                                content: [
-                                                    Heading({
-                                                        variant: HEADING_VALUES.HEADING_4,
-                                                        content: "Recommended for you",
-                                                    }),
-                                                    Seperator(),
-                                                    videoList.map((video) => {
-                                                        return ListItem({
-                                                            small: true,
-                                                            metadata: video
-                                                        });
-                                                    }).join("\n"),
-                                                ].join("\n"),
-                                            }),
-                                        ].join("\n"),
-                                    })
-                                ,
-                            })
-                        ,
-                    }),
-                ].join("\n"),
+                header: Navbar((this.props.userData) ? true : false),
+                mainContent: Container({
+                    class: "media-container",
+                    padding: PADDING_VALUES[4.5],
+                    content: [
+                        Video({
+                            poster: metadata.thumbnail,
+                            src: metadata.videoUrl,
+                            controls: true,
+                            autoplay: true,
+                            display: DISPLAY_VALUES.BLOCK,
+                            style: "width: 100%;",
+                        }),
+                        Container({
+                            class: "details",
+                            content: [
+                                Container({
+                                    class: "title",
+                                    content: metadata.title,
+                                }),
+                                Container({
+                                    class: "views",
+                                    content: `${metadata.views} views`,
+                                }),
+                                Container({
+                                    class: "published",
+                                    content: metadata.timeSinceUpload,
+                                }),
+                                `<div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${metadata.channelId}">${metadata.channelName}</div>`,
+                                Seperator(),
+                                Container({
+                                    class: "description",
+                                    content: metadata.description,
+                                }),
+                                Seperator(),
+                                Container({
+                                    class: "comments",
+                                    content: [
+                                        Heading({
+                                            variant: HEADING_VALUES.HEADING_4,
+                                            content: `${metadata.comments.length} Comments`,
+                                        }),
+                                        metadata.comments.map((comment) => {
+                                            return Comment(comment);
+                                        }).join("\n"),
+                                    ].join("\n"),
+                                }),
+                            ].join("\n"),
+                        }),
+                    ].join("\n"),
+                }),
+                sidebarContent: Container({
+                    class: "list-container",
+                    padding: PADDING_VALUES[3.5],
+                    content: [
+                        Heading({
+                            variant: HEADING_VALUES.HEADING_4,
+                            content: "Recommended for you",
+                        }),
+                        Seperator(),
+                        videoList.map((video) => {
+                            return ListItem({
+                                small: true,
+                                metadata: video
+                            });
+                        }).join("\n"),
+                    ].join("\n"),
+                }),
             });
         } else {
           throw new TypeError(`${props} on WatchPage is not a valid Object type.`);

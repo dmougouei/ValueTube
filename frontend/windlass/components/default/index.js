@@ -33,6 +33,7 @@ Object.freeze(DIRECTION_VALUES);
 const DISPLAY_VALUES = {
   INITIAL: "initial",
   BLOCK: "block",
+  GRID: "grid",
   INLINE: "inline",
 };
 Object.freeze(DISPLAY_VALUES);
@@ -210,6 +211,9 @@ module.exports = {
   DEFAULT_PROPERTIES,
   DIRECTION_VALUES,
   DISPLAY_VALUES,
+  PADDING_VALUES,
+  MARGIN_VALUES,
   WIDTH_VALUES,
   TRANSFORM_VALUES,
+  ZINDEX_VALUES,
 };

@@ -1,15 +1,19 @@
-
 const fs = require('fs');
 const spdy = require('spdy');
+const bodyParser = require('body-parser');
 const compression = require('compression');
 const express = require('express');
 const app = express();
 const Pages = require("./frontend/pages");
 const Backend = require('@vt/backend');
+const {
+    ROOT_URL,
+    CERT_ROUTE
+} = require('@vt/vt_env');
 
 const options = {
-    key: fs.readFileSync('./keys/dev/valuetube.tech.key'),
-    cert: fs.readFileSync('./keys/dev/valuetube.tech.crt')
+    key: fs.readFileSync(CERT_ROUTE.KEY),
+    cert: fs.readFileSync(CERT_ROUTE.CERT)
 };
 
 const compress = (req, res) => {
@@ -32,13 +36,43 @@ const renderError = (req, res) => {
     res.type('txt').send('Not found');
 }
 
+const subfolders = (folder) => {
+    return new RegExp(`${folder}\/?(?:[^\/]+\/?)*$`);
+}
+
+app.all('*', (req, res, next) => {
+    if (
+        ([
+            "/frontend/css/style.css",
+            "/",
+            "/watch",
+            "/about",
+            "/results",
+            "/profile",
+            "/signin",
+            "/signup",
+            "/signout",
+            "/error",
+        ]).includes(req._parsedUrl.pathname) ||
+        (subfolders("/frontend/fonts").test(req._parsedUrl.pathname)) ||
+        (subfolders("/frontend/img").test(req._parsedUrl.pathname)) ||
+        (subfolders("/frontend/utilities").test(req._parsedUrl.pathname))
+    ) {
+        next();
+    } else {
+        res.redirect(`https://${ROOT_URL}`);
+    }
+});
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', async (req, res) => {
     try {
-        // console.log(req.headers.cookie);
-        // res.setHeader('Set-Cookie', ['authId=ABCDE123; Max-Age=1000'])
-        res.send(await Pages.Home.HomePage());
+        res.send(
+            await Pages.Home.HomePage(
+                await Backend.Utilities.Auth.authorise(req.headers.cookie)
+            )
+        );
     } catch (err) {
         console.error(err);
         renderError(req, res);
@@ -52,6 +86,7 @@ app.get('/watch', async (req, res) => {
             res.send(
                 await Pages.Watch.WatchPage({
                     videoId: req.query.v,
+                    userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
                 })
             );
         } else {
@@ -67,7 +102,9 @@ app.get('/watch', async (req, res) => {
 app.get('/about', async (req, res) => {
     try {
         res.send(
-            await Pages.About.AboutPage()
+            await Pages.About.AboutPage({
+                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
+            })
         );
     } catch (err) {
         console.error(err);
@@ -81,6 +118,7 @@ app.get('/results', async (req, res) => {
         res.send(
             await Pages.Results.ResultsPage({
                 searchQuery: req.query.search_query,
+                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
             })
         );
     } catch (err) {
@@ -90,11 +128,16 @@ app.get('/results', async (req, res) => {
     return;
 });
 
-app.get('/signin', async (req, res) => {
+app.get('/profile', async (req, res) => {
     try {
-        res.send(
-            await Pages.SignIn.SignInPage()
+        const profilePage = await Pages.Profile.ProfilePage(
+            Backend.Utilities.Auth.authorise(req.headers.cookie)
         );
+        if (profilePage) {
+            res.send(profilePage);
+        } else {
+            res.redirect(`https://${ROOT_URL}`);
+        }
     } catch (err) {
         console.error(err);
         renderError(req, res);
@@ -102,29 +145,115 @@ app.get('/signin', async (req, res) => {
     return;
 });
 
-app.get('/signup', (req, res) => {
-    if (req.query.survey != '') {
-        res.send(Pages.SignUp.SignUpPage(false));
-    } else {
-        res.send(Pages.SignUp.SignUpPage(true));
+// app.get('/image', async (req, res) => {
+//     try {
+//         //const userData = Backend.Utilities.Auth.authorise(req.headers.cookie);
+//         if (req.query.src && req.query.w) {
+//             res.send(Backend.Utilities.VTImage.resizeImage(req.query.src, req.query.w));
+//         }
+//     } catch (err) {
+//         console.error(err);
+//         renderError(req, res);
+//     }
+//     return;
+// });
+
+app.get('/signin', async (req, res) => {
+    try {
+        if (await Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`authToken=${req.headers.cookie.split('=')[1]}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}`);
+        } else {
+            res.send(
+                Pages.SignIn.SignInPage()
+            );
+        }
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
     }
     return;
 });
 
-app.get('/success', (req, res) => {
-    res.send(Pages.Success.SuccessPage());
+app.post('/signin', async (req, res) => {
+    try {
+        Backend.Utilities.Auth.signIn(req.body.username, req.body.password)
+            .then((result) => {
+                res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`])
+                res.redirect(`https://${ROOT_URL}`);
+            })
+            .catch((error) => {
+                res.send(
+                    Pages.SignIn.SignInPage(error)
+                );
+            });
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.get('/signup', async (req, res) => {
+    try {
+        if (await Backend.Utilities.Auth.authorise(req.headers.cookie)) {
+            res.setHeader('Set-Cookie', [`authToken=${req.headers.cookie.split('=')[1]}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}`);
+        } else {
+            res.send(
+                Pages.SignUp.SignUpPage()
+            );
+        }
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.post('/signup', async (req, res) => {
+    try {
+        await Backend.Utilities.Auth.signUp(
+            req.body.username,
+            req.body.email,
+            req.body.password,
+            req.body.confirmPassword,
+        ).then((result) => {
+            res.setHeader('Set-Cookie', [`authToken=${result}; Max-Age=2678400; Secure; HttpOnly; SameSite=Strict;`]);
+            res.redirect(`https://${ROOT_URL}/profile`);
+        }).catch((error) => {
+            res.send(
+                Pages.SignUp.SignUpPage(error)
+            );
+        });
+    } catch (error) {
+        console.error(error);
+        renderError(req, res);
+    }
+    return;
+});
+
+app.get('/signout', async (req, res) => {
+    try {
+        res.setHeader('Set-Cookie', [`authToken=undefined; Max-Age=-1; Secure; HttpOnly; SameSite=Strict;`]);
+        res.redirect(`https://${ROOT_URL}`);
+    } catch (error) {
+        console.error(error);
+        renderError(req, res);
+    }
     return;
 });
 
 // 404 Page Not Found - Error Handling
-app.get('*', renderError);
+app.get('/error', renderError);
+
 
 // Run https server
 spdy.createServer(options, app).listen(443, error => {
     if (error) {
         console.error(error)
     } else {
-        console.log(`HTTP/2 server 'Running on https://localhost`)
+        console.log(`HTTP/2 server 'Running on https://${ROOT_URL}`)
     }
 });
 
@@ -132,7 +261,7 @@ spdy.createServer(options, app).listen(443, error => {
 var httpServer = express();
 
 httpServer.get('*', function (req, res) {
-    res.redirect(`https://${req.headers.host}${req.url}`);
+    res.redirect(`https://${ROOT_URL}${req.url}`);
 })
 
 httpServer.listen(80);

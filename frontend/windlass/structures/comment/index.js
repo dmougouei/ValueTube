@@ -5,7 +5,7 @@ module.exports = function Comment(props) {
         ${this.props.user}
       </div>
       <div class="comment-body">
-        ${this.props.commentBody}
+        ${this.props.text}
       </div>
     </div>`;
 };

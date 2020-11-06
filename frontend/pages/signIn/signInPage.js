@@ -1,4 +1,4 @@
-const Button = require('windlass').Components.Inputs.Button;
+const Button = require('windlass').Components.Input.Button;
 const {
     Container,
     Seperator
@@ -11,7 +11,17 @@ const {
 const Navbar = require('windlass').Structures.Navbar;
 const DefaultTemplate = require('windlass').Templates.Default.DefaultTemplate;
 
-function SignInPage() {
+function SignInPage(error) {
+    // Render invalid username or password error message
+    let signInError = "";
+    try {
+        signInError = 
+            (error.error == "Invalid username or password.") ?
+                `<div>${error.error}</div>` :
+                "";
+    } catch (e) {
+        signInError = "";
+    }
     return DefaultTemplate({
         description: "Sign in page for the ValueTube website.",
         title: "ValueTube - Sign in",
@@ -22,7 +32,6 @@ function SignInPage() {
         ],
         linkedScripts: [
             "./frontend/utilities/common.js",
-            "./frontend/pages/signIn/signIn.js",
         ],
         content: [
             Navbar(),
@@ -46,19 +55,20 @@ function SignInPage() {
                                 ].join("\n"),
                             }),
                             Seperator(),
-                            `<form class="signin-form">
-                                <label for="username_signin">Username:</label>
-                                <input class="username" type="text" placeholder="Username" name="username_signin" required/>
-                                <label for="password_signin">Password:</label>
-                                <input class="password" type="text" placeholder="Password" name="password_signin" required/>
+                            `<form class="signin-form" method="POST" action="/signin">
+                                <label for="username">Username:</label>
+                                <input id="username" class="username" type="text" placeholder="Username" name="username" required/>
+                                <label for="password">Password:</label>
+                                <input id="username" class="password" type="password" placeholder="Password" name="password" required/>
+                                ${signInError}
                                 <div class="btn-container center">
                                     ${Button({
                                         class: "primary",
-                                        actionDown: `window.location.href='./-'`,
                                         content: "Sign In"
                                     })}
                                 </div>
-                            </form>`,
+                            </form>
+                            `,
                             Container({
                                 class: "member-check",
                                 content: `Not a member? ${Link({

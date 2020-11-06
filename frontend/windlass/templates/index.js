@@ -6,11 +6,15 @@
  *  ---------------------------------------------------------------------------  */
 
 // Imports
-const Default = require("./default/default");
+const Default = require("./default");
+const Sidebar = require("./sidebar");
+const SplitScreen = require("./splitscreen");
 
 // Export Templates
 const Templates = {
   Default,
+  Sidebar,
+  SplitScreen,
 };
 
 module.exports = Templates;
