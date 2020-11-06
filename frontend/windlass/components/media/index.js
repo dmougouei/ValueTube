@@ -128,7 +128,7 @@ class IMAGE_PROPERTIES extends DEFAULT_PROPERTIES {
     TypeHelpers.typeCheckValue(
       this,
       props,
-      "decoding",
+      "loading",
       LOADING_VALUES,
       LOADING_VALUES.DEFAULT,
       `loading="${props.decoding}"`
@@ -142,7 +142,8 @@ class IMAGE_PROPERTIES extends DEFAULT_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       (props.sizes) ? `sizes="${props.sizes.filter((size) => {
-        return (size instanceof SIZE) ? true : false;
+        const test = new SIZE(size);
+        return (test instanceof SIZE) ? true : false;
       }).map((size) => {
         return [size.mediaCondition, size.size].join(" ")
       }).join()}"` : ""
@@ -166,7 +167,8 @@ class IMAGE_PROPERTIES extends DEFAULT_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       (props.srcset) ? `srcset="${props.srcset.filter((src) => {
-        return (src instanceof SRC) ? true : false;
+        const test = new SRC(src);
+        return (test instanceof SRC) ? true : false;
       }).map((src) => {
         return [src.url, src.descriptor].join(" ")
       }).join()}"` : ""
@@ -208,6 +210,7 @@ function Image(props) {
         this.props.src,
         this.props.srcset,
         this.props.width,
+        this.props.onclick,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])} />`;
     } else {

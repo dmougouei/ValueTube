@@ -178,6 +178,8 @@ function Container(props) {
         this.props.title,
         this.props.language,
         this.props.direction,
+        this.props.onclick,
+        this.props.attributes,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</${this.props.variant}>`;
     } else {
@@ -266,6 +268,7 @@ class GRID_PROPERTIES extends LAYOUT_PROPERTIES {
     ]);
   }
 }
+
 // Grid
 function Grid(props) {
   try {
@@ -314,8 +317,163 @@ function Seperator(props) {
   }
 }
 
+// Enctype Values
+const ENCTYPE_VALUES = {
+  DEFAULT: "",
+  APPLICATION: "application/x-www-form-urlencoded",
+  MULTIPART: "multipart/form-data",
+  TEXT: "text/plain",
+};
+Object.freeze(ENCTYPE_VALUES);
+
+// Method Values
+const METHOD_VALUES = {
+  DEFAULT: "",
+  POST: "post",
+  GET: "get",
+  DIALOG: "dialog",
+};
+Object.freeze(METHOD_VALUES);
+
+// Target Values
+const TARGET_VALUES = {
+  DEFAULT: "",
+  SELF: "_self",
+  BLANK: "_blank",
+  PARENT: "_parent",
+  TOP: "_top",
+};
+Object.freeze(TARGET_VALUES);
+
+// Form Properties
+class FORM_PROPERTIES extends LAYOUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // accept-charset
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "acceptCharset",
+      TypeHelpers.PRIMATIVES.ARRAY,
+      "",
+      (props.acceptCharset) ? `accept-charset="${props.acceptCharset.filter((charset) => {
+        return (typeof charset === "string" || src instanceof String) ? true : false;
+      }).join(" ")}"` : ""
+    );
+
+    // autocomplete
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "autocomplete",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.autocomplete ? "autocomplete" : ""
+    );
+
+    // rel
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "rel",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `rel="${SecurityHelpers.sanitiseHTML(props.rel)}"`
+    );
+
+    // action
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "action",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `action="${SecurityHelpers.sanitiseHTML(props.action)}"`
+    );
+
+    // enctype
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "enctype",
+      ENCTYPE_VALUES,
+      ENCTYPE_VALUES.DEFAULT,
+      `enctype="${props.enctype}"`
+    );
+
+    // method
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "method",
+      METHOD_VALUES,
+      METHOD_VALUES.DEFAULT,
+      `method="${props.method}"`
+    );
+
+    // novalidate
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "novalidate",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.novalidate ? "novalidate" : ""
+    );
+    
+    // target
+    TypeHelpers.typeCheckValue(
+      this,
+      props,
+      "target",
+      TARGET_VALUES,
+      TARGET_VALUES.DEFAULT,
+      `target="${props.target}"`
+    );
+
+    // styleList
+    this.styleList = this.styleList.concat([
+      this.templateColumns,
+      this.templateRows,
+    ]);
+  }
+}
+
+// Form
+function Form(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof FORM_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new FORM_PROPERTIES(props));
+      return `<form ${StringHelpers.combineStrings([
+        this.props.id,
+        this.props.class,
+        this.props.title,
+        this.props.language,
+        this.props.direction,
+        this.props.acceptCharset,
+        this.props.autocomplete,
+        this.props.rel,
+        this.props.action,
+        this.props.enctype,
+        this.props.method,
+        this.props.novalidate,
+        this.props.target,
+        StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+      ])}>${this.props.content}</form>`;
+    } else {
+      throw new TypeError(`${props} on Form is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
 // Export Layout
-module.exports = {
+const Layout = {
   LAYOUT_PROPERTIES,
   CONTAINER_VALUES,
   CONTAINER_PROPERTIES,
@@ -325,4 +483,11 @@ module.exports = {
   GRID_PROPERTIES,
   Grid,
   Seperator,
+  ENCTYPE_VALUES,
+  METHOD_VALUES,
+  TARGET_VALUES,
+  FORM_PROPERTIES,
+  Form,
 };
+
+module.exports = Layout;

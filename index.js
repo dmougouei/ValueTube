@@ -63,7 +63,7 @@ app.all('*', (req, res, next) => {
         res.redirect(`https://${ROOT_URL}`);
     }
 });
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }));
 app.use('/', express.static('./'), compression({ filter: compress }));
 
 app.get('/', async (req, res) => {
@@ -86,7 +86,7 @@ app.get('/watch', async (req, res) => {
             res.send(
                 await Pages.Watch.WatchPage({
                     videoId: req.query.v,
-                    userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
+                    userData: await Backend.Utilities.Auth.authorise(req.headers.cookie)
                 })
             );
         } else {
@@ -102,9 +102,9 @@ app.get('/watch', async (req, res) => {
 app.get('/about', async (req, res) => {
     try {
         res.send(
-            await Pages.About.AboutPage({
-                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
-            })
+            await Pages.About.AboutPage(
+                await Backend.Utilities.Auth.authorise(req.headers.cookie)
+            )
         );
     } catch (err) {
         console.error(err);
@@ -116,10 +116,10 @@ app.get('/about', async (req, res) => {
 app.get('/results', async (req, res) => {
     try {
         res.send(
-            await Pages.Results.ResultsPage({
-                searchQuery: req.query.search_query,
-                userData: Backend.Utilities.Auth.authorise(req.headers.cookie)
-            })
+            await Pages.Results.ResultsPage(
+                req.query.search_query,
+                await Backend.Utilities.Auth.authorise(req.headers.cookie)
+            )
         );
     } catch (err) {
         console.error(err);
@@ -130,9 +130,7 @@ app.get('/results', async (req, res) => {
 
 app.get('/profile', async (req, res) => {
     try {
-        const profilePage = await Pages.Profile.ProfilePage(
-            Backend.Utilities.Auth.authorise(req.headers.cookie)
-        );
+        const profilePage = await Pages.Profile.ProfilePage(await Backend.Utilities.Auth.authorise(req.headers.cookie));
         if (profilePage) {
             res.send(profilePage);
         } else {
@@ -145,18 +143,27 @@ app.get('/profile', async (req, res) => {
     return;
 });
 
-// app.get('/image', async (req, res) => {
-//     try {
-//         //const userData = Backend.Utilities.Auth.authorise(req.headers.cookie);
-//         if (req.query.src && req.query.w) {
-//             res.send(Backend.Utilities.VTImage.resizeImage(req.query.src, req.query.w));
-//         }
-//     } catch (err) {
-//         console.error(err);
-//         renderError(req, res);
-//     }
-//     return;
-// });
+app.post('/profile', async (req, res) => {
+    try {
+        const userData = await Backend.Utilities.Auth.authorise(req.headers.cookie);
+        await Backend.Utilities.VTImage.uploadProfileImage(userData.userId, req.body.base64);
+        userData = {
+            profilePicture: await Backend.Utilities.VTImage.getProfileImage(userData.userId),
+            ...userData,
+        };
+        if (userData) {
+            res.send(
+                Pages.Profile.ProfilePage(userData)
+            );
+        } else {
+            res.redirect(`https://${ROOT_URL}`);
+        }
+    } catch (err) {
+        console.error(err);
+        renderError(req, res);
+    }
+    return;
+});
 
 app.get('/signin', async (req, res) => {
     try {

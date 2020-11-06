@@ -33,12 +33,11 @@
     .nav-bar .profile_icon {
         display:        flex;
         position:       relative;
-        top:            -10px;
         height:         40px;
         border-radius:  50%;
         border:         solid 0.5px #eeeeee;
         overflow:       hidden;
-        margin:         $nav-logo-margin;    
+        margin-right:   16px;    
     }
 
     .nav-bar .logo-container img, .nav-bar .profile_icon img {
@@ -80,9 +79,76 @@
         position:       relative;
         top:            $nav-signin-top;
         height:         $nav-signin-height;
-        width:          $nav-signin-width;
     }
 
     .nav-bar .signin-container button, .nav-bar .signin-container .btn {
         margin: $nav-signin-button-margin;
+    }
+
+    .nav-bar .signin-container .menu-button {
+        all: unset;
+        display: flex;
+        height: max-content;
+        border: solid 1px transparent;
+        padding: 2px 8px;
+        position: relative;
+        top: -9px;
+        border-radius: 4px;
+        cursor: pointer;
+
+        &:hover, &.focus {
+            border-color: map-get($neutrals, "400");
+        }
+
+        & .username {
+            position: relative;
+            top: 9px;
+            margin-right: 16px;
+            max-width: 200px;
+            overflow: hidden;
+        }
+
+        & i {
+            position: relative;
+            top: 3.5px;
+            padding: 8px;
+        }       
+    }
+
+    .nav-bar .signin-container .menu {
+        display: none;
+        position: absolute; 
+        top: calc(30px + 1.25em);    
+        left: 0;   
+        right: 0;
+        background: white;
+        border: solid 1px rgb(186, 186, 186);
+        border-radius: 4px;   
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        transition: height 0.5s ease-in-out;
+
+        &.active {
+            display: block;
+        }
+
+        & div {
+            padding: 16px;
+            cursor: pointer;
+        }
+
+        & div:hover {
+            background-color: map-get($theme-colors, "light");
+        }
+
+        & div i {
+            margin-right: 16px;
+        }
+
+        & .signout {
+            border-top: solid 1px rgb(186, 186, 186);
+        }
+
+        & .signout:hover {
+            background-color: #FCC5C2;
+        }
     }

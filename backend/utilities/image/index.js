@@ -11,18 +11,28 @@ const pool = new Pool({
 const queryDatabase = require('../database').queryDatabase;
 
 const getProfileImage = async (userId) => {
-    queryDatabase(`
-        SELECT profilePicture
+    const imageData = await queryDatabase(`
+        SELECT profilepicture
         FROM users
-        WHERE (userid = ${userId});
+        WHERE userid = '${userId}';
     `);
+    return imageData;
 }
+
+const uploadProfileImage = async (userId, imageData) => {
+    await queryDatabase(`
+        UPDATE public.users
+        SET profilePicture = '${imageData}'
+        WHERE userid = '${userId}';
+    `);
+};
 
 const resizeImage = async (src, width) => {
 }
 
 const VTImage = {
     getProfileImage,
+    uploadProfileImage,
     resizeImage,
 };
 

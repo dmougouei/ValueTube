@@ -168,6 +168,16 @@ class DEFAULT_PROPERTIES {
       `lang="${SecurityHelpers.sanitiseHTML(props.language)}"`
     );
 
+    // onclick
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "onclick",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `onclick="${props.onclick}"`
+    );
+
     // style
     TypeHelpers.typeCheckPrimative(
       this,
@@ -198,6 +208,16 @@ class DEFAULT_PROPERTIES {
       `title="${SecurityHelpers.sanitiseHTML(
         props.title
       )}" aria-label="${SecurityHelpers.sanitiseHTML(props.title)}"`
+    );
+      
+    // attributes
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "attributes",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      SecurityHelpers.sanitiseHTML(props.attributes)
     );
 
     // stylelist

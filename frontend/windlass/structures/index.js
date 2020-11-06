@@ -12,7 +12,6 @@ const Carousel = require("./carousel");
 const Comment = require("./comment");
 const Form = require("./form");
 const ListItem = require("./listItem");
-const Media = require("./media");
 const Modal = require("./modal");
 const Navbar = require("./navbar");
 const Pagination = require("./pagination");
@@ -26,7 +25,6 @@ const Structures = {
   Comment,
   Form,
   ListItem,
-  Media,
   Modal,
   Navbar,
   Pagination,

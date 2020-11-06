@@ -1061,7 +1061,10 @@ button.outline.dark:hover, .btn.outline.dark:hover {
 .card .content-creator {
   cursor: pointer;
 }
-.card .content-creator:hover {
+.card .content-creator > a, .card .content-creator > a:visited {
+  all: unset;
+}
+.card .content-creator > a:hover {
   color: #424242;
 }
 .card .content-creator::after {
@@ -1222,7 +1225,10 @@ button.outline.dark:hover, .btn.outline.dark:hover {
 .list-item .content-creator {
   cursor: pointer;
 }
-.list-item .content-creator:hover {
+.list-item .content-creator > a, .list-item .content-creator > a:visited {
+  all: unset;
+}
+.list-item .content-creator > a:hover {
   color: #424242;
 }
 .list-item .content-creator::after {
@@ -1279,7 +1285,10 @@ button.outline.dark:hover, .btn.outline.dark:hover {
 .media-container .content-creator {
   cursor: pointer;
 }
-.media-container .content-creator:hover {
+.media-container .content-creator > a, .media-container .content-creator > a:visited {
+  all: unset;
+}
+.media-container .content-creator > a:hover {
   color: #424242;
 }
 .media-container .content-creator::after {
@@ -1489,12 +1498,11 @@ html[data-scroll="25"] .nav-bar {
 .nav-bar .profile_icon {
   display: flex;
   position: relative;
-  top: -10px;
   height: 40px;
   border-radius: 50%;
   border: solid 0.5px #eeeeee;
   overflow: hidden;
-  margin: 0 16px;
+  margin-right: 16px;
 }
 
 .nav-bar .logo-container img, .nav-bar .profile_icon img {
@@ -1533,11 +1541,69 @@ html[data-scroll="25"] .nav-bar {
   position: relative;
   top: -0.25em;
   height: 30px;
-  width: 190px;
 }
 
 .nav-bar .signin-container button, .nav-bar .signin-container .btn {
   margin: 0px 8px;
+}
+
+.nav-bar .signin-container .menu-button {
+  all: unset;
+  display: flex;
+  height: max-content;
+  border: solid 1px transparent;
+  padding: 2px 8px;
+  position: relative;
+  top: -9px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.nav-bar .signin-container .menu-button:hover, .nav-bar .signin-container .menu-button.focus {
+  border-color: #bdbdbd;
+}
+.nav-bar .signin-container .menu-button .username {
+  position: relative;
+  top: 9px;
+  margin-right: 16px;
+  max-width: 200px;
+  overflow: hidden;
+}
+.nav-bar .signin-container .menu-button i {
+  position: relative;
+  top: 3.5px;
+  padding: 8px;
+}
+
+.nav-bar .signin-container .menu {
+  display: none;
+  position: absolute;
+  top: calc(30px + 1.25em);
+  left: 0;
+  right: 0;
+  background: white;
+  border: solid 1px #bababa;
+  border-radius: 4px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transition: height 0.5s ease-in-out;
+}
+.nav-bar .signin-container .menu.active {
+  display: block;
+}
+.nav-bar .signin-container .menu div {
+  padding: 16px;
+  cursor: pointer;
+}
+.nav-bar .signin-container .menu div:hover {
+  background-color: #f5f5f5;
+}
+.nav-bar .signin-container .menu div i {
+  margin-right: 16px;
+}
+.nav-bar .signin-container .menu .signout {
+  border-top: solid 1px #bababa;
+}
+.nav-bar .signin-container .menu .signout:hover {
+  background-color: #FCC5C2;
 }
 
 .search-container {
@@ -1559,20 +1625,20 @@ html[data-scroll="25"] .nav-bar {
 
 .search-input {
   all: unset;
-  display: inline-block;
+  display: block;
+  float: left;
   line-height: 20px;
   width: 500px;
-  vertical-align: middle;
-  user-select: none;
+  user-select: text;
   background-color: #ffffff;
   padding: 4px 12px;
 }
 
 .search-button, .filter-button {
   all: unset;
-  display: inline-block;
+  display: block;
   line-height: 20px;
-  vertical-align: middle;
+  float: right;
   cursor: pointer;
   user-select: none;
   background-color: #f5f5f5;
@@ -1695,7 +1761,7 @@ li.check-box.checked::marker {
   display: inline-block;
   width: calc(100% - 32px);
   line-height: 20px;
-  user-select: none;
+  user-select: text;
   font-size: 12pt;
   font-weight: 400;
   color: #424242;

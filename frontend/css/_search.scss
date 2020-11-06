@@ -17,20 +17,20 @@
 
 .search-input {
     all:                unset;
-    display:			inline-block;
+    display:			block;
+    float:              left;
     line-height:        20px;
     width:              500px;
-	vertical-align:		middle;
-	user-select:		none;
+	user-select:		text;
 	background-color:	$white;
     padding:			map-get($padding, "2") map-get($padding, "3.5");
 }
 
 .search-button, .filter-button {
     all:                unset;
-    display:            inline-block;
+    display:            block;
     line-height:        20px;
-    vertical-align:		middle;
+    float:      		right;
     cursor:             pointer;
     user-select:		none;
     background-color:	map-get($theme-colors, "light");

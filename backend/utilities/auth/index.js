@@ -11,7 +11,7 @@ const pool = new Pool({
     port: AUTH_ENV.AUTH_PORT,
 });
 const AuthData = require('../../data').Auth;
-const randomId = require('windlass').Utilities.Server.RandomHelpers.randomId;
+const randomId = require('../../../frontend/windlass/utilities').Server.RandomHelpers.randomId;
 
 // MD5 hash given string
 const getHash = (index) => {
@@ -145,8 +145,20 @@ const authorise = async (cookie) => {
             // Split the cookie and get the value of the authToken
             const authToken = cookie.split('=')[1];
             // Decrypt the authToken using the decryptToken function
-            await decryptToken(authToken).then((userData) => {
-                resolve(userData);
+            await decryptToken(authToken).then(async (userData) => {
+                pool.query(`
+                    SELECT profilepicture
+                    FROM users
+                    WHERE userid = $1;
+                `, [ userData.userId ]).then((res) => {
+                    userData = {
+                        profilePicture: res.rows[0].profilePicutre,
+                        ...userData,
+                    };
+                    resolve(userData);
+                }).catch((err) => {
+                    throw err;
+                });
             }).catch((error) => {
                 throw error;
             });
