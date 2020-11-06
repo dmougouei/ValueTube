@@ -9,25 +9,20 @@ const pool = new Pool({
     port: env.DB.DB_PORT
 });
 
-const queryDatabase = async (query) => {
+const queryDatabase = async (query, params) => {
     return new Promise((resolve, reject) => {
         try {
-            if (typeof query === "string" || query instanceof String) {              
-                pool.connect((err, client, release) => {
-                    if (err) {
-                        console.error('Error acquiring client', err.stack);
+            if (typeof query === "string" || query instanceof String) {
+                if (params == undefined || Array.isArray(params)) {
+                    pool.query(query, params).then((res) => {
+                        resolve(res.rows);
+                    }).catch((err) => {
+                        console.error(err);
                         reject();
-                    }
-                    client.query(query, (err, res) => {
-                        release();
-                        if (err) {
-                            console.error('Error executing query', err.stack);
-                            reject();
-                        } else {
-                            resolve(res.rows);
-                        }
-                    })
-                });
+                    });
+                } else {
+                    throw new TypeError(`${params} on queryDatabase is not a valid Array type.`);
+                }
             } else {
                 throw new TypeError(`${query} on queryDatabase is not a valid String type.`);
             }

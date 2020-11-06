@@ -8,9 +8,9 @@ const {
   WIDTH_VALUES,
 } = require("../../components").Default;
 const {
-  DEFAULT_TEMPLATE_PROPERTIES,
-  DefaultTemplate,
-} = require("../default");
+  STICKY_HEADER_TEMPLATE_PROPERTIES,
+  StickyHeaderTemplate,
+} = require("../stickyHeader");
 const {
   Grid
 } = require("../../components").Layout;
@@ -26,7 +26,7 @@ const SPLITSCREEN_SIDE_VALUES = {
 Object.freeze(SPLITSCREEN_SIDE_VALUES);
 
 // Split Screen Template Properties
-class SPLITSCREEN_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
+class SPLITSCREEN_TEMPLATE_PROPERTIES extends STICKY_HEADER_TEMPLATE_PROPERTIES {
   constructor(props) {
     super(props);
     // side
@@ -37,16 +37,6 @@ class SPLITSCREEN_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
       SPLITSCREEN_SIDE_VALUES,
       SPLITSCREEN_SIDE_VALUES.DEFAULT,
       props.side
-    );
-    
-    // header
-    TypeHelpers.typeCheckPrimative(
-      this,
-      props,
-      "header",
-      TypeHelpers.PRIMATIVES.STRING,
-      "",
-      String.raw`${props.header}`
     );
 
     // leftContent
@@ -78,24 +68,24 @@ function SplitScreenTemplate(props) {
       props instanceof SPLITSCREEN_TEMPLATE_PROPERTIES
         ? (this.props = props)
         : (this.props = new SPLITSCREEN_TEMPLATE_PROPERTIES(props));
-      const output = DefaultTemplate({
+      return StickyHeaderTemplate({
+        lang: this.props.lang,
         description: this.props.description,
         title: this.props.title,
         icon: this.props.icon,
         linkedStylesheets: this.props.linkedStylesheets,
-        linkedScripts: this.props.linkedScripts,
-        content: [
-          this.props.header,
-          Grid({
-            templateColumns: this.props.side,
-            content: [
-              this.props.leftContent,
-              this.props.rightContent,
-            ].join("\n"),
-          }),
-        ].join("\n"),
+        inlineStylesheet: this.props.inlineStylesheet,
+        head: this.props.head,
+        header: this.props.header,
+        content: Grid({
+          templateColumns: this.props.side,
+          content: [
+            this.props.leftContent,
+            this.props.rightContent,
+          ].join("\n"),
+        }),
+        linkedScripts: [],
       });
-      return output;
     } else {
       throw new TypeError(`${props} on SplitScreenTemplate is not a valid Object type.`);
     }

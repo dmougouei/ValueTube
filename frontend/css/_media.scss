@@ -26,7 +26,11 @@
 .media-container .content-creator {
     cursor: pointer;
 
-    &:hover {
+    & > a, & > a:visited {
+        all: unset;
+    }
+
+    & > a:hover {
         color:  $crd-details-sub-hover-color;
     }
 

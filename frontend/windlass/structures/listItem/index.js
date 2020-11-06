@@ -47,22 +47,22 @@ module.exports = function ListItem(props) {
       
 
       let views = "";
-      if (this.props.metadata.viewcount < 1000) {
-        views = this.props.metadata.viewcount;
-      } else if (this.props.metadata.viewcount < 1000000) {
-        views = (this.props.metadata.viewcount / 1000).toFixed(1) + "K";
-      } else if (this.props.metadata.viewcount < 1000000000) {
-        views = (this.props.metadata.viewcount / 1000000).toFixed(1) + "M";
-      } else if (this.props.metadata.viewcount < 1000000000000) {
-        views = (this.props.metadata.viewcount / 1000000000).toFixed(1) + "B";
+      if (this.props.metadata.vid_viewcount < 1000) {
+        views = this.props.metadata.vid_viewcount;
+      } else if (this.props.metadata.vid_viewcount < 1000000) {
+        views = (this.props.metadata.vid_viewcount / 1000).toFixed(1) + "K";
+      } else if (this.props.metadata.vid_viewcount < 1000000000) {
+        views = (this.props.metadata.vid_viewcount / 1000000).toFixed(1) + "M";
+      } else if (this.props.metadata.vid_viewcount < 1000000000000) {
+        views = (this.props.metadata.vid_viewcount / 1000000000).toFixed(1) + "B";
       } else {
         views =
-          (this.props.metadata.viewcount / 1000000000000).toFixed(1) + "T";
+          (this.props.metadata.vid_viewcount / 1000000000000).toFixed(1) + "T";
       }
 
       let timeSinceUpload = "";
       const date = new Date();
-      const uploadDate = new Date(this.props.metadata.uploaddate);
+      const uploadDate = new Date(this.props.metadata.vid_uploaddate);
       const timeSince = [
         date.getUTCFullYear() - uploadDate.getUTCFullYear(),
         date.getUTCMonth() - uploadDate.getUTCMonth(),
@@ -88,11 +88,11 @@ module.exports = function ListItem(props) {
                 <div class="list-item${
                   this.props.small ? " sm" : ""
                 }" onclick="window.location.href = './watch?v=${
-        this.props.metadata.videoid
+        this.props.metadata.vid_videoid
       }'">
                     <div class="preview">
-                        <img alt="${this.props.metadata.title}" src="${
-        this.props.metadata.thumbnail
+                        <img alt="${this.props.metadata.vid_title}" src="${
+        this.props.metadata.vid_thumbnail_url
       }" loading="lazy" decoding="async" />
                         <div class="duration">${
                           hours != 0
@@ -103,32 +103,32 @@ module.exports = function ListItem(props) {
                     <div class="details">
                         <div class="title">${
                           this.props.small &&
-                          this.props.metadata.title.length > 58
-                            ? `${this.props.metadata.title
+                          this.props.metadata.vid_title.length > 58
+                            ? `${this.props.metadata.vid_title
                                 .substring(0, 58)
                                 .substring(
                                   0,
-                                  this.props.metadata.title.lastIndexOf(" ")
+                                  this.props.metadata.vid_title.lastIndexOf(" ")
                                 )} ...`
-                            : this.props.metadata.title
+                            : this.props.metadata.vid_title
                         }</div>
-                        <div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${this.props.metadata.channelid}/">${this.props.metadata.channelname}</div>
+                        <div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${this.props.metadata.vid_channelid}/">${this.props.metadata.vid_channelname}</div>
                         <div class="views">${views} views</div>
                         <div class="published">${timeSinceUpload}</div>
                         ${Container({
                           class: "description",
                           content: this.props.small
                             ? ``
-                            : this.props.metadata.description.length > 270
-                            ? `${this.props.metadata.description
+                            : this.props.metadata.vid_description.length > 270
+                            ? `${this.props.metadata.vid_description
                                 .substring(0, 270)
                                 .substring(
                                   0,
-                                  this.props.metadata.description.lastIndexOf(
+                                  this.props.metadata.vid_description.lastIndexOf(
                                     " "
                                   )
                                 )} ...`
-                            : this.props.metadata.description,
+                            : this.props.metadata.vid_description,
                         })}
                     </div>
                 </div>

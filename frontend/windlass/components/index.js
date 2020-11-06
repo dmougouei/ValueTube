@@ -8,7 +8,7 @@
 // Imports
 const Alert = require("./alert/alert");
 const Badge = require("./badge/badge");
-const Color = require("./color/color");
+const Color = require("./color");
 const Default = require("./default");
 const Input = require("./input");
 const Layout = require("./layout");

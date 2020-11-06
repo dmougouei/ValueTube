@@ -7,7 +7,6 @@ const getVideoMetadata = async (videoId) => {
             if (!err && res.statusCode == 200) {
                 try {
                     const decodedData = decodeURIComponent(body);
-                    fs.writeFileSync('./log.txt', decodedData);
 
                     const videoIdRegex = /\"videoId\":\"([A-Za-z0-9_\-]{11})\"/g;
                     const channelIdRegex = /\"channelId\":\"(.[A-Za-z0-9_\-]*)\"/g;

@@ -1,4 +1,4 @@
-const { isValidColor } = require("../../../components/color/color");
+const { isValidColor } = require("../../../components/color");
 
 // Type Check Color
 function typeCheckColor(object, props, property, defaultValue, outputValue) {
@@ -42,6 +42,8 @@ const PRIMATIVES = {
   STRING: "string",
   ARRAY: "array",
   NUMBER: "number",
+  REGEX: "regex",
+  DATE: "date"
 };
 Object.freeze(PRIMATIVES);
 
@@ -58,6 +60,10 @@ function validatePrimative(property, type) {
       return Array.isArray(property);
     case "number":
       return typeof property === "number" || property instanceof Number;
+    case "regex":
+      return property instanceof RegExp;
+    case "date":
+      return property instanceof Date;
     default:
       return false;
   }

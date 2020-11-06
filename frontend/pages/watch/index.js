@@ -9,6 +9,7 @@ const {
 const {
     HEADING_VALUES,
     Heading,
+    Link,
 } = require('windlass').Components.Typography;
 const Video = require('windlass').Components.Media.Video;
 const {
@@ -112,7 +113,7 @@ async function WatchPage(props) {
                 linkedScripts: [
                     "./frontend/utilities/common.js",
                 ],
-                header: Navbar((this.props.userData) ? true : false),
+                header: Navbar(this.props.userData),
                 mainContent: Container({
                     class: "media-container",
                     padding: PADDING_VALUES[4.5],
@@ -140,7 +141,13 @@ async function WatchPage(props) {
                                     class: "published",
                                     content: metadata.timeSinceUpload,
                                 }),
-                                `<div class="content-creator youtube-link" data-url="https://www.youtube.com/channel/${metadata.channelId}">${metadata.channelName}</div>`,
+                                Container({
+                                    class: "content-creator youtube-link",
+                                    content: Link({
+                                      link: `https://www.youtube.com/channel/${metadata.channelId}/`,
+                                      content: metadata.channelName,
+                                    }),
+                                }),
                                 Seperator(),
                                 Container({
                                     class: "description",

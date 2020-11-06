@@ -23,7 +23,7 @@
     display:            inline-block;
     width:              calc(100% - 32px);
     line-height:        20px;
-    user-select:		none;
+    user-select:		text;
 	font-size:			12pt;
     font-weight:		400;
     color:				map-get($theme-colors, "dark");

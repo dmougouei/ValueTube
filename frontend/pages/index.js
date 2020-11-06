@@ -1,13 +1,15 @@
-const About = require('./about/aboutPage.js');
-const Error = require('./error/errorPage.js');
-const Home = require('./home/homePage.js');
-const Results = require('./results/resultsPage.js');
-const SignIn = require('./signIn/signInPage.js');
-const SignUp = require('./signUp/signUpPage.js');
+// Imports
+const About = require('./about');
+const Error = require('./error');
+const Home = require('./home');
+const Results = require('./results');
+const SignIn = require('./signIn');
+const SignUp = require('./signUp');
 const Profile = require('./profile');
-const Watch = require("./watch/watchPage.js");
+const Watch = require("./watch");
 
-module.exports = {
+// Export Pages
+const Pages = {
     Home,
     Watch,
     About,
@@ -16,4 +18,6 @@ module.exports = {
     SignIn,
     SignUp,
     Profile,
-}
+};
+
+module.exports = Pages;

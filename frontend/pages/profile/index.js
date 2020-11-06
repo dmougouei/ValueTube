@@ -1,7 +1,8 @@
-
-
+const { Survey } = require('windlass/structures/form');
 const Navbar = require('windlass').Structures.Navbar;
-const { Container } = require('windlass').Components.Layout;
+const { Container, Seperator } = require('windlass').Components.Layout;
+const { Button } = require('windlass').Components.Input;
+const { HEADING_VALUES, Heading } = require('windlass').Components.Typography;
 const {
     SPLITSCREEN_SIDE_VALUES,
     SplitScreenTemplate,
@@ -22,12 +23,34 @@ const ProfilePage = async (userData) => {
                 "./frontend/utilities/common.js",
             ],
             side: SPLITSCREEN_SIDE_VALUES.LEFT,
-            header: Navbar(true),
-            leftContent: Container({
-                content: "Profile Info",
-            }),
+            header: Navbar(data),
+            leftContent: "<br>",
             rightContent: Container({
-                content: "Survey Form",
+                class: "full-width-container",
+                content: Container({
+                    class: "content-container signup",
+                    content: [
+                        Container({
+                            class: "sign-title",
+                            content: Heading({
+                                variant: HEADING_VALUES.HEADING_2,
+                                content: "Values Survey",
+                            }),
+                        }),
+                        Seperator(),
+                        Container({
+                            class: "survey-form",
+                            content: await Survey(),
+                        }),
+                        Container({
+                            class: "btn-container center",
+                            content: Button({
+                                class: "primary",
+                                content: "Save",
+                            }),
+                        }),
+                    ].join("\n"),
+                }),
             }),
         });
     } else {

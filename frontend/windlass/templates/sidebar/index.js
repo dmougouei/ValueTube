@@ -8,9 +8,9 @@ const {
   WIDTH_VALUES,
 } = require("../../components").Default;
 const {
-  DEFAULT_TEMPLATE_PROPERTIES,
-  DefaultTemplate,
-} = require("../default");
+  STICKY_HEADER_TEMPLATE_PROPERTIES,
+  StickyHeaderTemplate,
+} = require("../stickyHeader");
 const {
   Grid
 } = require("../../components").Layout;
@@ -25,7 +25,7 @@ const SIDEBAR_SIDE_VALUES = {
 Object.freeze(SIDEBAR_SIDE_VALUES);
 
 // Sidebar Template Properties
-class SIDEBAR_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
+class SIDEBAR_TEMPLATE_PROPERTIES extends STICKY_HEADER_TEMPLATE_PROPERTIES {
   constructor(props) {
     super(props);
     // side
@@ -36,16 +36,6 @@ class SIDEBAR_TEMPLATE_PROPERTIES extends DEFAULT_TEMPLATE_PROPERTIES {
       SIDEBAR_SIDE_VALUES,
       SIDEBAR_SIDE_VALUES.DEFAULT,
       props.side
-    );
-    
-    // header
-    TypeHelpers.typeCheckPrimative(
-      this,
-      props,
-      "header",
-      TypeHelpers.PRIMATIVES.STRING,
-      "",
-      String.raw`${props.header}`
     );
 
     // mainContent
@@ -77,28 +67,29 @@ function SidebarTemplate(props) {
       props instanceof SIDEBAR_TEMPLATE_PROPERTIES
         ? (this.props = props)
         : (this.props = new SIDEBAR_TEMPLATE_PROPERTIES(props));
-      const output = DefaultTemplate({
+      const output = StickyHeaderTemplate({
+        lang: this.props.lang,
         description: this.props.description,
         title: this.props.title,
         icon: this.props.icon,
         linkedStylesheets: this.props.linkedStylesheets,
+        inlineStylesheet: this.props.inlineStylesheet,
+        head: this.props.head,
+        header: this.props.header,
+        content: Grid({
+          templateColumns: this.props.side,
+          content:
+            (this.props.side == SIDEBAR_SIDE_VALUES.LEFT)
+              ? [
+                this.props.sidebarContent,
+                this.props.mainContent,
+              ].join("\n")
+              : [
+                this.props.mainContent,
+                this.props.sidebarContent,
+              ].join("\n"),
+        }),
         linkedScripts: this.props.linkedScripts,
-        content: [
-          this.props.header,
-          Grid({
-            templateColumns: this.props.side,
-            content:
-              (this.props.side == SIDEBAR_SIDE_VALUES.LEFT)
-                ? [
-                  this.props.sidebarContent,
-                  this.props.mainContent,
-                ].join("\n")
-                : [
-                  this.props.mainContent,
-                  this.props.sidebarContent,
-                ].join("\n"),
-          }),
-        ].join("\n"),
       });
       return output;
     } else {

@@ -56,9 +56,9 @@ class DEFAULT_TEMPLATE_PROPERTIES {
       "inlineStylesheet",
       TypeHelpers.PRIMATIVES.STRING,
       "",
-      SecurityHelpers.sanitiseHTML(
+      props.inlineStylesheet ? SecurityHelpers.sanitiseHTML(
         SecurityHelpers.sanitiseCSS(`<style>${props.inlineStylesheet}</style>`)
-      )
+      ) : ""
     );
 
     // lang
