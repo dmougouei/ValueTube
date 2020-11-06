@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 BEGIN;
 
 CREATE TYPE question_option AS

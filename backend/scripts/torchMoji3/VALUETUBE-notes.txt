@@ -1,3 +1,5 @@
+# COMPLETED BY: Bethany Cooper
+# was going to be used as the ML model before Liam was given the responsibility of developing it
 - Go through commentsEmojid table and remove any comments with duplicate Text field,
 there may be some videos added twice if they are the most popular videos in multiple regions
 videos were grabbed from (NZ, AU, US, etc). Maybe do a "SELECT" statement for each VideoID, then a "SELECT DISTINCT" for each

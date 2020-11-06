@@ -1,3 +1,5 @@
+# COMPLETED BY: Bethany Cooper
+
 import sqlite3
 import json
 

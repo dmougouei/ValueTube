@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 -- SELECT ALL VIDEOS EXCLUDING ALL WITH 0 VALUE FOR USER
 SELECT * FROM videos
 WHERE ((values).power = 1 OR (values).tradition = 1 OR (values).hedonism = 1 OR (values).achievement = 1 OR (values).conformity = 1) and ((values).benevolence = 0 AND (values).universalism = 0 AND (values).self_direction = 0 AND (values).security = 0);

@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 CREATE FUNCTION resultsQuery1(param1 text)
 RETURNS TABLE (
     vid_videoid text,

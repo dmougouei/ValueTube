@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 BEGIN;
 
 CREATE DOMAIN schwartz_score AS BIGINT

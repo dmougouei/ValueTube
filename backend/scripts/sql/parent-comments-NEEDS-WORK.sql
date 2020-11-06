@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 ROLLBACK;
 BEGIN;
 CREATE TABLE parent_comments (

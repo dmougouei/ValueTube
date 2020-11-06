@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 BEGIN;
 CREATE TYPE user_type AS (
     userId TEXT,

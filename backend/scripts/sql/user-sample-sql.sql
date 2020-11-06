@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 -- enable crypt extension
 CREATE EXTENSION pgcrypto;
 

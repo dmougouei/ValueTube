@@ -1,3 +1,5 @@
+# COMPLETED BY: Bethany Cooper
+
 import os
 import sqlite3
 import google_auth_oauthlib
@@ -36,7 +38,7 @@ def main():
     c = conn1.cursor()
     c.execute("DROP TABLE IF EXISTS commentsThreads")
     c.execute("CREATE TABLE commentsThreads (videoID text, textOriginal blob)")
-    
+
 >>>>>>> master:backend/youtube-api-caller/youtube_api_requests.py
     getCommentsThreads()
     conn1.close()

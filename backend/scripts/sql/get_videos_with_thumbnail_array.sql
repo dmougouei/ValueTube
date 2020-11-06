@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 CREATE TEMPORARY TABLE temp_thumbnails (
    videoid text,
     thumb_obj thumbnail[]

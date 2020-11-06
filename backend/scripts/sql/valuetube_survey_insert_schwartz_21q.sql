@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 BEGIN;
 INSERT INTO questions VALUES (1, 'Thinking up new ideas and being creative is important to you. You like to do things in your own original way.', 'self_direction',
                               ARRAY[(6, 'Very much like me')::question_option, (5, 'Like me')::question_option, (4, 'Somewhat like me')::question_option, (3, 'A little like me')::question_option, (2, 'Not like me')::question_option, (1, 'Not like me at all')::question_option, (0, 'Don’t know')::question_option]);

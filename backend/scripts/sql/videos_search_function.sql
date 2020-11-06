@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 SELECT DISTINCT videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
                 keywords, category, values, tn.max_height,
                 max_approxdurationms, fm.max_height, difference(lower(title), '${query}')

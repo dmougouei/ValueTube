@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 CREATE FUNCTION watchPageQuery1()
 RETURNS TABLE (
     vid_videoid text,

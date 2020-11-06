@@ -1,3 +1,4 @@
+/*COMPLETED BY: Bethany Cooper */
 CREATE TYPE thumb_short AS (url text, width int);
 
 CREATE FUNCTION homeQuery1(param1 text[])
