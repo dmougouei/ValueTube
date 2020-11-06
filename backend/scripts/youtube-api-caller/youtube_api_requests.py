@@ -1,3 +1,5 @@
+# COMPLETED BY: Bethany Cooper, Liam Watts
+
 import os
 import sqlite3
 import google_auth_oauthlib
