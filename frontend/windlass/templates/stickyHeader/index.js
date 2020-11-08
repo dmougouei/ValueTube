@@ -37,11 +37,11 @@ function StickyHeaderTemplate(props) {
         linkedStylesheets: this.props.linkedStylesheets,
         inlineStylesheet: this.props.inlineStylesheet,
         head: this.props.head,
+        linkedScripts: this.props.linkedScripts,
         content: [
           this.props.header,
           this.props.content,
         ].join("\n"),
-        linkedScripts: this.props.linkedScripts,
       });
     } else {
       throw new TypeError(`${props} on Text is not a valid Object type.`);

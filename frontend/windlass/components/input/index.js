@@ -801,6 +801,92 @@ function EmailInput(props) {
   }
 }
 
+// Radio Input Properties
+class RADIO_INPUT_PROPERTIES extends INPUT_PROPERTIES {
+  constructor(props) {
+    super(props);
+    // checked
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "checked",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.checked ? "checked" : ""
+    );
+
+    // required
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "required",
+      TypeHelpers.PRIMATIVES.BOOLEAN,
+      "",
+      props.required ? "required" : ""
+    );
+
+    // value
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "value",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `value="${SecurityHelpers.sanitiseHTML(props.value)}"`
+    );
+
+    // label
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "label",
+      TypeHelpers.PRIMATIVES.STRING,
+      undefined,
+      SecurityHelpers.sanitiseHTML(props.label)
+    );
+  }
+}
+
+// Radio Input
+function RadioInput(props) {
+  try {
+    props === undefined ? (props = {}) : null;
+    if (typeof props === "object" || props instanceof Object) {
+      props instanceof RADIO_INPUT_PROPERTIES
+        ? (this.props = props)
+        : (this.props = new RADIO_INPUT_PROPERTIES(props));
+      const inputId = (this.props.id == "") ? `id="${RandomHelpers.randomId("in_", 5)}"` : this.props.id;
+      return `
+        <input type="radio" ${StringHelpers.combineStrings([
+          inputId, 
+          this.props.class,
+          this.props.title,
+          this.props.language,
+          this.props.direction,
+          this.props.tabIndex,
+          this.props.autocomplete,
+          this.props.autofocus,
+          this.props.disabled,
+          this.props.form,
+          this.props.name,
+          this.props.type,
+          this.props.value,
+          this.props.checked,
+          this.props.required,
+          this.props.value,
+          StyleHelpers.combineStyles(this.props.styleList, this.props.style),
+        ])}>
+        ${this.props.label ? `<label for="${inputId}">${this.props.label}</label>` : ""}
+      `;
+    } else {
+      throw new TypeError(`${props} on RadioInput is not a valid Object type.`);
+    }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+
 module.exports = {
   BUTTON_PROPERTIES,
   Button,
@@ -816,4 +902,6 @@ module.exports = {
   EmailInput,
   Checkbox,
   Textbox,
+  RADIO_INPUT_PROPERTIES,
+  RadioInput,
 };

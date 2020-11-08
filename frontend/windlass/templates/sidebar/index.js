@@ -76,6 +76,7 @@ function SidebarTemplate(props) {
         inlineStylesheet: this.props.inlineStylesheet,
         head: this.props.head,
         header: this.props.header,
+        linkedScripts: this.props.linkedScripts,
         content: Grid({
           templateColumns: this.props.side,
           content:
@@ -89,7 +90,6 @@ function SidebarTemplate(props) {
                 this.props.sidebarContent,
               ].join("\n"),
         }),
-        linkedScripts: this.props.linkedScripts,
       });
       return output;
     } else {

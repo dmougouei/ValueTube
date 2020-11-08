@@ -152,7 +152,7 @@ const authorise = async (cookie) => {
                     WHERE userid = $1;
                 `, [ userData.userId ]).then((res) => {
                     userData = {
-                        profilePicture: res.rows[0].profilePicutre,
+                        profilePicture: res.rows[0].profilepicture,
                         ...userData,
                     };
                     resolve(userData);

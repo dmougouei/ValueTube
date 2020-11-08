@@ -1,7 +1,7 @@
 // Imports
 const Auth = require('./auth');
 const Database = require('./database');
-const VTImage = require('./image');
+const Image = require('./image');
 const Recommend = require('./recommend');
 const YouTube = require('./youtube');
 
@@ -9,7 +9,7 @@ const YouTube = require('./youtube');
 const Utilities = {
     Auth,
     Database,
-    VTImage,
+    Image,
     Recommend,
     YouTube
 }

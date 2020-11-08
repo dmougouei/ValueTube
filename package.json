@@ -1,13 +1,10 @@
 {
   "name": "valuetube",
   "version": "1.0.0",
-  "description": "",
+  "description": "The code repository for the ValueTube website.",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "start:dev": "node dev.js",
-    "build:css": "build.bat",
-    "build:windlass": "Xcopy /E /I /Y \"E:\\Documents\\Personal\\Windlass\\windlass\\dist\" \"./frontend/windlass\""
+    "start": "node index.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,9 +13,7 @@
     "@vt/vt_env": "file:vt_env",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
-    "crypto": "^1.0.1",
     "express": "^4.17.1",
-    "mathjs": "^7.6.0",
     "pg": "^8.4.2",
     "request": "^2.88.2",
     "spdy": "^4.0.2",

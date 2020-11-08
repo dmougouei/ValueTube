@@ -18,10 +18,10 @@ const TypeHelpers = require("../../utilities").Server.TypeHelpers;
 
 // Split Screen Side Values
 const SPLITSCREEN_SIDE_VALUES = {
-  DEFAULT: [`minmax(${WIDTH_VALUES.SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
-  CENTER: [`minmax(${WIDTH_VALUES.SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
-  LEFT: [`minmax(${WIDTH_VALUES.EXTRA_SMALL}, 1fr)`, `minmax(${WIDTH_VALUES.SMALL}, 2fr)`],
-  RIGHT: [`minmax(${WIDTH_VALUES.SMALL}, 2fr)`, `minmax(${WIDTH_VALUES.EXTRA_SMALL}, 1fr)`],
+  DEFAULT: [`repeat(auto-fill, minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
+  CENTER: [`repeat(auto-fill, minmax(${WIDTH_VALUES.SMALL}, 1fr)`],
+  LEFT: [`minmax(${WIDTH_VALUES.EXTRA_SMALL}, 2fr)`, `minmax(${WIDTH_VALUES.SMALL}, 3fr)`],
+  RIGHT: [`minmax(${WIDTH_VALUES.SMALL}, 3fr)`, `minmax(${WIDTH_VALUES.EXTRA_SMALL}, 2fr)`],
 };
 Object.freeze(SPLITSCREEN_SIDE_VALUES);
 
@@ -77,6 +77,7 @@ function SplitScreenTemplate(props) {
         inlineStylesheet: this.props.inlineStylesheet,
         head: this.props.head,
         header: this.props.header,
+        linkedScripts: this.props.linkedScripts,
         content: Grid({
           templateColumns: this.props.side,
           content: [
@@ -84,7 +85,7 @@ function SplitScreenTemplate(props) {
             this.props.rightContent,
           ].join("\n"),
         }),
-        linkedScripts: [],
+        
       });
     } else {
       throw new TypeError(`${props} on SplitScreenTemplate is not a valid Object type.`);

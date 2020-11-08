@@ -1,3 +1,4 @@
+const env = require('@vt/vt_env');
 const fs = require('fs');
 const spdy = require('spdy');
 const bodyParser = require('body-parser');
@@ -5,6 +6,14 @@ const compression = require('compression');
 const express = require('express');
 const app = express();
 const Pages = require("./frontend/pages");
+const Pool = require('pg').Pool;
+const pool = new Pool({
+    user: env.AUTH.AUTH_USER,
+    host: env.AUTH.AUTH_HOST,
+    database: env.AUTH.AUTH_DATABASE,
+    password: env.AUTH.AUTH_PASS,
+    port: env.AUTH.AUTH_PORT
+});
 const Backend = require('@vt/backend');
 const {
     ROOT_URL,
@@ -143,18 +152,108 @@ app.get('/profile', async (req, res) => {
     return;
 });
 
+function filterValues(formData, value) {
+    try {
+        return Object.entries(formData, value)
+            .filter((result) => {
+                return (result[0].split('-')[0] == value) ? true : false;
+            }).map((result) => {
+                return +result[1]/6;
+            }).reduce((acc, cur) => {
+                return (acc/2) + (cur/2);
+            });
+    } catch (e) {
+        return 0;
+    }
+    
+}
+
 app.post('/profile', async (req, res) => {
     try {
         const userData = await Backend.Utilities.Auth.authorise(req.headers.cookie);
-        await Backend.Utilities.VTImage.uploadProfileImage(userData.userId, req.body.base64);
-        userData = {
-            profilePicture: await Backend.Utilities.VTImage.getProfileImage(userData.userId),
-            ...userData,
-        };
-        if (userData) {
-            res.send(
-                Pages.Profile.ProfilePage(userData)
-            );
+        if (req.body.form == 'values_survey') {
+            const self_direction = filterValues(req.body, "self_direction");
+            const power = filterValues(req.body, "power");
+            const universalism = filterValues(req.body, "universalism");
+            const achievement = filterValues(req.body, "achievement");
+            const security = filterValues(req.body, "security");
+            const stimulation = filterValues(req.body, "stimulation");
+            const conformity = filterValues(req.body, "conformity");
+            const tradition = filterValues(req.body, "tradition");
+            const hedonism = filterValues(req.body, "hedonism");
+            const benevolence = filterValues(req.body, "benevolence");
+
+            await pool.query(`
+                INSERT INTO user_values(userid, valuesprofile)
+                VALUES ($11, (
+                    $1,
+                    $2,
+                    $3,
+                    $4,
+                    $5,
+                    $6,
+                    $7,
+                    $8,
+                    $9,
+                    $10
+                )::values_matrix)
+            `, [
+                self_direction,
+                stimulation,
+                hedonism,
+                achievement,
+                power,
+                security,
+                tradition,
+                conformity,
+                benevolence,
+                universalism,
+                userData.userId,
+            ], async (err, res) => {
+                if (err) {
+                    await pool.query(`
+                        UPDATE user_values
+                        SET valuesprofile = (
+                            $1,
+                            $2,
+                            $3,
+                            $4,
+                            $5,
+                            $6,
+                            $7,
+                            $8,
+                            $9,
+                            $10
+                        )::values_matrix
+                        WHERE userid = $11;
+                    `, [
+                        self_direction,
+                        stimulation,
+                        hedonism,
+                        achievement,
+                        power,
+                        security,
+                        tradition,
+                        conformity,
+                        benevolence,
+                        universalism,
+                        userData.userId,
+                    ], (err, res) => {
+                        if (err) {
+                            console.error(err);
+                        }
+                        return;
+                    });
+                    return;
+                }
+            });
+        } else if (req.body.form == 'profile_picture') {
+            await Backend.Utilities.Image.uploadProfileImage(userData.userId, req.body.base64);
+        }
+
+        const profilePage = await Pages.Profile.ProfilePage(await Backend.Utilities.Auth.authorise(req.headers.cookie));
+        if (profilePage) {
+            res.send(profilePage);
         } else {
             res.redirect(`https://${ROOT_URL}`);
         }

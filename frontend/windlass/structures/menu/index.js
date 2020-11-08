@@ -15,7 +15,7 @@ function Menu(userData) {
             alt: `${userData.username} profile`,
             src: userData.profilePicture
               ? userData.profilePicture
-              : "./frontend/img/team/default_profile.jpg"
+              : "./frontend/img/default_profile.jpg"
           })
         }),
         Text({
