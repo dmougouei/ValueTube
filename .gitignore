@@ -1,1 +1,6 @@
 vt_env
+node_modules
+package-lock.json
+.vs
+.vscode
+.idea

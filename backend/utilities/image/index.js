@@ -20,8 +20,8 @@ const getProfileImage = async (userId) => {
 }
 
 const uploadProfileImage = async (userId, imageData) => {
-    await queryDatabase(`
-        UPDATE public.users
+    await pool.query(`
+        UPDATE users
         SET profilePicture = '${imageData}'
         WHERE userid = '${userId}';
     `);
@@ -30,10 +30,10 @@ const uploadProfileImage = async (userId, imageData) => {
 const resizeImage = async (src, width) => {
 }
 
-const VTImage = {
+const Image = {
     getProfileImage,
     uploadProfileImage,
     resizeImage,
 };
 
-module.exports = VTImage;
+module.exports = Image;

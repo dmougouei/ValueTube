@@ -28,7 +28,7 @@ html, body {
 
 .full-width-container {
   display: block;
-  padding: 0 24px;
+  padding: 0 64px;
 }
 
 .color-section {
@@ -1604,6 +1604,46 @@ html[data-scroll="25"] .nav-bar {
 }
 .nav-bar .signin-container .menu .signout:hover {
   background-color: #FCC5C2;
+}
+
+.profile-picture {
+  display: block;
+  height: 200px;
+  margin: 32px auto;
+  border: solid 0.5px #eeeeee;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.button-container {
+  display: block;
+  margin: 16px auto;
+  text-align: center;
+}
+
+.file-button, .upload-button {
+  display: inline-block;
+  margin: 0 8px;
+}
+
+.user-details > *, .user-actions > * {
+  margin: 8px 48px;
+}
+
+.user-actions > * {
+  padding: 4px 0;
+}
+.user-actions > *:hover {
+  cursor: pointer;
+  color: #2F80ED;
+}
+
+.btn-container.survey {
+  padding: 4px 0;
+  margin: 8px 48px;
+}
+.btn-container.survey > * {
+  padding: 4px 16px;
 }
 
 .search-container {

@@ -245,7 +245,7 @@ class GRID_PROPERTIES extends LAYOUT_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       Array.isArray(props.templateColumns)
-        ? `grid-template-columns: ${SecurityHelpers.sanitiseCSS(props.templateColumns.join(" "))};`
+        ? `grid-template-columns: ${SecurityHelpers.sanitiseCSS(props.templateColumns.join(" "))}`
         : "",
     );
 
@@ -257,7 +257,7 @@ class GRID_PROPERTIES extends LAYOUT_PROPERTIES {
       TypeHelpers.PRIMATIVES.ARRAY,
       "",
       Array.isArray(props.templateRows)
-        ? `grid-template-rows: ${SecurityHelpers.sanitiseCSS(props.templateRows.join(" "))};`
+        ? `grid-template-rows: ${SecurityHelpers.sanitiseCSS(props.templateRows.join(" "))}`
         : "",
     );
 
@@ -431,6 +431,16 @@ class FORM_PROPERTIES extends LAYOUT_PROPERTIES {
       `target="${props.target}"`
     );
 
+    // onchange
+    TypeHelpers.typeCheckPrimative(
+      this,
+      props,
+      "onchange",
+      TypeHelpers.PRIMATIVES.STRING,
+      "",
+      `onchange="${SecurityHelpers.sanitiseHTML(props.onchange)}"`
+    );
+
     // styleList
     this.styleList = this.styleList.concat([
       this.templateColumns,
@@ -461,6 +471,7 @@ function Form(props) {
         this.props.method,
         this.props.novalidate,
         this.props.target,
+        this.props.onchange,
         StyleHelpers.combineStyles(this.props.styleList, this.props.style),
       ])}>${this.props.content}</form>`;
     } else {

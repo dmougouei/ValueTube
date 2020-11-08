@@ -1,0 +1,45 @@
+// Profile Page Styling
+    .profile-picture {
+        display: block;
+        height: 200px;
+        margin: 32px auto;
+        border: solid 0.5px #eeeeee;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+
+    .button-container {
+        display: block;
+        margin: 16px auto;
+        text-align: center;
+    }
+
+    .file-button, .upload-button {
+        display: inline-block;
+        margin: 0 8px;
+    }
+
+    .user-details, .user-actions {
+        & > * {
+            margin: 8px 48px;
+        }
+    }
+
+    .user-actions {
+        & > * {
+            padding: 4px 0;
+        }
+        &  > *:hover {
+            cursor: pointer;
+            color: $link-color;
+        }
+    }
+
+    .btn-container.survey {
+        padding: 4px 0;
+        margin: 8px 48px;
+
+        & > * {
+            padding: 4px 16px;
+        }
+    }
