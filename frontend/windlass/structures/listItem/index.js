@@ -154,8 +154,23 @@ function ListItem(props) {
                 class: "published",
                 content: parseUploadDate(this.props.metadata.uploaddate),
               }),
+              Container({
+                class: "description",
+                content: (this.props.small)
+                  ? ``
+                  : ((this.props.metadata.description.length > 270)
+                    ? `${this.props.metadata.description
+                        .substring(0, 270)
+                        .substring(
+                          0,
+                          this.props.metadata.description.lastIndexOf(
+                            " "
+                          )
+                        )} ...`
+                    : this.props.metadata.description),
+              }),
             ].join("\n"),
-          })
+          }),
         ].join("\n"),
       });
     } else {

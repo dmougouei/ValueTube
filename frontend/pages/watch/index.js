@@ -52,7 +52,6 @@ function watchListQuery(recommendedVideos) {
             GROUP BY videos.videoid, fm.duration
         ) AS videoData
         WHERE videoData.videoid IN (${placeholders})
-        LIMIT 12;
     `;
 }
 
