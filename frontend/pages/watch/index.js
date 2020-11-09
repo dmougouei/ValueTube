@@ -10,6 +10,7 @@ const {
     HEADING_VALUES,
     Heading,
     Link,
+    Text,
 } = require('windlass').Components.Typography;
 const Video = require('windlass').Components.Media.Video;
 const {
@@ -21,7 +22,6 @@ const {
     ListItem,
     Navbar,
 } = require('windlass').Structures;
-const SecurityHelpers = require('windlass').Utilities.Server.SecurityHelpers;
 const recommend = require('@vt/backend').Utilities.Recommend.recommend;
 const {
     updateDatabase,
@@ -179,9 +179,27 @@ async function WatchPage(props) {
                                 }),
                                 Seperator(),
                                 Container({
-                                    class: "description",
-                                    content: metadata.description.replaceAll("\n", "<br/>"),
+                                    content: [
+                                        Text({
+                                            id: "description",
+                                            content: metadata.description.replaceAll("\n", "<br/>"),
+                                        }),
+                                        Container({
+                                            id: "expand",
+                                            onclick: "toggleDescription();",
+                                            content: `<i class="fas fa-chevron-down"></i>`
+                                        }),
+                                    ].join("\n"),
                                 }),
+                                `<script>
+                                    function toggleDescription() {
+                                        document.getElementById("description").classList.toggle("expand");
+                                        document.getElementById("expand").innerHTML = 
+                                            document.getElementById("expand").innerHTML == '<i class="fas fa-chevron-down"></i>'
+                                                ? '<i class="fas fa-chevron-up"></i>'
+                                                : '<i class="fas fa-chevron-down"></i>';
+                                    }
+                                </script>`,
                                 Seperator(),
                                 Container({
                                     class: "comments",
