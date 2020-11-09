@@ -857,6 +857,7 @@ function RadioInput(props) {
         : (this.props = new RADIO_INPUT_PROPERTIES(props));
       const inputId = (this.props.id == "") ? `id="${RandomHelpers.randomId("in_", 5)}"` : this.props.id;
       return `
+        ${this.props.label ? `<label style="white-space: nowrap;">` : ""}
         <input type="radio" ${StringHelpers.combineStrings([
           inputId, 
           this.props.class,
@@ -876,7 +877,7 @@ function RadioInput(props) {
           this.props.value,
           StyleHelpers.combineStyles(this.props.styleList, this.props.style),
         ])}>
-        ${this.props.label ? `<label for="${inputId}">${this.props.label}</label>` : ""}
+        ${this.props.label ? `${this.props.label}</label>` : ""}
       `;
     } else {
       throw new TypeError(`${props} on RadioInput is not a valid Object type.`);
