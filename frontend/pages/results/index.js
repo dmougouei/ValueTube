@@ -44,7 +44,7 @@ async function ResultsPage(searchQuery, userData) {
                         class: "list",
                         content:(videoList.length != 0)
                             ? videoList.map((video) => {
-                                return ListItem({
+                                return ListItem.ListItem({
                                     metadata: video,
                                 });
                             }).join("\n")

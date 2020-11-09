@@ -163,7 +163,7 @@ class CARD_PROPERTIES {
   }
 }
 
-// Image
+// Card
 function Card(metadata) {
   try {
     metadata === undefined ? (metadata = {}) : null;

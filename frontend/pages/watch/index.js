@@ -21,38 +21,40 @@ const {
     ListItem,
     Navbar,
 } = require('windlass').Structures;
-const Database = require('@vt/backend').Utilities.Database;
+const SecurityHelpers = require('windlass').Utilities.Server.SecurityHelpers;
+const recommend = require('@vt/backend').Utilities.Recommend.recommend;
+const {
+    updateDatabase,
+    queryDatabase
+} = require('@vt/backend').Utilities.Database;
 const parseMetadata = require('../../utilities/metadata/');
-// watchPageQuery1
-const videoQuery = `
-    SELECT * FROM (
+
+function watchListQuery(recommendedVideos) {
+    const placeholders = recommendedVideos.map((x, i) => {
+        return `$${i+1}`;
+    }).join();
+    return `
         SELECT * FROM (
-            SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
-            keywords, category, values, tn.thumbnail,
-            fm.duration, (videos.averagerating::FLOAT * videos.viewcount::FLOAT) AS popularity
+            SELECT DISTINCT ON (videos.videoid) videos.videoid,
+                channelid, channelname, title, description,
+                averagerating, viewcount, uploaddate,
+                keywords, category, values,
+                array_agg((thumbnails.url, thumbnails.width)) AS thumbnails,
+                fm.duration
             FROM videos
-            INNER JOIN
-            (
-                SELECT videoid,
-                        url AS thumbnail,
-                        MAX(height) OVER (PARTITION BY videoid) AS max_height
-                FROM thumbnails
-            ) tn ON videos.videoid = tn.videoid
-            INNER JOIN
-            (
+            JOIN thumbnails ON thumbnails.videoid = videos.videoid
+            JOIN (
                 SELECT videoid,
                     MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
-                        MAX(height) OVER (PARTITION BY videoid) AS max_height
+                    MAX(height) OVER (PARTITION BY videoid) AS max_height
                 FROM formats
-            ) fm ON tn.videoid = fm.videoid
-            ORDER BY videos.videoid DESC
-        ) AS sortedVideos
-        ORDER BY popularity DESC
-        LIMIT 50
-    ) AS topVideos
-    ORDER BY RANDOM()
-    LIMIT 12;
-`;
+            ) fm ON videos.videoid = fm.videoid
+            GROUP BY videos.videoid, fm.duration
+        ) AS videoData
+        WHERE videoData.videoid IN (${placeholders})
+        LIMIT 12;
+    `;
+}
 
 class WATCH_PAGE_PROPERTIES {
     constructor(props) {
@@ -84,23 +86,50 @@ async function WatchPage(props) {
             props instanceof WATCH_PAGE_PROPERTIES
                 ? (this.props = props)
                 : (this.props = new WATCH_PAGE_PROPERTIES(props));
-            await Database.updateDatabase(this.props.videoId);
+            await updateDatabase(this.props.videoId);
             let metadata = parseMetadata(
-                await Database.queryDatabase(
-                    watchQuery(this.props.videoId)
-                )
+                await queryDatabase(`
+                    SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
+                        keywords, category, values, tn.thumbnail, fm.duration, fm.videoUrl
+                    FROM videos
+                    INNER JOIN
+                    (
+                            SELECT videoid,
+                                    url AS thumbnail,
+                                    MAX(height) OVER (PARTITION BY videoid) AS max_height
+                            FROM thumbnails
+                    ) tn ON videos.videoid = tn.videoid
+                    INNER JOIN
+                    (
+                            SELECT videoid,
+                                url AS videoUrl,
+                                MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
+                                    MAX(height) OVER (PARTITION BY videoid) AS max_height
+                            FROM formats
+                        ) fm ON tn.videoid = fm.videoid
+                    WHERE videos.videoid = '${this.props.videoId}'
+                    LIMIT 1;
+                `)
             );
             metadata = {
-                comments: await Database.queryDatabase(`
+                comments: await queryDatabase(`
                     SELECT authordisplayname AS user,
-                        textdisplay AS text 
+                        authorprofileimageurl AS profilepicture,
+                        authorchannelurl AS userprofile,
+                        textdisplay AS text,
+                        likecount,
+                        updatedat
                     FROM comments
-                    WHERE comments.videoid = '${this.props.videoId}'
-                    LIMIT 5;
+                    WHERE (comments.videoid = '${this.props.videoId}'
+                        AND (comments.parentid = '' OR comments.parentid = NULL));
                 `),
                 ...metadata,
             };
-            const videoList = await Database.queryDatabase(videoQuery);
+            let recommendedVideos = await recommend(this.props.userData.userId);
+            recommendedVideos = recommendedVideos.slice(0, 36).map((x) => {
+                return `${x[0]}`
+            });
+            const videoList = await queryDatabase(watchListQuery(recommendedVideos), recommendedVideos);
 
             return SidebarTemplate({
                 description: `Watch page for the ValueTube website for the video ${metadata.title}.`,
@@ -151,7 +180,7 @@ async function WatchPage(props) {
                                 Seperator(),
                                 Container({
                                     class: "description",
-                                    content: metadata.description,
+                                    content: metadata.description.replaceAll("\n", "<br/>"),
                                 }),
                                 Seperator(),
                                 Container({
@@ -162,7 +191,9 @@ async function WatchPage(props) {
                                             content: `${metadata.comments.length} Comments`,
                                         }),
                                         metadata.comments.map((comment) => {
-                                            return Comment(comment);
+                                            return Comment.Comment({
+                                                metadata: comment,
+                                            });
                                         }).join("\n"),
                                     ].join("\n"),
                                 }),
@@ -180,7 +211,7 @@ async function WatchPage(props) {
                         }),
                         Seperator(),
                         videoList.map((video) => {
-                            return ListItem({
+                            return ListItem.ListItem({
                                 small: true,
                                 metadata: video
                             });
@@ -190,39 +221,6 @@ async function WatchPage(props) {
             });
         } else {
           throw new TypeError(`${props} on WatchPage is not a valid Object type.`);
-        }
-    } catch (e) {
-        console.error(e);
-    }
-}
-
-function watchQuery(videoId) {
-    try {
-        if (typeof videoId === "string" || videoId instanceof String) {
-            return `
-                SELECT DISTINCT ON (videos.videoid) videos.videoid, channelid, channelname, title, description, averagerating, viewcount, uploaddate,
-                    keywords, category, values, tn.thumbnail, fm.duration, fm.videoUrl
-                FROM videos
-                INNER JOIN
-                (
-                        SELECT videoid,
-                                url AS thumbnail,
-                                MAX(height) OVER (PARTITION BY videoid) AS max_height
-                        FROM thumbnails
-                ) tn ON videos.videoid = tn.videoid
-                INNER JOIN
-                (
-                        SELECT videoid,
-                            url AS videoUrl,
-                            MAX(approxdurationms) OVER (PARTITION BY videoid) AS duration,
-                                MAX(height) OVER (PARTITION BY videoid) AS max_height
-                        FROM formats
-                    ) fm ON tn.videoid = fm.videoid
-                WHERE videos.videoid = '${videoId}'
-                LIMIT 1;
-            `;
-        } else {
-            throw new TypeError(`${videoId} on queryDatabase is not a valid String type.`);
         }
     } catch (e) {
         console.error(e);
