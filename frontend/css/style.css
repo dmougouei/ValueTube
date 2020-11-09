@@ -1337,12 +1337,26 @@ button.outline.dark:hover, .btn.outline.dark:hover {
   content: " - ";
 }
 
-.media-container .description {
+.media-container #description {
   font-size: 11pt;
   line-height: 1.5em;
   color: #616161;
   padding-top: 8px;
   text-align: left;
+  display: block;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.media-container #description.expand {
+  max-height: unset;
+}
+
+.media-container #expand {
+  background: linear-gradient("to-bottom", 0 rgba(0, 0, 0, 0), 100% #FFFFFF);
+  padding-top: 16px;
+  text-align: center;
+  cursor: pointer;
 }
 
 .nav-bar {
