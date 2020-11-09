@@ -43,7 +43,22 @@ async function ResultsPage(searchQuery, userData) {
                     Container({
                         class: "list",
                         content:(videoList.length != 0)
-                            ? videoList.map((video) => {
+                            ? videoList.map((metadata) => {
+                                const video = {
+                                    videoid: metadata.vt_videoid,
+                                    channelid: metadata.vt_channelid,
+                                    channelname: metadata.vt_channelname,
+                                    title: metadata.vt_title,
+                                    description: metadata.vt_description,
+                                    averagerating: metadata.vt_averagerating,
+                                    viewcount: metadata.vt_viewcount,
+                                    uploaddate: metadata.vt_uploaddate,
+                                    keywords: metadata.vt_keywords,
+                                    category: metadata.vt_category,
+                                    values: metadata.vt_values,
+                                    thumbnails: metadata.vt_thumbnails,
+                                    duration: metadata.vt_duration
+                                };
                                 return ListItem.ListItem({
                                     metadata: video,
                                 });
