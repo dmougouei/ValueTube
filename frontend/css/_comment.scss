@@ -32,3 +32,38 @@
     color:          map-get($neutrals, "700");
     padding-top:    8px;
 }
+
+.comment .profile_icon {
+    display: block;
+    float: left;
+    height: 100%;
+    margin-right: 16px;
+
+    & img {
+        border: solid 1px #eeeeee;
+        border-radius: 50%;
+    }
+}
+
+.comment .user-details {
+    display: block;
+    padding-top: 7px;
+
+    & > * {
+        margin: 0;
+    }
+
+    & .username {
+        color: #6a6a6a;
+    }
+
+    & .posted, & .likes {
+        font-size: 0.8em;
+        color: #9e9e9e;
+    }
+
+    & .posted::after {
+        content: ' - ';
+    }
+}
+

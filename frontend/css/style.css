@@ -1116,6 +1116,35 @@ button.outline.dark:hover, .btn.outline.dark:hover {
   padding-top: 8px;
 }
 
+.comment .profile_icon {
+  display: block;
+  float: left;
+  height: 100%;
+  margin-right: 16px;
+}
+.comment .profile_icon img {
+  border: solid 1px #eeeeee;
+  border-radius: 50%;
+}
+
+.comment .user-details {
+  display: block;
+  padding-top: 7px;
+}
+.comment .user-details > * {
+  margin: 0;
+}
+.comment .user-details .username {
+  color: #6a6a6a;
+}
+.comment .user-details .posted, .comment .user-details .likes {
+  font-size: 0.8em;
+  color: #9e9e9e;
+}
+.comment .user-details .posted::after {
+  content: " - ";
+}
+
 .list-item {
   display: block;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
@@ -1310,10 +1339,10 @@ button.outline.dark:hover, .btn.outline.dark:hover {
 
 .media-container .description {
   font-size: 11pt;
-  line-height: 1.15em;
+  line-height: 1.5em;
   color: #616161;
   padding-top: 8px;
-  text-align: justify;
+  text-align: left;
 }
 
 .nav-bar {

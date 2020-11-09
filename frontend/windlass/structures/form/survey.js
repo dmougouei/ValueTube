@@ -59,7 +59,7 @@ module.exports = async function SurveyQuestions() {
               content: surveyQuestion.question_options.map((option) => {
                 return RadioInput({
                   class: "radio-button",
-                  name: `${surveyQuestion.value_attrib}-${option.index}`,
+                  name: `${surveyQuestion.value_attrib}-${i}`,
                   value: option.index,
                   label: option.text,
                 });
